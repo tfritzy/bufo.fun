@@ -1,22 +1,29 @@
 import React from "react";
+import { TruncatedText } from "./components/TruncatedText";
 
 type BufoProps = {
   name: string;
+  fileExtension: string;
+  onClick?: () => void;
 };
 
 export const Bufo = (props: BufoProps) => {
-  const truncatedName =
-    props.name.length > 12 ? `${props.name.substring(0, 12)}...` : props.name;
+  const [loaded, setLoaded] = React.useState(false);
 
   return (
-    <div className="w-max">
-      <img
-        src={`/all-the-bufo/${props.name}.png`}
-        alt={props.name}
-        className="rounded w-20 h-20 border border-green-400 shadow-sm bg-green-50"
-      />
-      <span className="block text-center text-xs text-gray-500">
-        {truncatedName}
+    <div className="w-[64px] overflow-x-hidden m-2">
+      <button onClick={props.onClick}>
+        <img
+          src={`/all-the-bufo/${props.name}.${props.fileExtension}`}
+          alt={props.name}
+          className="rounded w-[64px] h-[64px] border border-lime-400 shadow-md shadow-lime-50 bg-lime-50"
+          title={props.name}
+          onLoad={() => setLoaded(true)}
+          style={{ visibility: loaded ? "visible" : "hidden" }}
+        />
+      </button>
+      <span className="block text-center text-[10px] text-lime-600 whitespace-nowrap">
+        <TruncatedText text={props.name} />
       </span>
     </div>
   );
