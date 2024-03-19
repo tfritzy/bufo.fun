@@ -9,7 +9,8 @@ for filename in os.listdir(folder_path):
         file_info = {
             'name': os.path.splitext(filename)[0],  # Everything before the file extension
             'type': os.path.splitext(filename)[1].replace('.', ''),  # The file extension without the dot
-            'tags': []  # An empty array for tags
+            'tags': [],  # An empty array for tags
+            'created': os.path.getctime(os.path.join(folder_path, filename))  # The file creation timestamp
         }
         files_info.append(file_info)
 
