@@ -2,7 +2,7 @@ import React from "react";
 
 const DesktopModal = (props: ModalProps) => {
   return (
-    <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg ">
+    <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl">
       <div className="">{props.children}</div>
     </div>
   );
@@ -25,9 +25,18 @@ type ModalProps = {
 export const Modal = (props: ModalProps) => {
   const isMobile = window.innerWidth < 640;
 
+  if (!props.isOpen) {
+    return null;
+  }
+
   return (
-    <div className="absolute left-0 w-screen h-screen bg-[#00000033]">
-      {isMobile ? <MobileModal {...props} /> : <DesktopModal {...props} />}
+    <div
+      onClick={props.onClose}
+      className="absolute left-0 w-screen h-screen bg-[#00000011]"
+    >
+      <div onClick={(e) => e.stopPropagation()}>
+        {isMobile ? <MobileModal {...props} /> : <DesktopModal {...props} />}
+      </div>
     </div>
   );
 };
