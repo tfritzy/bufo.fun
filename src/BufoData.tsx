@@ -1060,7 +1060,7 @@ export const BufoData: BufoDetails[] = [
     created: 1710346936.5735686,
   },
   {
-    name: "bufo-crewmate-lime-bounce",
+    name: "bufo-crewmate-bufo-bounce",
     type: "gif",
     tags: [],
     created: 1710346936.5745687,

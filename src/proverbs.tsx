@@ -651,7 +651,6 @@ export const proverbs = [
   "Whom the Gods love die young",
   "Why keep a dog and bark yourself?",
   "With great power comes great responsibility",
-  "Woman is the root of both good and evil",
   "Wonders will never cease",
   "Work expands so as to fill the time available",
   "Worrying never did anyone any good",

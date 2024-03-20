@@ -2,7 +2,7 @@ import React from "react";
 
 const DesktopModal = (props: ModalProps) => {
   return (
-    <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl">
+    <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96">
       <div className="">{props.children}</div>
     </div>
   );
