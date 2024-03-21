@@ -13,16 +13,30 @@ export const BufoList = (props: BufoListProps) => {
     null
   );
 
+  const memodBufos: Map<string, JSX.Element> = React.useMemo(() => {
+    const dBufos = new Map<string, JSX.Element>();
+    BufoData.forEach((bufo, index) => {
+      dBufos.set(
+        bufo.name,
+        <BufoItem
+          key={index}
+          name={bufo.name}
+          blobUrl={props.bufoBlobUrls.get(bufo.name) || ""}
+          onClick={(index) => setInspectedIndex(index)}
+          index={index}
+        />
+      );
+    });
+    return dBufos;
+  }, [props.bufoBlobUrls]);
+
   return (
     <>
       <div className="w-full flex flex-row flex-wrap">
         {BufoData.map((bufo, index) => (
-          <BufoItem
-            key={bufo.name}
-            name={bufo.name}
-            onClick={() => setInspectedIndex(index)}
-            blobUrl={props.bufoBlobUrls.get(bufo.name) || ""}
-          />
+          <div hidden={!bufo.name.includes(props.filter)} key={index}>
+            {memodBufos.get(bufo.name)}
+          </div>
         ))}
       </div>
       <BufoInspector

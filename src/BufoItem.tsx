@@ -3,8 +3,9 @@ import { TruncatedText } from "./components/TruncatedText";
 
 type BufoProps = {
   name: string;
-  onClick?: (name: string) => void;
+  onClick?: (index: number) => void;
   blobUrl: string;
+  index: number;
 };
 
 export const BufoItem = (props: BufoProps) => {
@@ -13,7 +14,7 @@ export const BufoItem = (props: BufoProps) => {
 
   const handleClick = React.useCallback(() => {
     if (props.onClick) {
-      props.onClick(props.name);
+      props.onClick(props.index);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClick, name]);
