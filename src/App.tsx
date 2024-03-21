@@ -1,16 +1,14 @@
 import React from "react";
-import { Bufo } from "./Bufo";
-import { BufoData } from "./BufoData";
-import { BufoInspector } from "./BufoInspector";
 import JSZip from "jszip";
+import { Header } from "./Header";
+import { BufoSearch } from "./BufoSearch";
+import { BufoList } from "./BufoList";
 
 function App() {
   const [imageUrls, setImageUrls] = React.useState<Map<string, string>>(
     new Map()
   );
-  const [inspectedIndex, setInspectedIndex] = React.useState<number | null>(
-    null
-  );
+  const [filter, setFilter] = React.useState("");
 
   const fetchAndProcessZip = React.useCallback((zipPath: string) => {
     const startTime = Date.now();
@@ -63,23 +61,16 @@ function App() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-full max-w-3xl p-4 shadow-md flex flex-row flex-wrap max-h-screen overflow-y-scroll">
-        {BufoData.map((bufo, index) => (
-          <Bufo
-            key={bufo.name}
-            name={bufo.name}
-            onClick={() => setInspectedIndex(index)}
-            blobUrl={imageUrls.get(bufo.name) || ""}
-          />
-        ))}
+    <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
+      <Header />
+
+      <div className="flex flex-col items-start max-w-3xl m-auto">
+        <div className="mx-2 mb-1">
+          <BufoSearch onSearch={setFilter} />
+        </div>
+
+        <BufoList bufoBlobUrls={imageUrls} filter={filter} />
       </div>
-      <BufoInspector
-        bufo={BufoData[inspectedIndex || 0]}
-        onClose={() => setInspectedIndex(null)}
-        isOpen={inspectedIndex !== null}
-        blobUrl={imageUrls.get(BufoData[inspectedIndex || 0].name) || ""}
-      />
     </div>
   );
 }
