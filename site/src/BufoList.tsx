@@ -1,5 +1,5 @@
 import React from "react";
-import { BufoData } from "./BufoData";
+import { BufoMetadata } from "./BufoData";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
 
@@ -15,7 +15,9 @@ export const BufoList = (props: BufoListProps) => {
 
   const memodBufos: Map<string, JSX.Element> = React.useMemo(() => {
     const dBufos = new Map<string, JSX.Element>();
-    BufoData.forEach((bufo, index) => {
+    BufoMetadata.forEach((bufo, index) => {
+      if (bufo.skip) return;
+
       dBufos.set(
         bufo.name,
         <BufoItem
@@ -30,23 +32,30 @@ export const BufoList = (props: BufoListProps) => {
     return dBufos;
   }, [props.bufoBlobUrls]);
 
+  const filteredBufos = new Set(
+    BufoMetadata.filter((bufo) => bufo.name.includes(props.filter))
+  );
+
   return (
-    <>
-      <div className="w-full flex flex-row flex-wrap">
-        {BufoData.map((bufo, index) => (
-          <div hidden={!bufo.name.includes(props.filter)} key={index}>
-            {memodBufos.get(bufo.name)}
-          </div>
-        ))}
+    <div className="w-full">
+      <div>{filteredBufos.size} bufos</div>
+      <div className="flex flex-row flex-wrap">
+        {BufoMetadata.map((bufo, index) => {
+          return (
+            <div key={index} hidden={!filteredBufos.has(bufo)}>
+              {memodBufos.get(bufo.name)}
+            </div>
+          );
+        })}
       </div>
       <BufoInspector
-        bufo={BufoData[inspectedIndex || 0]}
+        bufo={BufoMetadata[inspectedIndex || 0]}
         onClose={() => setInspectedIndex(null)}
         isOpen={inspectedIndex !== null}
         blobUrl={
-          props.bufoBlobUrls.get(BufoData[inspectedIndex || 0].name) || ""
+          props.bufoBlobUrls.get(BufoMetadata[inspectedIndex || 0].name) || ""
         }
       />
-    </>
+    </div>
   );
 };
