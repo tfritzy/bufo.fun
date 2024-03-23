@@ -1,0 +1,3 @@
+[submodule "data/data/all-the-bufo"]
+	path = data/data/all-the-bufo
+	url = https://github.com/knobiknows/all-the-bufo.git
