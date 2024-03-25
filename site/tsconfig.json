@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "../data/pipeline/BufoData.ts"  ]
 }

@@ -32,7 +32,7 @@ export const Modal = (props: ModalProps) => {
   return (
     <div
       onClick={props.onClose}
-      className="absolute left-0 w-screen h-screen bg-[#00000011]"
+      className="fixed left-0 w-full h-full bg-[#00000011]"
     >
       <div onClick={(e) => e.stopPropagation()}>
         {isMobile ? <MobileModal {...props} /> : <DesktopModal {...props} />}

@@ -1,18 +1,11 @@
-import {
-  readdirSync,
-  mkdirSync,
-  existsSync,
-  rmdirSync,
-  copyFileSync,
-  writeFileSync,
-} from "fs";
-import { BufoMetadata } from "../../site/src/BufoData";
-import type { BufoDetails } from "../../site/src/BufoData";
-import {zipDirectory} from './zipDirectory';
+import { readdirSync, existsSync, rmdirSync, writeFileSync } from "fs";
+import { BufoMetadata } from "./BufoData";
+import type { BufoDetails } from "./BufoData";
+import sharp from "sharp";
+import fs from "fs";
 
-const outputDirectory = "bufo-pack";
+const outputDirectory = "../../site/public/bufoData.json";
 const allTheBufoDirectory = "../all-the-bufo/all-the-bufo";
-const zipDestination = "../../../site/public/bufo-pack.zip";
 
 const bufoFiles = readdirSync(allTheBufoDirectory);
 
@@ -27,15 +20,26 @@ if (existsSync(outputDirectory)) {
   rmdirSync(outputDirectory, { recursive: true });
 }
 
-mkdirSync(outputDirectory);
+const bufoImageData: Record<string, BufoDetails> = {};
 for (const bufo of bufosWithMetadata) {
-  copyFileSync(
-    `${allTheBufoDirectory}/${bufo.name}`,
-    `${outputDirectory}/${bufo.name}`
-  );
+  const imageType = bufo.name.split(".").pop();
+  let imageData;
+  if (imageType !== "gif") {
+    const buffer = sharp(`${allTheBufoDirectory}/${bufo.name}`)
+      .resize(64, 64)
+      .png()
+      .toBuffer();
+    imageData = `data:image/png;base64,${(await buffer).toString("base64")}`;
+  } else {
+    const buffer = fs.readFileSync(`${allTheBufoDirectory}/${bufo.name}`);
+    imageData = `data:image/${imageType};base64,${buffer.toString("base64")}`;
+  }
+
+  bufoImageData[bufo.name] = {
+    name: bufo.name,
+    tags: bufo.tags,
+    image: imageData,
+  };
 }
 
-if (existsSync(zipDestination)) {
-  rmdirSync(zipDestination);
-}
-zipDirectory(outputDirectory, zipDestination);
+writeFileSync(outputDirectory, JSON.stringify(bufoImageData));
