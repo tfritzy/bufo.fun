@@ -2,6 +2,7 @@ import React from "react";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
 import { BufoDetails } from "./types";
+import { Tag } from "../../data/pipeline/BufoData";
 
 type BufoListProps = {
   bufoData: BufoDetails[];
