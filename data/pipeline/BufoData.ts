@@ -11,8 +11,8 @@ export type Tag =
   | "anime"
   | "anthropomorphic"
   | "anxiety"
-  | "approve"
   | "appreciation"
+  | "approve"
   | "arrival"
   | "astonishment"
   | "avoids-you"
@@ -91,12 +91,14 @@ export type Tag =
   | "pain"
   | "panic"
   | "plead"
+  | "pokemon"
   | "pout"
   | "pray"
   | "profession"
   | "punishment"
   | "rage"
   | "reference"
+  | "relief"
   | "religion"
   | "request"
   | "rubber-stamp"
@@ -115,6 +117,7 @@ export type Tag =
   | "sword"
   | "take-a-look"
   | "takes-your"
+  | "thinks-about"
   | "tired"
   | "trapped"
   | "ui"
@@ -3891,31 +3894,31 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-sports.png",
-    tags: [],
+    tags: ["sports", "anthropomorphic"],
   },
   {
     name: "bufo-squad.gif",
-    tags: [],
+    tags: ["animated", "happy", "meta"],
   },
   {
     name: "bufo-squash.png",
-    tags: [],
+    tags: ["food", "vegetable", "anthropomorphic"],
   },
   {
     name: "bufo-sriracha.png",
-    tags: [],
+    tags: ["food"],
   },
   {
     name: "bufo-stab-murder.gif",
-    tags: [],
+    tags: ["kills-you", "fight"],
   },
   {
     name: "bufo-stab-reverse.gif",
-    tags: [],
+    tags: ["kills-you", "fight"],
   },
   {
     name: "bufo-stab.gif",
-    tags: [],
+    tags: ["kills-you", "fight"],
   },
   {
     name: "bufo-stamp.png",
@@ -3923,15 +3926,15 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-standing.png",
-    tags: [],
+    tags: ["awkward"],
   },
   {
     name: "bufo-stare.png",
-    tags: [],
+    tags: ["blank-stare"],
   },
   {
     name: "bufo-stargazing.png",
-    tags: [],
+    tags: ["baby", "space"],
   },
   {
     name: "bufo-stars-in-a-old-timey-talkie.png",
@@ -3939,19 +3942,20 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-starstruck.png",
-    tags: [],
+    tags: ["excited", "encouragement"],
   },
   {
     name: "bufo-steals-your-thunder.png",
-    tags: [],
+    tags: ["takes-your"],
   },
   {
     name: "bufo-stick.gif",
-    tags: [],
+    tags: ["fight", "found-something", "bonk"],
   },
   {
     name: "bufo-stole-caribufos-antler.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-stoned.png",
@@ -3959,35 +3963,36 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-stonks.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "bufo-stop.gif",
-    tags: [],
+    tags: ["animated", "disagree", "dislike"],
+    skip: true,
   },
   {
     name: "bufo-stop.png",
-    tags: [],
+    tags: ["animated", "disagree", "dislike", "disbelief"],
   },
   {
     name: "bufo-stopsign.gif",
-    tags: [],
+    tags: ["animated", "disagree", "dislike"],
   },
   {
     name: "bufo-strains-his-neck.png",
-    tags: [],
+    tags: ["confused"],
   },
   {
     name: "bufo-strange.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-strawberry.png",
-    tags: [],
+    tags: ["food", "fruit", "anthropomorphic"],
   },
   {
     name: "bufo-strikes-a-deal.png",
-    tags: [],
+    tags: ["agree"],
   },
   {
     name: "bufo-stripe.png",
@@ -3995,71 +4000,72 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-stuffed.png",
-    tags: [],
+    tags: ["food", "chonker"],
   },
   {
     name: "bufo-style.png",
-    tags: [],
+    tags: ["cool"],
   },
   {
     name: "bufo-sun-bless.png",
-    tags: [],
+    tags: ["happy", "pray"],
   },
   {
     name: "bufo-sunny-side-up.png",
-    tags: [],
+    tags: ["food"],
   },
   {
     name: "bufo-surf.png",
-    tags: [],
+    tags: ["sports"],
   },
   {
     name: "bufo-sus.png",
-    tags: [],
+    tags: ["sus", "disbelief", "unsure"],
   },
   {
     name: "bufo-sushi.png",
-    tags: [],
+    tags: ["food", "anthropomorphic"],
   },
   {
     name: "bufo-sussy-eyebrows.gif",
-    tags: [],
+    tags: ["animated", "sus", "cursed"],
   },
   {
     name: "bufo-sweat.png",
-    tags: [],
+    tags: ["anxiety", "core"],
   },
   {
     name: "bufo-sweep.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-sweet-dreams.png",
-    tags: [],
+    tags: ["tired", "happy"],
   },
   {
     name: "bufo-sweet-potato.png",
-    tags: [],
+    tags: ["food", "vegetable", "anthropomorphic"],
   },
   {
     name: "bufo-swims.png",
-    tags: [],
+    tags: ["sports"],
   },
   {
     name: "bufo-sword.png",
-    tags: [],
+    tags: ["fight", "sword"],
   },
   {
     name: "bufo-taco.png",
-    tags: [],
+    tags: ["food", "cannibalism"],
   },
   {
     name: "bufo-tada.png",
-    tags: [],
+    tags: ["happy", "celebration", "excited"],
   },
   {
     name: "bufo-take-my-money.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "bufo-takes-a-bath.png",
@@ -4067,59 +4073,59 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-takes-bufo-give.png",
-    tags: [],
+    tags: ["meta", "takes-your"],
   },
   {
     name: "bufo-takes-hotdog.png",
-    tags: [],
+    tags: ["food", "takes-your"],
   },
   {
     name: "bufo-takes-slack.png",
-    tags: [],
+    tags: ["takes-your"],
   },
   {
     name: "bufo-takes-your-approval.png",
-    tags: [],
+    tags: ["takes-your", "approve"],
   },
   {
     name: "bufo-takes-your-boba.png",
-    tags: [],
+    tags: ["takes-your", "drink"],
   },
   {
     name: "bufo-takes-your-bufo-taco.png",
-    tags: [],
+    tags: ["takes-your", "food"],
   },
   {
     name: "bufo-takes-your-burrito.png",
-    tags: [],
+    tags: ["takes-your", "food"],
   },
   {
     name: "bufo-takes-your-fud-away.png",
-    tags: [],
+    tags: ["takes-your", "encouragement"],
   },
   {
     name: "bufo-takes-your-golden-handcuffs.png",
-    tags: [],
+    tags: ["takes-your", "money"],
   },
   {
     name: "bufo-takes-your-incident.png",
-    tags: [],
+    tags: ["takes-your", "software-reference"],
   },
   {
     name: "bufo-takes-your-pizza.png",
-    tags: [],
+    tags: ["takes-your", "food"],
   },
   {
     name: "bufo-takes-zoom.png",
-    tags: [],
+    tags: ["takes-your"],
   },
   {
     name: "bufo-tapioca-pearl.png",
-    tags: [],
+    tags: ["food", "anthropomorphic"],
   },
   {
     name: "bufo-tea.png",
-    tags: [],
+    tags: ["drink", "happy"],
   },
   {
     name: "bufo-teal.png",
@@ -4127,167 +4133,168 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-tears-of-joy.png",
-    tags: [],
+    tags: ["happy", "cry"],
   },
   {
     name: "bufo-tense.png",
-    tags: [],
+    tags: ["anxiety"],
   },
   {
     name: "bufo-tequila.png",
-    tags: [],
+    tags: ["drink"],
   },
   {
     name: "bufo-thanks-the-sr-bufo-for-their-wisdom.png",
-    tags: [],
+    tags: ["gratitude"],
   },
   {
     name: "bufo-thanks-you-for-your-service.png",
-    tags: [],
+    tags: ["gratitude"],
   },
   {
     name: "bufo-thanks.png",
-    tags: [],
+    tags: ["gratitude", "pray"],
   },
   {
     name: "bufo-thanksgiving.png",
-    tags: [],
+    tags: ["holiday"],
   },
   {
     name: "bufo-thanos.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-thats-a-knee-slapper.png",
-    tags: [],
+    tags: ["laugh"],
   },
   {
     name: "bufo-the-builder.png",
-    tags: [],
+    tags: ["profession", "reference"],
   },
   {
     name: "bufo-the-crying-osha-compliant-builder.png",
-    tags: [],
+    tags: ["cry", "profession", "reference"],
   },
   {
     name: "bufo-the-osha-compliant-builder.png",
-    tags: [],
+    tags: ["profession", "reference"],
   },
   {
     name: "bufo-think.png",
-    tags: [],
+    tags: ["smart", "anthropomorphic"],
   },
   {
     name: "bufo-thinking.png",
-    tags: [],
+    tags: ["take-a-look", "core"],
   },
   {
     name: "bufo-thinks-about-a11y.png",
-    tags: [],
+    tags: ["thinks-about"],
   },
   {
     name: "bufo-thinks-about-fishsticks.gif",
-    tags: [],
+    tags: ["thinks-about"],
   },
   {
     name: "bufo-thinks-about-telemetry.png",
-    tags: [],
+    tags: ["thinks-about", "software-reference"],
   },
   {
     name: "bufo-thinks-this-is-a-total-bop.gif",
-    tags: [],
+    tags: ["music"],
   },
   {
     name: "bufo-this-is-fine.png",
-    tags: [],
+    tags: ["fire"],
   },
   {
     name: "bufo-this.png",
-    tags: [],
+    tags: ["agree"],
   },
   {
     name: "bufo-thonk.png",
-    tags: [],
+    tags: ["thinks-about", "confused"],
   },
   {
     name: "bufo-thonks-from-the-void.png",
-    tags: [],
+    tags: ["void", "thinks-about", "confused"],
   },
   {
     name: "bufo-threatens-to-thwack-you-with-a-slipper-and-he-means-it.png",
-    tags: [],
+    tags: ["bonk", "fight"],
   },
   {
     name: "bufo-thumbsup.png",
-    tags: [],
+    tags: ["approve", "agree"],
   },
   {
     name: "bufo-thunk.png",
-    tags: [],
+    tags: ["thinks-about", "confused"],
   },
   {
     name: "bufo-thwack.gif",
-    tags: [],
+    tags: ["animated", "bonk", "fight"],
   },
   {
     name: "bufo-timeout.png",
-    tags: [],
+    tags: ["punishment", "baby"],
   },
   {
     name: "bufo-tin-foil-hat.gif",
-    tags: [],
+    tags: ["confused"],
   },
   {
     name: "bufo-tips-hat.png",
-    tags: [],
+    tags: ["acknowledgement"],
   },
   {
     name: "bufo-tired.png",
-    tags: [],
+    tags: ["tired"],
   },
   {
     name: "bufo-toad.png",
-    tags: [],
+    tags: ["reference", "mario"],
   },
   {
     name: "bufo-tofu.png",
-    tags: [],
+    tags: ["food", "vegetable", "anthropomorphic"],
   },
   {
     name: "bufo-tomato.png",
-    tags: [],
+    tags: ["food", "fruit", "vegetable", "anthropomorphic"],
   },
   {
     name: "bufo-tongue.gif",
-    tags: [],
+    tags: ["animated", "happy", "excited"],
   },
   {
     name: "bufo-too-many-pings.gif",
-    tags: [],
+    tags: ["animated", "anxiety", "pain"],
   },
   {
     name: "bufo-took-too-much.gif",
-    tags: [],
+    tags: ["animated", "confused"],
   },
   {
     name: "bufo-tooth.png",
-    tags: [],
+    tags: ["anthropomorphic"],
   },
   {
     name: "bufo-tophat.png",
-    tags: [],
+    tags: ["fancy", "accessories"],
   },
   {
     name: "bufo-tortoise.png",
-    tags: [],
+    tags: ["animal", "anthropomorphic"],
   },
   {
     name: "bufo-torus.gif",
-    tags: [],
+    tags: ["je-ne-sais-quoi"],
   },
   {
     name: "bufo-trailhead.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-train.png",
@@ -4295,139 +4302,142 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-transfixed.png",
-    tags: [],
+    tags: ["excited", "happy"],
   },
   {
     name: "bufo-transmutes-reality.gif",
-    tags: [],
+    tags: ["animated", "je-ne-sais-quoi"],
   },
   {
     name: "bufo-trash-can.png",
-    tags: [],
+    tags: ["cry"],
   },
   {
     name: "bufo-travels.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-tries-to-fight-you-but-his-arms-are-too-short-so-count-yourself-lucky.gif",
-    tags: [],
+    tags: ["fight", "cute"],
   },
   {
     name: "bufo-tries-to-hug-you-back-but-his-arms-are-too-short.png",
-    tags: [],
+    tags: ["cute"],
   },
   {
     name: "bufo-tries-to-hug-you-but-his-arms-are-too-short.png",
-    tags: [],
+    tags: ["cute"],
   },
   {
     name: "bufo-triple-vaccinated.png",
-    tags: [],
+    tags: ["covid"],
   },
   {
     name: "bufo-tripping.gif",
-    tags: [],
+    tags: ["animated", "blank-stare", "void"],
   },
   {
     name: "bufo-trying-to-relax-while-procrastinating-but-its-not-working.png",
-    tags: [],
+    tags: ["anxiety"],
   },
   {
     name: "bufo-turns-the-tables.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-tux.png",
-    tags: [],
+    tags: ["fancy", "accessories"],
   },
   {
     name: "bufo-typing.gif",
-    tags: [],
+    tags: ["animated", "core", "acknowledgement"],
   },
   {
     name: "bufo-ufo.png",
-    tags: [],
+    tags: ["space"],
   },
   {
     name: "bufo-ugh.png",
-    tags: [],
+    tags: ["upset", "disbelief"],
   },
   {
     name: "bufo-uh-okay-i-guess-so.png",
-    tags: [],
+    tags: ["unsure"],
   },
   {
     name: "bufo-uhhh.png",
-    tags: [],
+    tags: ["disbelief", "awkward"],
   },
   {
     name: "bufo-unicorn.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-unlocked-transdimensional-travel-while-in-the-void.png",
-    tags: [],
+    tags: ["void"],
   },
   {
     name: "bufo-uno.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-upvote.png",
-    tags: [],
+    tags: ["like", "encouragement", "agree"],
   },
   {
     name: "bufo-uses-100-percent-of-his-brain.png",
-    tags: [],
+    tags: ["smart", "high-quality"],
   },
   {
     name: "bufo-uwu.png",
-    tags: [],
+    tags: ["cute"],
   },
   {
     name: "bufo-vaccinated.png",
-    tags: [],
+    tags: ["covid"],
   },
   {
     name: "bufo-vaccinates-you.png",
-    tags: [],
+    tags: ["covid"],
   },
   {
     name: "bufo-vampire.png",
-    tags: [],
+    tags: ["takes-your"],
   },
   {
     name: "bufo-venom.png",
-    tags: [],
+    tags: ["horror"],
   },
   {
     name: "bufo-ventilator.png",
-    tags: [],
+    tags: ["covid"],
   },
   {
     name: "bufo-very-angry.gif",
-    tags: [],
+    tags: ["animated", "anger", "rage"],
   },
   {
     name: "bufo-vibe-dance.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-vibe.gif",
-    tags: [],
+    tags: ["animated", "dance", "happy"],
   },
   {
     name: "bufo-vomit.png",
-    tags: [],
+    tags: ["disagree", "dislike"],
   },
   {
     name: "bufo-waddle.gif",
-    tags: [],
+    tags: ["animated", "cute"],
   },
   {
     name: "bufo-waiting-for-aws-to-deep-archive-our-data.png",
-    tags: [],
+    tags: ["software-reference"],
   },
   {
     name: "bufo-waits-in-queue.png",
@@ -4435,39 +4445,40 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-waldo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-wallop.png",
-    tags: [],
+    tags: ["fight"],
   },
   {
     name: "bufo-wants-a-refund.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-wants-to-have-a-calm-and-civilized-conversation-with-you.png",
-    tags: [],
+    tags: ["fight", "fire", "disagree"],
   },
   {
     name: "bufo-wants-you-to-buy-his-crypto.gif",
-    tags: [],
+    tags: ["animated", "discomfort"],
   },
   {
     name: "bufo-wards-off-the-evil-spirits.gif",
-    tags: [],
+    tags: ["animated", "magic"],
   },
   {
     name: "bufo-was-eavesdropping-and-got-offended-by-your-convo-but-now-has-to-pretend-he-didnt-hear-you.png",
-    tags: [],
+    tags: ["upset", "awkward"],
   },
   {
     name: "bufo-wat.png",
-    tags: [],
+    tags: ["confused"],
   },
   {
     name: "bufo-watches-from-a-distance.png",
-    tags: [],
+    tags: ["blank-stare"],
   },
   {
     name: "bufo-watches-the-rain.gif",
@@ -4475,35 +4486,35 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-watching-the-clock.png",
-    tags: [],
+    tags: ["upset"],
   },
   {
     name: "bufo-watermelon.png",
-    tags: [],
+    tags: ["food", "fruit", "anthropomorphic"],
   },
   {
     name: "bufo-wave.gif",
-    tags: [],
+    tags: ["animated", "greetings", "farewell"],
   },
   {
     name: "bufo-waves-hello-from-the-void.png",
-    tags: [],
+    tags: ["void", "greetings"],
   },
   {
     name: "bufo-wears-a-paper-crown.png",
-    tags: [],
+    tags: ["happy", "celebration"],
   },
   {
     name: "bufo-wears-the-cone-of-shame.png",
-    tags: [],
+    tags: ["punishment", "trapped", "sad"],
   },
   {
     name: "bufo-wedding.png",
-    tags: [],
+    tags: ["love", "happy"],
   },
   {
     name: "bufo-welcome.png",
-    tags: [],
+    tags: ["greetings"],
   },
   {
     name: "bufo-welp.png",
@@ -4511,51 +4522,51 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-whack.gif",
-    tags: [],
+    tags: ["animated", "bonk"],
   },
   {
     name: "bufo-what-are-you-doing-with-that.png",
-    tags: [],
+    tags: ["kills-you", "fight", "blank-stare"],
   },
   {
     name: "bufo-what-did-you-just-say.png",
-    tags: [],
+    tags: ["cursed", "disbelief"],
   },
   {
     name: "bufo-what-have-i-done.png",
-    tags: [],
+    tags: ["upset", "core", "anxiety"],
   },
   {
     name: "bufo-what-have-you-done.png",
-    tags: [],
+    tags: ["upset", "core", "anxiety"],
   },
   {
     name: "bufo-what-if.png",
-    tags: [],
+    tags: ["smart"],
   },
   {
     name: "bufo-whatever.png",
-    tags: [],
+    tags: ["disagree", "dislike", "avoids-you"],
   },
   {
     name: "bufo-whew.png",
-    tags: [],
+    tags: ["relief"],
   },
   {
     name: "bufo-whisky.png",
-    tags: [],
+    tags: ["drink"],
   },
   {
     name: "bufo-who-me.gif",
-    tags: [],
+    tags: ["animated", "awkward", "excited"],
   },
   {
     name: "bufo-wholesome.png",
-    tags: [],
+    tags: ["happy", "encouragement", "cute"],
   },
   {
     name: "bufo-why-must-it-be-this-way.png",
-    tags: [],
+    tags: ["upset", "core", "cry"],
   },
   {
     name: "bufo-wicked.png",
@@ -4563,63 +4574,64 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-wider-01.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "bufo-wider-02.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "bufo-wider-03.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "bufo-wider-04.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "bufo-wields-mjolnir.png",
-    tags: [],
+    tags: ["fight", "cool"],
   },
   {
     name: "bufo-wields-the-hylian-shield.png",
-    tags: [],
+    tags: ["reference", "sword"],
   },
   {
     name: "bufo-will-miss-you.gif",
-    tags: [],
+    tags: ["cry", "farewell"],
   },
   {
     name: "bufo-will-not-be-going-to-space-today.png",
-    tags: [],
+    tags: ["space", "cry"],
   },
   {
     name: "bufo-wine.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-wink.gif",
-    tags: [],
+    tags: ["animated", "encouragement"],
   },
   {
     name: "bufo-wishes-you-a-happy-valentines-day.png",
-    tags: [],
+    tags: ["love", "holiday"],
   },
   {
     name: "bufo-with-a-drive-by-hot-take.gif",
-    tags: [],
+    tags: ["animated", "farewell", "discomfort"],
   },
   {
     name: "bufo-with-a-fresh-do.png",
-    tags: [],
+    tags: ["cool"],
   },
   {
     name: "bufo-wizard.gif",
-    tags: [],
+    tags: ["animated", "magic"],
   },
   {
     name: "bufo-wonders-if-deliciousness-of-this-cheese-is-worth-the-pain-his-lactose-intolerance-will-cause.png",
-    tags: [],
+    tags: ["food", "reference", "pain"],
   },
   {
     name: "bufo-worldstar.png",
@@ -4627,15 +4639,15 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-worried.png",
-    tags: [],
+    tags: ["worry"],
   },
   {
     name: "bufo-worry.png",
-    tags: [],
+    tags: ["worry"],
   },
   {
     name: "bufo-would-like-a-bite-of-your-cookie.png",
-    tags: [],
+    tags: ["food", "pray"],
   },
   {
     name: "bufo-writes-a-doc.png",
@@ -4643,47 +4655,48 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-wut.png",
-    tags: [],
+    tags: ["confused", "disbelief", "unsure", "core"],
   },
   {
     name: "bufo-yah.png",
-    tags: [],
+    tags: ["agree", "approve"],
   },
   {
     name: "bufo-yay.gif",
-    tags: [],
+    tags: ["animated", "happy", "excited"],
   },
   {
     name: "bufo-yeehaw.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufo-yes.png",
-    tags: [],
+    tags: ["agree", "approve"],
   },
   {
     name: "bufo-yismail.png",
-    tags: [],
+    tags: ["accessories"],
   },
   {
     name: "bufo-you-sure-about-that.png",
-    tags: [],
+    tags: ["disbelief", "unsure"],
   },
   {
     name: "bufo-yugioh.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufo-yummy.png",
-    tags: [],
+    tags: ["food"],
   },
   {
     name: "bufo-zoom-right.gif",
-    tags: [],
+    tags: ["animated", "excited"],
   },
   {
     name: "bufo-zoom.gif",
-    tags: [],
+    tags: ["animated", "excited"],
   },
   {
     name: "bufobot.png",
@@ -4691,31 +4704,31 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufochu.png",
-    tags: [],
+    tags: ["pokemon"],
   },
   {
     name: "bufocopter.png",
-    tags: [],
+    tags: ["anthropomorphic"],
   },
   {
     name: "bufodile.png",
-    tags: [],
+    tags: ["animal"],
   },
   {
     name: "bufofoop.gif",
-    tags: [],
+    tags: ["animated", "greetings"],
   },
   {
     name: "bufoling.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "bufolo.png",
-    tags: [],
+    tags: ["animal", "anthropomorphic"],
   },
   {
     name: "bufonana.png",
-    tags: [],
+    tags: ["food", "fruit", "anthropomorphic"],
   },
   {
     name: "bufone.png",
@@ -4724,54 +4737,55 @@ export const BufoMetadata: BufoMetadata[] = [
   {
     name: "bufonomical.png",
     tags: [],
+    skip: true,
   },
   {
     name: "bufopoof.gif",
-    tags: [],
+    tags: ["animated", "farewell"],
   },
   {
     name: "buforce-be-with-you.png",
-    tags: [],
+    tags: ["star-wars"],
   },
   {
     name: "buforead.png",
-    tags: [],
+    tags: ["take-a-look"],
   },
   {
     name: "buforever.gif",
-    tags: [],
+    tags: ["animated", "meta"],
   },
   {
     name: "bufos-got-your-back.png",
-    tags: [],
+    tags: ["encouragement"],
   },
   {
     name: "bufovacado.png",
-    tags: [],
+    tags: ["food", "fruit"],
   },
   {
     name: "bufowhirl.png",
-    tags: [],
+    tags: ["pokemon"],
   },
   {
     name: "but-wait-theres-bufo.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "chonky-bufo-wants-to-be-held.png",
-    tags: [],
+    tags: ["chonker"],
   },
   {
     name: "christmas-bufo-on-a-goose.gif",
-    tags: [],
+    tags: ["animated", "holiday", "animal", "baby"],
   },
   {
     name: "circle-of-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "copper-bufo.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "corrupted-bufo.png",
@@ -4783,11 +4797,11 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "daily-dose-of-bufo-vitamins.png",
-    tags: [],
+    tags: ["fruit", "vegetable", "anthropomorphic"],
   },
   {
     name: "doctor-bufo.png",
-    tags: [],
+    tags: ["profession"],
   },
   {
     name: "egg-bufo.png",
@@ -4795,75 +4809,75 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "eggplant-bufo.png",
-    tags: [],
+    tags: ["food", "vegetable", "anthropomorphic"],
   },
   {
     name: "et-tu-bufo.png",
-    tags: [],
+    tags: ["kills-you", "fight"],
   },
   {
     name: "existential-bufo.gif",
-    tags: [],
+    tags: ["animated", "void", "anxiety"],
   },
   {
     name: "feelsgoodbufo.png",
-    tags: [],
+    tags: ["happy"],
   },
   {
     name: "fix-it-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "friendly-neighborhood-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "future-bufos.png",
-    tags: [],
+    tags: ["software-reference"],
   },
   {
     name: "get-in-lets-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "get-out-of-bufos-swamp.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "ghost-bufo-of-future-past-is-disappointed-in-your-lack-of-foresight.png",
-    tags: [],
+    tags: ["disappointed"],
   },
   {
     name: "gold-bufo.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "great-white-bufo.png",
-    tags: [],
+    tags: ["high-quality", "animal", "anthropomorphic"],
   },
   {
     name: "holiday-bufo-offers-you-a-candy-cane.png",
-    tags: [],
+    tags: ["holiday", "food"],
   },
   {
     name: "i-dont-trust-bufo.png",
-    tags: [],
+    tags: ["disbelief", "unsure", "sus"],
   },
   {
     name: "if-bufo-fits-bufo-sits.png",
-    tags: [],
+    tags: ["cute"],
   },
   {
     name: "interdimensional-bufo-rests-atop-the-terrarium-of-existence.png",
-    tags: [],
+    tags: ["void"],
   },
   {
     name: "it-takes-a-bufo-to-know-a-bufo.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "its-been-such-a-long-day-that-bufo-doesnt-really-care-anymore.png",
-    tags: [],
+    tags: ["tired"],
   },
   {
     name: "just-hear-bufo-out-for-a-sec.png",
