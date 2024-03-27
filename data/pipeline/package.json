@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "archiver": "^7.0.1",
+    "fs": "^0.0.1-security",
     "sharp": "^0.33.3"
   }
 }

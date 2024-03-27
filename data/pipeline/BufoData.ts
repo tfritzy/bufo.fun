@@ -12,6 +12,7 @@ export type Tag =
   | "anthropomorphic"
   | "anxiety"
   | "approve"
+  | "appreciation"
   | "arrival"
   | "astonishment"
   | "avoids-you"

@@ -4,8 +4,8 @@ import type { BufoDetails } from "./BufoData";
 import sharp from "sharp";
 import fs from "fs";
 
-const outputDirectory = "../../site/public/bufoData.json";
-const allTheBufoDirectory = "../all-the-bufo/all-the-bufo";
+const outputDirectory = "site/public/bufoData.json";
+const allTheBufoDirectory = "site/public/all-the-bufo/all-the-bufo";
 
 const bufoFiles = readdirSync(allTheBufoDirectory);
 

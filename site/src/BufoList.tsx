@@ -2,7 +2,6 @@ import React from "react";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
 import { BufoDetails } from "./types";
-import { Tag } from "../../data/pipeline/BufoData";
 
 type BufoListProps = {
   bufoData: BufoDetails[];
@@ -31,7 +30,13 @@ export const BufoList = (props: BufoListProps) => {
   }, [props.bufoData]);
 
   const filteredBufos = new Set(
-    props.bufoData.filter((bufo) => bufo.name.includes(props.filter))
+    props.bufoData
+      .filter(
+        (bufo) =>
+          bufo.name.includes(props.filter) ||
+          bufo.tags.some((tag) => tag.includes(props.filter))
+      )
+      .map((bufo) => bufo.name)
   );
 
   return (
@@ -40,7 +45,7 @@ export const BufoList = (props: BufoListProps) => {
       <div className="flex flex-row flex-wrap">
         {props.bufoData.map((bufo, index) => {
           return (
-            <div key={index} hidden={!filteredBufos.has(bufo)}>
+            <div key={index} hidden={!filteredBufos.has(bufo.name)}>
               {memodBufos.get(bufo.name)}
             </div>
           );

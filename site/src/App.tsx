@@ -79,9 +79,9 @@ function App() {
                 return (
                   <div
                     key={tag}
-                    className="border border-bufo-200 rounded-full m-1 pr-2 text-bufo-500 text-center"
+                    className="relative bg-bufo-100 rounded-full px-2 text-bufo-400 text-center m-1 text-center"
                   >
-                    <span className="font-semibold px-2text-xs">
+                    <span className="absolute right-0 -top-2 font-semibold px-2 text-xs">
                       {tags.get(tag)?.length}
                     </span>
                     {tag}
