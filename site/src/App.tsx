@@ -10,7 +10,7 @@ import {
 
 function App() {
   const [bufoData, setBufoData] = React.useState<SiteBufoDetails[]>([]);
-  const [filter, setFilter] = React.useState("");
+  const [matchBufos, setMatchBufos] = React.useState<Set<string>>(new Set());
 
   const tags: Map<Tag, string[]> = React.useMemo(() => {
     const dTags = new Map<Tag, string[]>();
@@ -25,6 +25,10 @@ function App() {
 
     return dTags;
   }, [bufoData]);
+
+  const allTags: Set<Tag> = React.useMemo(() => {
+    return new Set(tags.keys());
+  }, [tags]);
 
   const fetchAndProcessBufos = React.useCallback((dataPath: string) => {
     fetch(dataPath)
@@ -69,30 +73,10 @@ function App() {
 
       <div className="flex flex-col items-start max-w-3xl m-auto">
         <div className="mx-2 mb-1">
-          <BufoSearch onSearch={setFilter} />
+          <BufoSearch bufoData={bufoData} setMatchingBufos={setMatchBufos} />
         </div>
 
-        {tags.size > 0 && (
-          <div className="mx-2 mb-1 text-sm">
-            <div className="flex flex-row flex-wrap">
-              {Array.from(tags.keys()).map((tag) => {
-                return (
-                  <div
-                    key={tag}
-                    className="relative bg-bufo-100 rounded-full px-2 text-bufo-400 text-center m-1 text-center"
-                  >
-                    <span className="absolute right-0 -top-2 font-semibold px-2 text-xs">
-                      {tags.get(tag)?.length}
-                    </span>
-                    {tag}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        <BufoList bufoData={bufoData} filter={filter} />
+        <BufoList bufoData={bufoData} matchingBufos={matchBufos} />
       </div>
     </div>
   );

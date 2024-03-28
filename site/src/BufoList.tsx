@@ -5,7 +5,7 @@ import { BufoDetails } from "./types";
 
 type BufoListProps = {
   bufoData: BufoDetails[];
-  filter: string;
+  matchingBufos: Set<string>;
 };
 
 export const BufoList = (props: BufoListProps) => {
@@ -29,23 +29,13 @@ export const BufoList = (props: BufoListProps) => {
     return dBufos;
   }, [props.bufoData]);
 
-  const filteredBufos = new Set(
-    props.bufoData
-      .filter(
-        (bufo) =>
-          bufo.name.includes(props.filter) ||
-          bufo.tags.some((tag) => tag.includes(props.filter))
-      )
-      .map((bufo) => bufo.name)
-  );
-
   return (
     <div className="w-full">
-      <div className="ml-2">{filteredBufos.size} bufos</div>
+      <div className="ml-2">{props.matchingBufos.size} bufos</div>
       <div className="flex flex-row flex-wrap">
         {props.bufoData.map((bufo, index) => {
           return (
-            <div key={index} hidden={!filteredBufos.has(bufo.name)}>
+            <div key={index} hidden={!props.matchingBufos.has(bufo.name)}>
               {memodBufos.get(bufo.name)}
             </div>
           );
