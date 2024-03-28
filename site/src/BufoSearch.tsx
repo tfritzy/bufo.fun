@@ -85,7 +85,7 @@ export const BufoSearch = (props: BufoSearchProps) => {
   }, [selectedTag]);
 
   return (
-    <div className="flex flex-col space-y-4 mb-4">
+    <div className="flex flex-col space-y-2 mb-4">
       <input
         className="w-72 px-3 py-1 rounded-md border border-gray-200 focus:border-bufo-200  text-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-200 ease-in-out"
         type="text"
