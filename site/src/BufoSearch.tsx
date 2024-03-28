@@ -37,10 +37,9 @@ const mainTags: Tag[] = [
   "celebration",
   "cursed",
   "anger",
-  "like",
-  "agree",
-  "greetings",
-  "farewell",
+  "vegetable",
+  "fruit",
+  "anxiety",
   "cute",
   "baby",
   "encouragement",
@@ -68,12 +67,13 @@ export const BufoSearch = (props: BufoSearchProps) => {
     });
 
     props.setMatchingBufos(matchingBufos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, props.bufoData, selectedTag]);
 
   const nonMainTags = React.useMemo(() => {
-    const tags = new Set<TagType>(allTags);
+    let tags = new Set<TagType>(allTags);
     mainTags.forEach((tag) => tags.delete(tag));
-    return Array.from(tags);
+    return Array.from(tags).sort();
   }, [allTags]);
 
   const visibleTags = React.useMemo(() => {
