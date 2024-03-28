@@ -11,6 +11,7 @@ module.exports = {
         current: "currentColor",
         white: "#ffffff",
         bufo: {
+          50: "#e9f7c8",
           100: "#cee0a3",
           200: "#9ec079",
           300: "#8a9e6e",
