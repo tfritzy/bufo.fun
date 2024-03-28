@@ -1,30 +1,19 @@
 import React from "react";
 import { BufoDetails } from "./types";
 import { ActionFilter } from "./components/ActionFilter";
-import type { Tag as TagType } from "../../data/pipeline/BufoData";
-import { Tag } from "./components/Tag";
+import type { Tag, Tag as TagType } from "../../data/pipeline/BufoData";
 
 type BufoSearchProps = {
   bufoData: BufoDetails[];
   setMatchingBufos: (bufos: Set<string>) => void;
 };
 
-const bufoHasEveryTag = (bufoTags: Set<string>, tags: Set<string>) => {
-  for (const tag of tags) {
-    if (!bufoTags.has(tag)) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
 const doesBufoMatchFilter = (
   bufo: BufoDetails,
   search: string,
-  selectedTags: Set<TagType>
+  selectedTag?: TagType | null
 ) => {
-  if (selectedTags.size > 0 && !bufoHasEveryTag(bufo.tags, selectedTags)) {
+  if (selectedTag && !bufo.tags.has(selectedTag)) {
     return false;
   }
 
@@ -41,12 +30,26 @@ const doesBufoMatchFilter = (
   return false;
 };
 
+const mainTags: Tag[] = [
+  "core",
+  "happy",
+  "cry",
+  "celebration",
+  "cursed",
+  "anger",
+  "like",
+  "agree",
+  "greetings",
+  "farewell",
+  "cute",
+  "baby",
+  "encouragement",
+  "upset",
+];
+
 export const BufoSearch = (props: BufoSearchProps) => {
   const [search, setSearch] = React.useState("");
-  const [selectedTags, setSelectedTags] = React.useState<Set<TagType>>(
-    new Set()
-  );
-  const [showAllTags, setShowAllTags] = React.useState(false);
+  const [selectedTag, setSelectedTag] = React.useState<TagType | null>();
 
   const allTags: TagType[] = React.useMemo(() => {
     const tags = new Set<TagType>();
@@ -59,15 +62,27 @@ export const BufoSearch = (props: BufoSearchProps) => {
   React.useEffect(() => {
     const matchingBufos = new Set<string>();
     props.bufoData.forEach((bufo) => {
-      if (doesBufoMatchFilter(bufo, search, selectedTags)) {
+      if (doesBufoMatchFilter(bufo, search, selectedTag)) {
         matchingBufos.add(bufo.name);
       }
     });
 
     props.setMatchingBufos(matchingBufos);
-  }, [search, props.bufoData, selectedTags]);
+  }, [search, props.bufoData, selectedTag]);
 
-  const shownTags = showAllTags ? allTags : allTags.slice(0, 16);
+  const nonMainTags = React.useMemo(() => {
+    const tags = new Set<TagType>(allTags);
+    mainTags.forEach((tag) => tags.delete(tag));
+    return Array.from(tags);
+  }, [allTags]);
+
+  const visibleTags = React.useMemo(() => {
+    const visibleTags = new Set<TagType>(mainTags);
+    if (selectedTag) {
+      visibleTags.add(selectedTag);
+    }
+    return Array.from(visibleTags);
+  }, [selectedTag]);
 
   return (
     <div className="flex flex-col space-y-4 mb-4">
@@ -80,47 +95,36 @@ export const BufoSearch = (props: BufoSearchProps) => {
       />
 
       <div className="">
-        <div className="text-gray-700 text-sm">Filter by tag</div>
         <div>
-          <div
-            className={"" + (showAllTags ? "" : "max-h-[48px] overflow-hidden")}
+          {visibleTags.map((tag) => (
+            <ActionFilter
+              key={tag}
+              name={tag}
+              count={props.bufoData.filter((b) => b.tags.has(tag)).length}
+              selected={selectedTag === tag}
+              onClick={() => {
+                setSelectedTag(tag === selectedTag ? null : tag);
+              }}
+            />
+          ))}
+          <select
+            id="selected-tags"
+            className="px-2 py-1 rounded text-sm border bg-white text-gray-800 border-gray-200"
+            onChange={(e) => {
+              const tag = e.target.value as TagType | "all";
+              setSelectedTag(tag === "all" ? null : tag);
+            }}
+            value=""
           >
-            {shownTags.map((tag) => (
-              <ActionFilter
-                key={tag}
-                name={tag}
-                count={props.bufoData.filter((b) => b.tags.has(tag)).length}
-                selected={selectedTags.has(tag)}
-                onClick={() => {
-                  if (selectedTags.has(tag)) {
-                    selectedTags.delete(tag);
-                  } else {
-                    selectedTags.add(tag);
-                  }
-                  setSelectedTags(new Set(selectedTags));
-                }}
-              />
+            <option disabled selected hidden value="">
+              +{nonMainTags.length} more tags
+            </option>
+            {nonMainTags.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
             ))}
-          </div>
-          {showAllTags ? (
-            <div className="relative w-full flex flex-row items-center border border-t-bufo-300">
-              <button
-                onClick={() => setShowAllTags(false)}
-                className="border-bufo-300 bg-gray-50 border border-t-0 rounded-b-md text-sm absolute right-[50%] transform translate-x-[50%] px-2 text-bufo-500 top-0"
-              >
-                Show less
-              </button>
-            </div>
-          ) : (
-            <div className="relative w-full flex flex-row items-center border border-t-bufo-300">
-              <button
-                onClick={() => setShowAllTags(true)}
-                className="border-bufo-300 bg-gray-50 border border-t-0 rounded-b-md text-sm absolute right-[50%] transform translate-x-[50%] px-2 text-bufo-500 top-0"
-              >
-                Show all
-              </button>
-            </div>
-          )}
+          </select>
         </div>
       </div>
     </div>
