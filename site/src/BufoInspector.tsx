@@ -2,6 +2,7 @@ import { Modal } from "./components/Modal";
 import { BufoDetails } from "./types";
 import { Tag } from "./components/Tag";
 import { proverbs } from "./proverbs";
+import { TruncatedText } from "./components/TruncatedText";
 
 const goldenRatio = 1.61803398875;
 
@@ -71,7 +72,7 @@ const Message = (props: { bufo: BufoDetails }) => {
 
   return (
     <div>
-      <div className="font-semibold mb-2">Message preview</div>
+      <div className="font-semibold mb-2">Preview</div>
       <div className="flex flex-row space-x-2 bg-gray-50 shadow-sm rounded p-2 border border-gray-200 min-w-80">
         <img
           src={props.bufo.image}
@@ -115,16 +116,18 @@ const DetailsSection = (props: { bufo: BufoDetails }) => {
         <tbody>
           <tr>
             <td className="text-gray-700 min-w-20">Name</td>
-            <td className="">:{props.bufo.name}:</td>
+            <td className="font-mono">:{props.bufo.name}:</td>
           </tr>
 
           <tr>
             <td className="text-gray-700">Tags</td>
             <td className="">
-              {props.bufo.tags.length > 0 ? (
-                <div className="flex flex-row space-x-1 flex-wrap space-y-1">
-                  {props.bufo.tags.map((tag) => (
-                    <Tag key={tag} name={tag} />
+              {props.bufo.tags.size > 0 ? (
+                <div className="flex flex-row flex-wrap">
+                  {Array.from(props.bufo.tags).map((tagName) => (
+                    <div key={tagName} className="m-1">
+                      <Tag name={tagName} />
+                    </div>
                   ))}
                 </div>
               ) : (
@@ -145,7 +148,7 @@ type BufoInspectorProps = {
 };
 
 export const BufoInspector = (props: BufoInspectorProps) => {
-  if (!props.isOpen || !props.bufo) {
+  if (!props.bufo) {
     return null;
   }
 
@@ -153,7 +156,9 @@ export const BufoInspector = (props: BufoInspectorProps) => {
     <Modal isOpen={props.isOpen} onClose={props.onClose}>
       <div className="p-3 text-sm flex flex-col space-y-3">
         <div className="font-semibold text-md w-full flex flex-row justify-between">
-          <div>{props.bufo.name}</div>
+          <div className="flex-grow">
+            <TruncatedText text={props.bufo.name} />
+          </div>
           <button onClick={props.onClose}>
             <svg
               width="24px"
@@ -174,11 +179,6 @@ export const BufoInspector = (props: BufoInspectorProps) => {
           </button>
         </div>
 
-        <div className="flex flex-col">
-          <div className="font-semibold mb-2">Enhance</div>
-          <GoldenBufo bufo={props.bufo} width={100} depth={0} maxDepth={10} />
-        </div>
-
         <Message bufo={props.bufo} />
 
         <DetailsSection bufo={props.bufo} />
@@ -186,11 +186,21 @@ export const BufoInspector = (props: BufoInspectorProps) => {
         <div className="flex flex-row justify-end space-x-1">
           <button
             onClick={props.onClose}
-            className="text-gray-700 rounded px-2 py-1 mt-2"
+            className="text-gray-700 rounded px-2 py-1 mt-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm transition-all duration-150 ease-in-out"
           >
             Close
           </button>
-          <button className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500">
+          <button
+            className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
+            onClick={async () => {
+              const link = document.createElement("a");
+              link.href = "/all-the-bufos/all-the-bufo/" + props.bufo.filename;
+              link.download = props.bufo.filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+          >
             Download
           </button>
         </div>

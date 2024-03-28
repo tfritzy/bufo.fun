@@ -31,7 +31,9 @@ export const BufoList = (props: BufoListProps) => {
 
   return (
     <div className="w-full">
-      <div className="ml-2">{props.matchingBufos.size} bufos</div>
+      <div className="ml-2 text-sm text-bufo-500">
+        <span className="font-semibold">{props.matchingBufos.size}</span> bufos
+      </div>
       <div className="flex flex-row flex-wrap">
         {props.bufoData.map((bufo, index) => {
           return (

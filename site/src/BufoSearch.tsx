@@ -1,14 +1,30 @@
 import React from "react";
 import { BufoDetails } from "./types";
-import { Tag } from "../../data/pipeline/BufoData";
 
 type BufoSearchProps = {
   bufoData: BufoDetails[];
   setMatchingBufos: (bufos: Set<string>) => void;
 };
 
+const setIncludesAny = (matchingTags: Set<string>, bufoTags: Set<string>) => {
+  for (const tag of bufoTags) {
+    if (matchingTags.has(tag)) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const BufoSearch = (props: BufoSearchProps) => {
   const [search, setSearch] = React.useState("");
+
+  const allTags = React.useMemo(() => {
+    const tags = new Set<string>();
+    props.bufoData.forEach((bufo) => {
+      bufo.tags.forEach((tag) => tags.add(tag));
+    });
+    return tags;
+  }, [props.bufoData]);
 
   React.useEffect(() => {
     if (search === "") {
@@ -16,52 +32,32 @@ export const BufoSearch = (props: BufoSearchProps) => {
       return;
     }
 
-    const searchTerms = search.split(" ");
-    const matchingBufos = new Set<string>();
-    for (const bufo of props.bufoData) {
-      let matches = true;
-      for (const term of searchTerms) {
-        if (term.startsWith("-tag:")) {
-          if (bufo.tags.includes(term.substring(5) as Tag)) {
-            matches = false;
-          }
-        } else if (term.startsWith("tag:")) {
-          if (!bufo.tags.includes(term.substring(4) as Tag)) {
-            matches = false;
-          }
-        } else {
-          if (!bufo.name.includes(term)) {
-            matches = false;
-          }
-        }
+    const matchingTags = new Set<string>();
+    allTags.forEach((tag) => {
+      if (tag.toLowerCase().includes(search.toLowerCase())) {
+        matchingTags.add(tag);
       }
+    });
 
-      if (matches) {
+    const matchingBufos = new Set<string>();
+    props.bufoData.forEach((bufo) => {
+      if (bufo.name.toLowerCase().includes(search.toLowerCase())) {
+        matchingBufos.add(bufo.name);
+      } else if (setIncludesAny(matchingTags, bufo.tags)) {
         matchingBufos.add(bufo.name);
       }
-    }
+    });
 
     props.setMatchingBufos(matchingBufos);
-  }, [search]);
+  }, [search, props.bufoData]);
 
   return (
-    <div className="flex flex-col space-y-1">
-      <input
-        className="w-72 px-3 py-1 rounded-lg border border-gray-200 focus:border-bufo-200  text-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-200 ease-in-out"
-        type="text"
-        placeholder="Search..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div className="text-sm text-gray-500">
-        Special terms:{" "}
-        <span className="rounded border border-gray-400 bg-gray-100 font-mono px-1">
-          tag:
-        </span>{" "}
-        <span className="rounded border border-gray-400 bg-gray-100 font-mono px-1">
-          -tag:
-        </span>
-      </div>
-    </div>
+    <input
+      className="w-72 px-3 py-1 rounded-md border border-gray-200 focus:border-bufo-200  text-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-200 ease-in-out"
+      type="text"
+      placeholder="Search..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
   );
 };
