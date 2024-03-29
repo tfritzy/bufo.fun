@@ -4881,7 +4881,7 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "just-hear-bufo-out-for-a-sec.png",
-    tags: [],
+    tags: ["disbelief", "unsure"],
   },
   {
     name: "kermit-the-bufo.png",
