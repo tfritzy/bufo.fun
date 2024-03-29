@@ -87,7 +87,6 @@ export type Tag =
   | "money"
   | "music"
   | "offers"
-  | "outrage"
   | "pain"
   | "panic"
   | "plead"
@@ -334,7 +333,7 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "bufo-angry-bullfrog-screech.gif",
-    tags: ["anger", "animated", "outrage", "shock"],
+    tags: ["anger", "animated", "shock"],
   },
   {
     name: "bufo-angry.gif",

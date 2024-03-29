@@ -3,51 +3,7 @@ import { BufoDetails } from "./types";
 import { Tag } from "./components/Tag";
 import { proverbs } from "./proverbs";
 import { TruncatedText } from "./components/TruncatedText";
-
-const goldenRatio = 1.61803398875;
-
-type GoldenBufoProps = {
-  width: number;
-  depth: number;
-  maxDepth: number;
-  bufo: BufoDetails;
-};
-
-const flexPattern = [
-  "flex flex-row",
-  "flex flex-col",
-  "flex flex-row-reverse",
-  "flex flex-col-reverse",
-];
-
-const GoldenBufo = (props: GoldenBufoProps) => {
-  const bufo = props.bufo;
-
-  if (props.depth >= props.maxDepth) {
-    return null;
-  }
-
-  return (
-    <div className={flexPattern[props.depth % 4]}>
-      <img
-        src={bufo.image}
-        alt={bufo.name}
-        className="border-bufo-200 bg-bufo-100 aspect-w-1 aspect-h-1"
-        style={{
-          width: props.width + "px",
-          height: props.width + "px",
-          boxShadow: "0 0 0 1px #9ec079",
-        }}
-      />
-      <GoldenBufo
-        depth={props.depth + 1}
-        maxDepth={props.maxDepth}
-        bufo={props.bufo}
-        width={props.width / goldenRatio}
-      />
-    </div>
-  );
-};
+import { downloadBufo } from "./downloadBufo";
 
 const Updoot = (props: { bufo: BufoDetails }) => {
   const updootCount = Math.floor(Math.random() * 10) + 1;
@@ -64,11 +20,19 @@ const Updoot = (props: { bufo: BufoDetails }) => {
 };
 
 const Message = (props: { bufo: BufoDetails }) => {
-  const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
   const truncatedName =
     props.bufo.name.length > 30
       ? props.bufo.name.substring(0, 30) + "..."
       : props.bufo.name;
+
+  const hashCode = (s: string) => {
+    return s.split("").reduce(function (a, b) {
+      a = (a << 5) - a + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+  };
+  const proverb =
+    proverbs[Math.abs(hashCode(props.bufo.name)) % proverbs.length];
 
   return (
     <div>
@@ -192,13 +156,8 @@ export const BufoInspector = (props: BufoInspectorProps) => {
           </button>
           <button
             className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
-            onClick={async () => {
-              const link = document.createElement("a");
-              link.href = "/bufos/" + props.bufo.filename;
-              link.download = props.bufo.filename;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
+            onClick={() => {
+              downloadBufo(props.bufo.filename);
             }}
           >
             Download

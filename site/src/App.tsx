@@ -4,6 +4,8 @@ import { BufoSearch } from "./BufoSearch";
 import { BufoList } from "./BufoList";
 import { BufoDetails as SiteBufoDetails } from "./types";
 import { BufoDetails as PipelineBufoDetails } from "../../data/pipeline/BufoData";
+import { CornerBufos } from "./CornerBufos";
+import { Tutorial } from "./Tutorial";
 
 function App() {
   const [bufoData, setBufoData] = React.useState<SiteBufoDetails[]>([]);
@@ -57,6 +59,10 @@ function App() {
 
         <BufoList bufoData={bufoData} matchingBufos={matchBufos} />
       </div>
+
+      <CornerBufos />
+
+      <Tutorial />
     </div>
   );
 }

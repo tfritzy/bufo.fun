@@ -1,6 +1,7 @@
 import React from "react";
 import { TruncatedText } from "./components/TruncatedText";
 import { BufoDetails } from "./types";
+import { downloadBufo } from "./downloadBufo";
 
 type BufoProps = {
   bufo: BufoDetails;
@@ -11,17 +12,24 @@ type BufoProps = {
 export const BufoItem = (props: BufoProps) => {
   const { onClick } = props;
 
-  const handleClick = React.useCallback(() => {
-    if (props.onClick) {
-      props.onClick(props.index);
-    }
-  }, [onClick, props.index]);
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (event.shiftKey) {
+        downloadBufo(props.bufo.filename);
+      } else {
+        if (onClick) {
+          onClick(props.index);
+        }
+      }
+    },
+    [onClick, props.index]
+  );
 
   return (
     <div className="w-[64px] min-w-[64px] m-2">
       <button
         onClick={handleClick}
-        className="focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm rounded transition-all duration-200 ease-in-out"
+        className="focus:outline-none focus:ring-2 focus:ring-bufo-300 focus:shadow-sm rounded transition-all duration-200 ease-in-out"
       >
         <div className="rounded w-[64px] min-w-[64px] h-[64px] min-h-[64px] border border-bufo-400 bg-bufo-50">
           <img
