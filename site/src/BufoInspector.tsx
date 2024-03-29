@@ -147,7 +147,7 @@ export const BufoInspector = (props: BufoInspectorProps) => {
 
         <DetailsSection bufo={props.bufo} />
 
-        <div className="flex flex-row justify-end space-x-1">
+        <div className="flex flex-row justify-end space-x-2">
           <button
             onClick={props.onClose}
             className="text-gray-700 rounded px-2 py-1 mt-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm transition-all duration-150 ease-in-out"
