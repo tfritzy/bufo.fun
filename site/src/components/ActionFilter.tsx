@@ -12,7 +12,7 @@ export const ActionFilter = (props: ActionFilterProps) => {
 
   return (
     <button
-      className={`px-2 py-1 rounded text-sm border ${colorStyling}`}
+      className={`px-2 m-[1px] py-1 rounded text-sm border ${colorStyling} focus:outline-none focus:ring-2 focus:ring-bufo-300 focus:shadow-sm transition-all duration-150 ease-in-out`}
       onClick={props.onClick}
     >
       <div className="flex flex-row space-x-1">
