@@ -48,6 +48,14 @@ function App() {
     fetchAndProcessBufos("/bufoData.json");
   }, []);
 
+  if (bufoData.length === 0) {
+    return (
+      <div className="w-screen h-screen flex flex-col justify-center items-center">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
       <div className="flex flex-col items-start max-w-3xl m-auto">
