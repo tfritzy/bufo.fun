@@ -51,7 +51,14 @@ function App() {
   if (bufoData.length === 0) {
     return (
       <div className="w-screen h-screen flex flex-col justify-center items-center">
-        Loading...
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-bufo-400">
+          <img
+            src="/bufos/bufo-late-to-the-convo.png"
+            width="32px"
+            height="32px"
+            aria-label="loading"
+          />
+        </div>
       </div>
     );
   }

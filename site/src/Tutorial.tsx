@@ -24,8 +24,7 @@ export const Tutorial = () => {
       />
       <div className="absolute w-48 bottom-12 left-12 bg-white rounded-lg p-2 border shadow-sm">
         <div>
-          <code>Shift+click</code> or press <code>d</code> to quickly download
-          bufos.
+          <code>Shift+click</code> to quickly download specific bufos.
         </div>
         <div className="w-full flex flex-col items-end">
           <button

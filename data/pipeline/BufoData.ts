@@ -4844,7 +4844,7 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "ghost-bufo-of-future-past-is-disappointed-in-your-lack-of-foresight.png",
-    tags: ["disappointed"],
+    tags: ["disbelief", "unsure"],
   },
   {
     name: "gold-bufo.png",
@@ -4884,250 +4884,257 @@ export const BufoMetadata: BufoMetadata[] = [
   },
   {
     name: "kermit-the-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "king-bufo.png",
-    tags: [],
+    tags: ["reference", "fancy"],
   },
   {
     name: "kirbufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "le-bufo.png",
-    tags: [],
+    tags: ["country"],
   },
   {
     name: "looks-good-to-bufo.png",
-    tags: [],
+    tags: ["approve"],
   },
   {
     name: "low-fidelity-bufo-cant-believe-youve-done-this.png",
-    tags: [],
+    tags: ["low-fi", "disbelief", "upset"],
   },
   {
     name: "low-fidelity-bufo-concerned.png",
-    tags: [],
+    tags: ["low-fi", "worry", "unsure"],
   },
   {
     name: "low-fidelity-bufo-excited.png",
-    tags: [],
+    tags: ["low-fi", "happy"],
   },
   {
     name: "low-fidelity-bufo-gets-whiplash.png",
-    tags: [],
+    tags: ["low-fi", "confused"],
   },
   {
     name: "m-bufo.png",
-    tags: [],
+    tags: ["greetings"],
   },
   {
     name: "maam-this-is-a-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "many-bufos.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "mega-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "not-bufo.png",
-    tags: [],
+    tags: ["avoids-you"],
   },
   {
     name: "old-bufo-yells-at-hubble.png",
     tags: [],
+    skip: true,
   },
   {
     name: "old-man-yells-at-bufo.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "old-man-yells-at-old-bufo.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "our-bufo-is-in-another-castle.png",
-    tags: [],
+    tags: ["reference", "mario"],
   },
   {
     name: "paper-bufo.png",
-    tags: [],
+    tags: ["ui"],
   },
   {
     name: "party-bufo.gif",
-    tags: [],
+    tags: ["animated", "happy", "celebration"],
   },
   {
     name: "planet-bufo.gif",
-    tags: [],
+    tags: ["je-ne-sais-quoi", "space", "meta"],
   },
   {
     name: "pour-one-out-for-bufo.gif",
-    tags: [],
+    tags: ["farewell"],
   },
   {
     name: "press-x-to-bufo.png",
-    tags: [],
+    tags: ["reference", "unsure", "meme"],
   },
   {
     name: "princebufo.png",
-    tags: [],
+    tags: ["fancy"],
   },
   {
     name: "radioactive-bufo.gif",
-    tags: [],
+    tags: ["animated", "horror", "cursed"],
   },
   {
     name: "sen\u0303or-bufo.png",
-    tags: [],
+    tags: ["country"],
   },
   {
     name: "shiny-bufo.gif",
-    tags: [],
+    tags: ["animated", "fancy"],
   },
   {
     name: "shut-up-and-take-my-bufo.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "silver-bufo.png",
-    tags: [],
+    tags: ["money"],
   },
   {
     name: "sir-bufo-esquire.png",
-    tags: [],
+    tags: ["fancy"],
   },
   {
     name: "sir-this-is-a-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "smol-bufo-feels-blessed.png",
-    tags: [],
+    tags: ["cute", "happy"],
   },
   {
     name: "so-bufoful.gif",
-    tags: [],
+    tags: ["animated", "happy", "excited"],
   },
   {
     name: "spider-bufo.png",
-    tags: [],
+    tags: ["baby", "reference"],
   },
   {
     name: "super-bufo-bros.png",
-    tags: [],
+    tags: ["reference", "mario"],
   },
   {
     name: "super-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "tabufo.png",
-    tags: [],
+    tags: ["happy", "celebration"],
   },
   {
     name: "teamwork-makes-the-bufo-work.png",
-    tags: [],
+    tags: ["celebration"],
   },
   {
     name: "ted-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "the-bufo-nightmare-before-christmas.png",
-    tags: [],
+    tags: ["holiday", "christmas"],
   },
   {
     name: "the-bufo-we-deserve.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "the-bufos-new-groove.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "the-more-you-bufo.png",
     tags: [],
+    skip: true,
   },
   {
     name: "theres-a-bufo-for-that.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "the_bufo_formerly_know_as_froge.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "this-8-dollar-starbucks-drink-isnt-helping-bufo-feel-any-better.png",
-    tags: [],
+    tags: ["drink", "tired", "blank-stare"],
   },
   {
     name: "this-is-bufo.png",
-    tags: [],
+    tags: ["meme", "fire"],
   },
   {
     name: "this-will-be-bufos-little-secret.gif",
-    tags: [],
+    tags: ["animated"],
   },
   {
     name: "triumphant-bufo.png",
-    tags: [],
+    tags: ["angry"],
   },
   {
     name: "up-and-to-the-bufo.png",
-    tags: [],
+    tags: ["encouragement", "happy"],
   },
   {
     name: "vin-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "vintage-bufo.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "whatever-youre-doing-its-attracting-the-bufos.png",
-    tags: [],
+    tags: ["meta"],
   },
   {
     name: "whenlifegetsatbufo.png",
-    tags: [],
+    tags: ["low-fi", "tired"],
   },
   {
     name: "wreck-it-bufo.png",
-    tags: [],
+    tags: ["reference"],
   },
   {
     name: "wrong-frog.png",
     tags: [],
+    skip: true,
   },
   {
     name: "yay-bufo-1.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "yay-bufo-2.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "yay-bufo-3.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "yay-bufo-4.gif",
     tags: [],
+    skip: true,
   },
   {
     name: "you-have-awoken-the-bufo.png",
-    tags: [],
+    tags: ["fight", "anger"],
   },
   {
     name: "you-have-exquisite-taste-in-bufo.png",
-    tags: [],
+    tags: ["approve", "meta", "core"],
   },
 ];
