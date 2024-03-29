@@ -194,7 +194,7 @@ export const BufoInspector = (props: BufoInspectorProps) => {
             className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
             onClick={async () => {
               const link = document.createElement("a");
-              link.href = "/all-the-bufos/all-the-bufo/" + props.bufo.filename;
+              link.href = "/bufos/" + props.bufo.filename;
               link.download = props.bufo.filename;
               document.body.appendChild(link);
               link.click();

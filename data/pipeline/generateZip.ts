@@ -5,7 +5,7 @@ import sharp from "sharp";
 import fs from "fs";
 
 const outputDirectory = "site/public/bufoData.json";
-const allTheBufoDirectory = "site/public/all-the-bufo/all-the-bufo";
+const allTheBufoDirectory = "site/public/bufos";
 
 const bufoFiles = readdirSync(allTheBufoDirectory);
 
