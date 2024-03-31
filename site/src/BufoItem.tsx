@@ -46,7 +46,6 @@ export const BufoItem = (props: BufoProps) => {
       aria-label={props.bufo.name}
       title={props.bufo.name}
       className="w-full h-full"
-      loading="lazy"
      />
     </div>
    </button>
