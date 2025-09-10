@@ -1,3 +1,4 @@
+import React from "react";
 import { Modal } from "./components/Modal";
 import type { BufoDetails } from "./BufoData";
 import { Tag } from "./components/Tag";
@@ -129,9 +130,15 @@ type BufoInspectorProps = {
  isOpen: boolean;
 };
 
-export const BufoInspector = (
- props: BufoInspectorProps
-) => {
+export const BufoInspector = (props: BufoInspectorProps) => {
+ const [copied, setCopied] = React.useState(false);
+
+ const handleCopy = async () => {
+  await copyBufoToClipboard(props.bufo.filename);
+  setCopied(true);
+  setTimeout(() => setCopied(false), 2000);
+ };
+
  if (!props.bufo) {
   return null;
  }
@@ -170,9 +177,9 @@ export const BufoInspector = (
     <div className="flex flex-row justify-end space-x-2">
      <button
       className="text-gray-700 rounded px-2 py-1 mt-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm transition-all duration-150 ease-in-out"
-      onClick={() => copyBufoToClipboard(props.bufo.filename)}
+      onClick={handleCopy}
      >
-      Copy
+      {copied ? 'Copied!' : 'Copy'}
      </button>
      <button
       className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
