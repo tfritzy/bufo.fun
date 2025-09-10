@@ -5,6 +5,21 @@ import { proverbs } from "./proverbs";
 import { TruncatedText } from "./components/TruncatedText";
 import { downloadBufo } from "./downloadBufo";
 
+const copyBufoToClipboard = async (filename: string) => {
+  try {
+    const response = await fetch(`/bufos/${filename}`);
+    const blob = await response.blob();
+    
+    const clipboardItem = new ClipboardItem({
+      [blob.type]: blob
+    });
+    
+    await navigator.clipboard.write([clipboardItem]);
+  } catch (error) {
+    console.error("Failed to copy image to clipboard:", error);
+  }
+};
+
 const Updoot = (props: { bufo: BufoDetails }) => {
  const updootCount = Math.floor(Math.random() * 10) + 1;
  return (
@@ -38,12 +53,11 @@ const Message = (props: { bufo: BufoDetails }) => {
 
  return (
   <div>
-   <div className="font-semibold mb-2">Preview</div>
-   <div className="flex flex-row space-x-2 bg-gray-50 shadow-sm rounded p-2 border border-gray-200 min-w-80">
+   <div className="flex flex-row space-x-2 bg-gray-50 shadow-sm  p-2 border border-gray-200 min-w-80">
     <img
      src={"/smolBufos/" + props.bufo.filename}
      alt={props.bufo.name}
-     className="rounded-md w-[36px] h-[36px] min-w-[36px] min-h-[36px]"
+     className=" w-[36px] h-[36px] min-w-[36px] min-h-[36px]"
     />
 
     <div className="flex flex-col space-y-1">
@@ -64,7 +78,7 @@ const Message = (props: { bufo: BufoDetails }) => {
       <img
        src={"/smolBufos/" + props.bufo.filename}
        alt={props.bufo.name}
-       className="w-[18px] h-[18px] align-middle mr-10 inline whitespace-nowrap rounded-sm"
+       className="w-[18px] h-[18px] align-middle mr-10 inline whitespace-nowrap"
       />
      </div>
 
@@ -155,10 +169,10 @@ export const BufoInspector = (
 
     <div className="flex flex-row justify-end space-x-2">
      <button
-      onClick={props.onClose}
       className="text-gray-700 rounded px-2 py-1 mt-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm transition-all duration-150 ease-in-out"
+      onClick={() => copyBufoToClipboard(props.bufo.filename)}
      >
-      Close
+      Copy
      </button>
      <button
       className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
