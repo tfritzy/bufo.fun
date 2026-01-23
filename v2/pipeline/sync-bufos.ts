@@ -107,6 +107,13 @@ interface GeminiResult {
   skipReason: string;
 }
 
+interface BatchRequest {
+  filename: string;
+  imagePath: string;
+  id: string;
+  fileType: string;
+}
+
 async function analyzeBufoWithGemini(filename: string, imagePath: string): Promise<GeminiResult> {
   if (!GEMINI_API_KEY) {
     console.log(`  No Gemini API key, using default tags for: ${filename}`);
@@ -136,7 +143,7 @@ Respond ONLY with valid JSON in this exact format:
 If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -156,7 +163,8 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
     );
 
     if (!response.ok) {
-      console.log(`  Gemini API error for ${filename}: ${response.status}`);
+      const errorText = await response.text();
+      console.log(`  Gemini API error for ${filename}: ${response.status} - ${errorText}`);
       return { tags: [], skip: false, skipReason: "" };
     }
 
@@ -190,6 +198,50 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
   }
 
   return { tags: [], skip: false, skipReason: "" };
+}
+
+async function analyzeBufosInBatch(batchRequests: BatchRequest[]): Promise<Map<string, GeminiResult>> {
+  const results = new Map<string, GeminiResult>();
+  
+  if (!GEMINI_API_KEY) {
+    console.log("No Gemini API key, using default tags for all bufos");
+    batchRequests.forEach(req => {
+      results.set(req.filename, { tags: [], skip: false, skipReason: "" });
+    });
+    return results;
+  }
+
+  console.log(`Processing ${batchRequests.length} bufos in batch mode...\n`);
+  
+  // Process in concurrent batches of 10 to respect rate limits
+  const BATCH_SIZE = 10;
+  const DELAY_BETWEEN_BATCHES = 1000; // 1 second between batches
+  
+  for (let i = 0; i < batchRequests.length; i += BATCH_SIZE) {
+    const batch = batchRequests.slice(i, Math.min(i + BATCH_SIZE, batchRequests.length));
+    console.log(`Processing batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(batchRequests.length / BATCH_SIZE)} (${batch.length} bufos)...`);
+    
+    // Process this batch concurrently
+    const promises = batch.map(async (req) => {
+      const result = await analyzeBufoWithGemini(req.filename, req.imagePath);
+      return { filename: req.filename, result };
+    });
+    
+    const batchResults = await Promise.all(promises);
+    
+    // Store results
+    batchResults.forEach(({ filename, result }) => {
+      results.set(filename, result);
+    });
+    
+    // Delay between batches to respect rate limits
+    if (i + BATCH_SIZE < batchRequests.length) {
+      await new Promise(resolve => setTimeout(resolve, DELAY_BETWEEN_BATCHES));
+    }
+  }
+  
+  console.log(`\nBatch processing complete!\n`);
+  return results;
 }
 
 async function generateSmolBufo(id: string, fileType: string): Promise<void> {
@@ -263,49 +315,58 @@ async function main() {
   if (!fs.existsSync(bufosDir)) fs.mkdirSync(bufosDir, { recursive: true });
   if (!fs.existsSync(smolBufosDir)) fs.mkdirSync(smolBufosDir, { recursive: true });
 
-  // Process each new bufo
-  let addedCount = 0;
-  let skippedCount = 0;
-  
-  for (const filename of newBufos) {
-    console.log(`Processing: ${filename}`);
-    
+  // Prepare batch requests
+  const batchRequests: BatchRequest[] = newBufos.map(filename => {
     const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
-    
-    // Parse id and fileType from filename
     const lastDotIndex = filename.lastIndexOf(".");
     const id = filename.substring(0, lastDotIndex);
     const fileType = filename.substring(lastDotIndex + 1);
     
-    // Get analysis from Gemini
-    const result = await analyzeBufoWithGemini(filename, sourcePath);
+    return {
+      filename,
+      imagePath: sourcePath,
+      id,
+      fileType
+    };
+  });
+
+  // Process all bufos in batch
+  const analysisResults = await analyzeBufosInBatch(batchRequests);
+
+  // Process results and copy files
+  let addedCount = 0;
+  let skippedCount = 0;
+  
+  for (const req of batchRequests) {
+    const result = analysisResults.get(req.filename);
+    if (!result) {
+      console.log(`  Warning: No result for ${req.filename}, skipping`);
+      continue;
+    }
+
+    console.log(`Processing: ${req.filename}`);
 
     if (result.skip) {
       // Add to skip list (don't store files)
       skipList.skipped.push({
-        id,
-        fileType,
+        id: req.id,
+        fileType: req.fileType,
         reason: result.skipReason
       });
-      console.log(`  Skipped: ${filename} (reason: ${result.skipReason})`);
+      console.log(`  Skipped: ${req.filename} (reason: ${result.skipReason})`);
       skippedCount++;
     } else {
       // Add to bufo data and copy files
       bufoData.bufos.push({
-        id,
-        fileType,
+        id: req.id,
+        fileType: req.fileType,
         tags: result.tags
       });
 
-      await copyBufoToSite(id, fileType);
-      await generateSmolBufo(id, fileType);
-      console.log(`  Added: ${filename} with tags: [${result.tags.join(", ")}]`);
+      await copyBufoToSite(req.id, req.fileType);
+      await generateSmolBufo(req.id, req.fileType);
+      console.log(`  Added: ${req.filename} with tags: [${result.tags.join(", ")}]`);
       addedCount++;
-    }
-
-    // Rate limiting for Gemini API
-    if (GEMINI_API_KEY) {
-      await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
 
@@ -313,7 +374,7 @@ async function main() {
   saveBufoData(bufoData);
   saveSkipList(skipList);
   
-  console.log(`\nDone! Added ${addedCount} new bufos, skipped ${skippedCount}, processed ${newBufos.length} total.`);
+  console.log(`\nDone! Added ${addedCount} new bufos, skipped ${skippedCount}, processed ${batchRequests.length} total.`);
 }
 
 main().catch(console.error);
