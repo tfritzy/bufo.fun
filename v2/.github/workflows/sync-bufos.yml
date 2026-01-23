@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       test_mode:
-        description: 'Run in test mode (process at most 10 bufos)'
+        description: 'Run in test mode (process at most 20 bufos)'
         required: false
         default: 'true'
         type: choice

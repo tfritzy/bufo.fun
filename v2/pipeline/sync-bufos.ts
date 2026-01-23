@@ -10,7 +10,7 @@ const BUFOS_DIR = "../site/public/bufos";
 const SMOL_BUFOS_DIR = "../site/public/smolBufos";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TEST_MODE = process.env.TEST_MODE === "true";
-const TEST_MODE_LIMIT = 10;
+const TEST_MODE_LIMIT = 20;
 
 // Types
 interface BufoEntry {
@@ -136,7 +136,7 @@ Respond ONLY with valid JSON in this exact format:
 If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -251,9 +251,14 @@ async function main() {
     return;
   }
 
-  // In test mode, limit the number of bufos to process
+  // In test mode, limit the number of bufos to process (randomly selected)
   if (TEST_MODE && newBufos.length > TEST_MODE_LIMIT) {
-    console.log(`Test mode: limiting to ${TEST_MODE_LIMIT} bufos\n`);
+    console.log(`Test mode: randomly selecting ${TEST_MODE_LIMIT} bufos from ${newBufos.length} available\n`);
+    // Shuffle array using Fisher-Yates algorithm
+    for (let i = newBufos.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newBufos[i], newBufos[j]] = [newBufos[j], newBufos[i]];
+    }
     newBufos = newBufos.slice(0, TEST_MODE_LIMIT);
   }
 
