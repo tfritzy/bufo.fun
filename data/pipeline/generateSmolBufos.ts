@@ -1,30 +1,43 @@
 import {
  readdirSync,
  existsSync,
- rmdirSync,
  writeFileSync,
+ readFileSync,
+ mkdirSync,
 } from "fs";
 import sharp from "sharp";
-import { BufoData } from "../../site/src/BufoData";
-import fs from "fs";
+import path from "path";
 
-const allTheBufoDirectory = "site/public/bufos";
-const smolBufoDirectory = "site/public/smolBufos";
-
-const bufoFiles = readdirSync(allTheBufoDirectory);
-
-if (!fs.existsSync(smolBufoDirectory)) {
- fs.mkdirSync(smolBufoDirectory);
+interface BufoEntry {
+  name: string;
+  filename: string;
+  tags: string[];
+  skip: boolean;
 }
 
-for (const bufo of BufoData) {
+interface BufoData {
+  tags: string[];
+  bufos: BufoEntry[];
+}
+
+const allTheBufoDirectory = path.resolve(__dirname, "../../site/public/bufos");
+const smolBufoDirectory = path.resolve(__dirname, "../../site/public/smolBufos");
+const bufoDataPath = path.resolve(__dirname, "../../site/public/bufo-data.json");
+
+// Load bufo data from JSON
+const bufoData: BufoData = JSON.parse(readFileSync(bufoDataPath, "utf-8"));
+const bufos = bufoData.bufos.filter(b => !b.skip);
+
+if (!existsSync(smolBufoDirectory)) {
+ mkdirSync(smolBufoDirectory);
+}
+
+for (const bufo of bufos) {
  if (bufo.filename.endsWith(".gif")) {
   console.log(`Copying ${bufo.filename}`);
   writeFileSync(
    `${smolBufoDirectory}/${bufo.filename}`,
-   fs.readFileSync(
-    `${allTheBufoDirectory}/${bufo.filename}`
-   )
+   readFileSync(`${allTheBufoDirectory}/${bufo.filename}`)
   );
  } else {
   console.log(`Resizing ${bufo.filename}`);
