@@ -14,10 +14,15 @@ function App() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-  loadBufoData().then((data) => {
-   setBufoData(data);
-   setLoading(false);
-  });
+  loadBufoData()
+   .then((data) => {
+    setBufoData(data);
+    setLoading(false);
+   })
+   .catch((error) => {
+    console.error("Failed to load bufo data:", error);
+    setLoading(false);
+   });
  }, []);
 
  if (loading) {

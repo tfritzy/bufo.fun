@@ -145,9 +145,14 @@ Respond ONLY with valid JSON in this exact format:
     // Extract JSON from response
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
-      const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
-      return { tags: validTags, skip: Boolean(parsed.skip) };
+      try {
+        const parsed = JSON.parse(jsonMatch[0]);
+        const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
+        return { tags: validTags, skip: Boolean(parsed.skip) };
+      } catch (parseError) {
+        console.log(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
+        return { tags: [], skip: false };
+      }
     }
   } catch (error) {
     console.log(`  Error tagging ${filename}:`, error);
@@ -165,7 +170,9 @@ async function generateSmolBufo(sourceFile: string, destPath: string): Promise<v
 
   try {
     if (sourceFile.endsWith(".gif")) {
-      // Copy GIFs as-is (sharp doesn't handle animated GIFs well for resizing)
+      // Copy GIFs as-is to preserve animation. Animated GIF resizing would require
+      // additional tools like gifsicle. The tradeoff is inconsistent thumbnail size
+      // for GIFs, but preserving animation is more important for the user experience.
       fs.copyFileSync(sourcePath, smolPath);
     } else {
       await sharp(sourcePath)

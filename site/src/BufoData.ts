@@ -20,6 +20,11 @@ export type BufoDetails = {
 
 export async function loadBufoData(): Promise<BufoDetails[]> {
   const response = await fetch('/bufo-data.json');
+  
+  if (!response.ok) {
+    throw new Error(`Failed to load bufo data: ${response.status} ${response.statusText}`);
+  }
+  
   const data = (await response.json()) as BufoDataJson;
 
   return data.bufos
