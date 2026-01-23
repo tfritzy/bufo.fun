@@ -1,3 +1,39 @@
 {
-  "skipped": []
+  "skipped": [
+    {
+      "id": "bigbufo_0_0",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_0_1",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_0_2",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_0_3",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_1_0",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_1_1",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    },
+    {
+      "id": "bigbufo_1_2",
+      "fileType": "png",
+      "reason": "tiling bufo"
+    }
+  ]
 }
