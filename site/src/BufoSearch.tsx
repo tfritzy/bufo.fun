@@ -2,10 +2,10 @@ import React from "react";
 import { BufoDetails } from "./BufoData";
 import { ActionFilter } from "./components/ActionFilter";
 import type { Tag } from "./BufoData";
+import { BufoData } from "./BufoData";
 
 type BufoSearchProps = {
  setMatchingBufos: (bufos: Set<string>) => void;
- bufoData: BufoDetails[];
 };
 
 const doesBufoMatchFilter = (
@@ -55,15 +55,15 @@ export const BufoSearch = (props: BufoSearchProps) => {
 
  const allTags: Tag[] = React.useMemo(() => {
   const tags = new Set<Tag>();
-  props.bufoData.forEach((bufo) => {
+  BufoData.forEach((bufo) => {
    bufo.tags.forEach((tag) => tags.add(tag));
   });
   return Array.from(tags);
- }, [props.bufoData]);
+ }, []);
 
  React.useEffect(() => {
   const matchingBufos = new Set<string>();
-  props.bufoData.forEach((bufo) => {
+  BufoData.forEach((bufo) => {
    if (doesBufoMatchFilter(bufo, search, selectedTag)) {
     matchingBufos.add(bufo.name);
    }
@@ -71,7 +71,7 @@ export const BufoSearch = (props: BufoSearchProps) => {
 
   props.setMatchingBufos(matchingBufos);
   // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [search, selectedTag, props.bufoData]);
+ }, [search, selectedTag]);
 
  const nonMainTags = React.useMemo(() => {
   let tags = new Set<Tag>(allTags);
@@ -104,7 +104,7 @@ export const BufoSearch = (props: BufoSearchProps) => {
        key={tag}
        name={tag}
        count={
-        props.bufoData.filter((b) => b.tags.has(tag)).length
+        BufoData.filter((b) => b.tags.has(tag)).length
        }
        selected={selectedTag === tag}
        onClick={() => {

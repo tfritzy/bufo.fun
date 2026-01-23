@@ -4,7 +4,16 @@ on:
   schedule:
     # Run daily at 2:00 AM UTC
     - cron: '0 2 * * *'
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Run in test mode (process at most 10 bufos)'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 permissions:
   contents: write
@@ -35,6 +44,7 @@ jobs:
         working-directory: ./data/pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TEST_MODE: ${{ github.event.inputs.test_mode || 'true' }}
         run: npx ts-node sync-bufos.ts
 
       - name: Check for changes

@@ -9,10 +9,9 @@ import sharp from "sharp";
 import path from "path";
 
 interface BufoEntry {
-  name: string;
-  filename: string;
+  id: string;
+  fileType: string;
   tags: string[];
-  skip: boolean;
 }
 
 interface BufoData {
@@ -26,23 +25,24 @@ const bufoDataPath = path.resolve(__dirname, "../../site/public/bufo-data.json")
 
 // Load bufo data from JSON
 const bufoData: BufoData = JSON.parse(readFileSync(bufoDataPath, "utf-8"));
-const bufos = bufoData.bufos.filter(b => !b.skip);
 
 if (!existsSync(smolBufoDirectory)) {
  mkdirSync(smolBufoDirectory);
 }
 
-for (const bufo of bufos) {
- if (bufo.filename.endsWith(".gif")) {
-  console.log(`Copying ${bufo.filename}`);
+for (const bufo of bufoData.bufos) {
+ const filename = `${bufo.id}.${bufo.fileType}`;
+ 
+ if (bufo.fileType === "gif") {
+  console.log(`Copying ${filename}`);
   writeFileSync(
-   `${smolBufoDirectory}/${bufo.filename}`,
-   readFileSync(`${allTheBufoDirectory}/${bufo.filename}`)
+   `${smolBufoDirectory}/${filename}`,
+   readFileSync(`${allTheBufoDirectory}/${filename}`)
   );
  } else {
-  console.log(`Resizing ${bufo.filename}`);
-  sharp(`${allTheBufoDirectory}/${bufo.filename}`)
+  console.log(`Resizing ${filename}`);
+  sharp(`${allTheBufoDirectory}/${filename}`)
    .resize(64, 64)
-   .toFile(`${smolBufoDirectory}/${bufo.filename}`);
+   .toFile(`${smolBufoDirectory}/${filename}`);
  }
 }

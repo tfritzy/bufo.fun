@@ -1,5 +1,13 @@
 {
   "globalHeaders": {
     "cache-control": "public, max-age=604800"
-  }
+  },
+  "routes": [
+    {
+      "route": "/bufo-data.json",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
+    }
+  ]
 }

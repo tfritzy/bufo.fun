@@ -1,12 +1,11 @@
 import React from "react";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
-import { BufoDetails } from "./BufoData";
+import { BufoData } from "./BufoData";
 import { fetchAndZipFiles } from "./downloadBufo";
 
 type BufoListProps = {
  matchingBufos: Set<string>;
- bufoData: BufoDetails[];
 };
 
 export const BufoList = (props: BufoListProps) => {
@@ -17,7 +16,7 @@ export const BufoList = (props: BufoListProps) => {
  const memodBufos: Map<string, JSX.Element> =
   React.useMemo(() => {
    const dBufos = new Map<string, JSX.Element>();
-   props.bufoData.forEach((bufo, index) => {
+   BufoData.forEach((bufo, index) => {
     dBufos.set(
      bufo.name,
      <BufoItem
@@ -29,7 +28,7 @@ export const BufoList = (props: BufoListProps) => {
     );
    });
    return dBufos;
-  }, [props.bufoData]);
+  }, []);
 
  return (
   <div className="w-full">
@@ -43,7 +42,7 @@ export const BufoList = (props: BufoListProps) => {
     <button
      className="font-semibold"
      onClick={() =>
-      fetchAndZipFiles(props.matchingBufos, props.bufoData)
+      fetchAndZipFiles(props.matchingBufos, BufoData)
      }
     >
      <svg
@@ -77,7 +76,7 @@ export const BufoList = (props: BufoListProps) => {
     </button>
    </div>
    <div className="flex flex-row flex-wrap">
-    {props.bufoData.map((bufo, index) => {
+    {BufoData.map((bufo, index) => {
      return (
       <div
        key={index}
@@ -89,7 +88,7 @@ export const BufoList = (props: BufoListProps) => {
     })}
    </div>
    <BufoInspector
-    bufo={props.bufoData[inspectedIndex || 0]}
+    bufo={BufoData[inspectedIndex || 0]}
     onClose={() => setInspectedIndex(null)}
     isOpen={inspectedIndex !== null}
    />

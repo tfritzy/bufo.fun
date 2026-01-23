@@ -5,21 +5,33 @@ import sharp from "sharp";
 // Configuration
 const ALL_THE_BUFO_DIR = "/tmp/all-the-bufo/all-the-bufo";
 const BUFO_DATA_PATH = "../../site/public/bufo-data.json";
+const SKIP_LIST_PATH = "./skip-list.json";
 const BUFOS_DIR = "../../site/public/bufos";
 const SMOL_BUFOS_DIR = "../../site/public/smolBufos";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const TEST_MODE = process.env.TEST_MODE === "true";
+const TEST_MODE_LIMIT = 10;
 
 // Types
 interface BufoEntry {
-  name: string;
-  filename: string;
+  id: string;
+  fileType: string;
   tags: string[];
-  skip: boolean;
 }
 
 interface BufoData {
   tags: string[];
   bufos: BufoEntry[];
+}
+
+interface SkipEntry {
+  id: string;
+  fileType: string;
+  reason: string;
+}
+
+interface SkipList {
+  skipped: SkipEntry[];
 }
 
 // Known tags for consistency
@@ -43,15 +55,6 @@ const KNOWN_TAGS = [
   "thinks-about", "tired", "trapped", "ui", "unsure", "upset", "vegetable", "void", "worry"
 ];
 
-// Pattern for tiling bufos that should be skipped
-const TILING_PATTERNS = [
-  /^bigbufo_\d+_\d+\.(png|gif|jpg|jpeg|webp)$/i,
-];
-
-function isTilingBufo(filename: string): boolean {
-  return TILING_PATTERNS.some(pattern => pattern.test(filename));
-}
-
 function loadBufoData(): BufoData {
   const dataPath = path.resolve(__dirname, BUFO_DATA_PATH);
   if (fs.existsSync(dataPath)) {
@@ -66,8 +69,25 @@ function saveBufoData(data: BufoData): void {
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
 }
 
-function getExistingBufoFilenames(data: BufoData): Set<string> {
-  return new Set(data.bufos.map(b => b.filename));
+function loadSkipList(): SkipList {
+  const skipPath = path.resolve(__dirname, SKIP_LIST_PATH);
+  if (fs.existsSync(skipPath)) {
+    const data = fs.readFileSync(skipPath, "utf-8");
+    return JSON.parse(data);
+  }
+  return { skipped: [] };
+}
+
+function saveSkipList(data: SkipList): void {
+  const skipPath = path.resolve(__dirname, SKIP_LIST_PATH);
+  fs.writeFileSync(skipPath, JSON.stringify(data, null, 2));
+}
+
+function getExistingBufoIds(data: BufoData, skipList: SkipList): Set<string> {
+  const ids = new Set<string>();
+  data.bufos.forEach(b => ids.add(`${b.id}.${b.fileType}`));
+  skipList.skipped.forEach(s => ids.add(`${s.id}.${s.fileType}`));
+  return ids;
 }
 
 function getSourceBufoFiles(): string[] {
@@ -81,10 +101,16 @@ function getSourceBufoFiles(): string[] {
   });
 }
 
-async function tagBufoWithGemini(filename: string, imagePath: string): Promise<{ tags: string[], skip: boolean }> {
+interface GeminiResult {
+  tags: string[];
+  skip: boolean;
+  skipReason: string;
+}
+
+async function analyzeBufoWithGemini(filename: string, imagePath: string): Promise<GeminiResult> {
   if (!GEMINI_API_KEY) {
     console.log(`  No Gemini API key, using default tags for: ${filename}`);
-    return { tags: [], skip: false };
+    return { tags: [], skip: false, skipReason: "" };
   }
 
   try {
@@ -97,19 +123,20 @@ async function tagBufoWithGemini(filename: string, imagePath: string): Promise<{
 
     const prompt = `You are analyzing a "bufo" emoji/sticker image. Bufo is a cute cartoon frog character used in messaging apps.
 
-Based on this image and its filename "${filename}", provide:
-1. A list of appropriate tags from this allowed list: ${KNOWN_TAGS.join(", ")}
-2. Whether this bufo should be skipped (set to true if it's:
-   - A tiling/grid piece (part of a larger image split into tiles)
-   - Not actually a bufo/frog
-   - Inappropriate content
-   - Too low quality to use)
+Based on this image and its filename "${filename}", you need to:
+
+1. Determine if this bufo should be SKIPPED. The ONLY valid reason to skip is:
+   - It is a TILING BUFO: part of a larger image that has been split into tiles/grid pieces (like bigbufo_0_0, bigbufo_1_2, etc.)
+
+2. If NOT skipped, provide appropriate tags from this allowed list: ${KNOWN_TAGS.join(", ")}
 
 Respond ONLY with valid JSON in this exact format:
-{"tags": ["tag1", "tag2"], "skip": false}`;
+{"skip": false, "skipReason": "", "tags": ["tag1", "tag2"]}
+
+If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -130,7 +157,7 @@ Respond ONLY with valid JSON in this exact format:
 
     if (!response.ok) {
       console.log(`  Gemini API error for ${filename}: ${response.status}`);
-      return { tags: [], skip: false };
+      return { tags: [], skip: false, skipReason: "" };
     }
 
     const result = await response.json() as {
@@ -148,31 +175,34 @@ Respond ONLY with valid JSON in this exact format:
       try {
         const parsed = JSON.parse(jsonMatch[0]);
         const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
-        return { tags: validTags, skip: Boolean(parsed.skip) };
+        return { 
+          tags: validTags, 
+          skip: Boolean(parsed.skip),
+          skipReason: parsed.skipReason || ""
+        };
       } catch (parseError) {
         console.log(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
-        return { tags: [], skip: false };
+        return { tags: [], skip: false, skipReason: "" };
       }
     }
   } catch (error) {
-    console.log(`  Error tagging ${filename}:`, error);
+    console.log(`  Error analyzing ${filename}:`, error);
   }
 
-  return { tags: [], skip: false };
+  return { tags: [], skip: false, skipReason: "" };
 }
 
-async function generateSmolBufo(sourceFile: string, destPath: string): Promise<void> {
+async function generateSmolBufo(id: string, fileType: string): Promise<void> {
+  const filename = `${id}.${fileType}`;
   const bufosDir = path.resolve(__dirname, BUFOS_DIR);
   const smolBufosDir = path.resolve(__dirname, SMOL_BUFOS_DIR);
   
-  const sourcePath = path.join(bufosDir, sourceFile);
-  const smolPath = path.join(smolBufosDir, sourceFile);
+  const sourcePath = path.join(bufosDir, filename);
+  const smolPath = path.join(smolBufosDir, filename);
 
   try {
-    if (sourceFile.endsWith(".gif")) {
-      // Copy GIFs as-is to preserve animation. Animated GIF resizing would require
-      // additional tools like gifsicle. The tradeoff is inconsistent thumbnail size
-      // for GIFs, but preserving animation is more important for the user experience.
+    if (fileType === "gif") {
+      // Copy GIFs as-is to preserve animation
       fs.copyFileSync(sourcePath, smolPath);
     } else {
       await sharp(sourcePath)
@@ -180,38 +210,51 @@ async function generateSmolBufo(sourceFile: string, destPath: string): Promise<v
         .toFile(smolPath);
     }
   } catch (error) {
-    console.log(`  Error generating smol bufo for ${sourceFile}:`, error);
+    console.log(`  Error generating smol bufo for ${filename}:`, error);
     // Copy original as fallback
     fs.copyFileSync(sourcePath, smolPath);
   }
 }
 
-async function copyBufoToSite(sourceFile: string): Promise<void> {
-  const sourcePath = path.join(ALL_THE_BUFO_DIR, sourceFile);
-  const destPath = path.join(path.resolve(__dirname, BUFOS_DIR), sourceFile);
+async function copyBufoToSite(id: string, fileType: string): Promise<void> {
+  const filename = `${id}.${fileType}`;
+  const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
+  const destPath = path.join(path.resolve(__dirname, BUFOS_DIR), filename);
   
   fs.copyFileSync(sourcePath, destPath);
 }
 
 async function main() {
   console.log("Starting bufo sync pipeline...\n");
+  
+  if (TEST_MODE) {
+    console.log(`*** TEST MODE ENABLED - Processing at most ${TEST_MODE_LIMIT} new bufos ***\n`);
+  }
 
   // Load existing data
   const bufoData = loadBufoData();
-  const existingFilenames = getExistingBufoFilenames(bufoData);
-  console.log(`Found ${existingFilenames.size} existing bufos in data file`);
+  const skipList = loadSkipList();
+  const existingIds = getExistingBufoIds(bufoData, skipList);
+  console.log(`Found ${bufoData.bufos.length} existing bufos in data file`);
+  console.log(`Found ${skipList.skipped.length} entries in skip list`);
 
   // Get source files
   const sourceFiles = getSourceBufoFiles();
   console.log(`Found ${sourceFiles.length} bufos in all-the-bufo repository\n`);
 
   // Find new bufos
-  const newBufos = sourceFiles.filter(file => !existingFilenames.has(file));
+  let newBufos = sourceFiles.filter(file => !existingIds.has(file));
   console.log(`Found ${newBufos.length} new bufos to process\n`);
 
   if (newBufos.length === 0) {
     console.log("No new bufos to add. Done!");
     return;
+  }
+
+  // In test mode, limit the number of bufos to process
+  if (TEST_MODE && newBufos.length > TEST_MODE_LIMIT) {
+    console.log(`Test mode: limiting to ${TEST_MODE_LIMIT} bufos\n`);
+    newBufos = newBufos.slice(0, TEST_MODE_LIMIT);
   }
 
   // Ensure directories exist
@@ -222,54 +265,55 @@ async function main() {
 
   // Process each new bufo
   let addedCount = 0;
+  let skippedCount = 0;
+  
   for (const filename of newBufos) {
     console.log(`Processing: ${filename}`);
     
     const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
-    const name = filename.replace(/\.[^/.]+$/, ""); // Remove extension
     
-    // Check if it's a tiling bufo (auto-skip)
-    const isTiling = isTilingBufo(filename);
+    // Parse id and fileType from filename
+    const lastDotIndex = filename.lastIndexOf(".");
+    const id = filename.substring(0, lastDotIndex);
+    const fileType = filename.substring(lastDotIndex + 1);
     
-    let tags: string[] = [];
-    let skip = isTiling;
-    
-    if (!isTiling) {
-      // Get tags from Gemini
-      const geminiResult = await tagBufoWithGemini(filename, sourcePath);
-      tags = geminiResult.tags;
-      skip = geminiResult.skip;
+    // Get analysis from Gemini
+    const result = await analyzeBufoWithGemini(filename, sourcePath);
+
+    if (result.skip) {
+      // Add to skip list (don't store files)
+      skipList.skipped.push({
+        id,
+        fileType,
+        reason: result.skipReason
+      });
+      console.log(`  Skipped: ${filename} (reason: ${result.skipReason})`);
+      skippedCount++;
     } else {
-      console.log(`  Auto-skipping tiling bufo: ${filename}`);
-    }
+      // Add to bufo data and copy files
+      bufoData.bufos.push({
+        id,
+        fileType,
+        tags: result.tags
+      });
 
-    // Add to data
-    bufoData.bufos.push({
-      name,
-      filename,
-      tags,
-      skip
-    });
-
-    // Copy files if not skipped
-    if (!skip) {
-      await copyBufoToSite(filename);
-      await generateSmolBufo(filename, smolBufosDir);
-      console.log(`  Added: ${filename} with tags: [${tags.join(", ")}]`);
+      await copyBufoToSite(id, fileType);
+      await generateSmolBufo(id, fileType);
+      console.log(`  Added: ${filename} with tags: [${result.tags.join(", ")}]`);
       addedCount++;
-    } else {
-      console.log(`  Skipped: ${filename}`);
     }
 
     // Rate limiting for Gemini API
-    if (!isTiling && GEMINI_API_KEY) {
+    if (GEMINI_API_KEY) {
       await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
 
   // Save updated data
   saveBufoData(bufoData);
-  console.log(`\nDone! Added ${addedCount} new bufos, processed ${newBufos.length} total.`);
+  saveSkipList(skipList);
+  
+  console.log(`\nDone! Added ${addedCount} new bufos, skipped ${skippedCount}, processed ${newBufos.length} total.`);
 }
 
 main().catch(console.error);
