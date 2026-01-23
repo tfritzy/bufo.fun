@@ -218,7 +218,7 @@ async function analyzeBufosInBatch(batchRequests: BatchRequest[]): Promise<Map<s
   const DELAY_BETWEEN_BATCHES = 1000; // 1 second between batches
   
   for (let i = 0; i < batchRequests.length; i += BATCH_SIZE) {
-    const batch = batchRequests.slice(i, Math.min(i + BATCH_SIZE, batchRequests.length));
+    const batch = batchRequests.slice(i, i + BATCH_SIZE);
     console.log(`Processing batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(batchRequests.length / BATCH_SIZE)} (${batch.length} bufos)...`);
     
     // Process this batch concurrently
