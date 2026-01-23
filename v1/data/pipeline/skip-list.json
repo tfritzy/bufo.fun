@@ -1,0 +1,579 @@
+{
+  "skipped": [
+    {
+      "id": "all-the-bufo",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "angry-karen-bufo-would-like-to-speak-with-your-manager",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_0_0",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_0_1",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_0_2",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_0_3",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_1_0",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_1_1",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_1_2",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_1_3",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_2_0",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_2_1",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_2_2",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_2_3",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_3_0",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_3_1",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_3_2",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bigbufo_3_3",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "blockheads-bufo",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-adidas",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-angry",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-apple",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arabicus",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arrr",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arrrrrr",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arrrrrrr",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arrrrrrrrr",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-arrrrrrrrrrrrrrr",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-backpat",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bee-leaf",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bee-sad",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bee",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bigfoot",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bill-pay",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bird",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-block",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-blogging",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-boiii",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-bouge",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-breaks-tech-bros-heart",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-breaks-up-with-you",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-brick",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-churns-the-butter",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-crumbs",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-cubo",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-cupcake",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-dancing",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-ditto",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-elite",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-entrance",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-ethereum",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-give-money",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-give-pack-of-ice",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-give",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-a-magic-number",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-an-idea",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-approval",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-databricks",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-you-a-hotdog",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-gives-you-some-extra-brain",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-has-a-question",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-investigates",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-irl",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-is-flying-and-is-the-plane",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-jammies",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-jomo",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-juicebox",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-juicy",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-knuckles",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-leads-the-way-to-better-docs",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-legal-entities",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-lol-cry",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-looks-a-little-closer",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-lunch",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-lurk-delurk",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-lurk",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-matrix",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-mittens",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-morning-sun",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-nosy",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-not-bad-by-dalle",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-of-liberty",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-offers-a-taco",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-parrot",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-peaky-blinder",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-ping",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-pirate",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-pizza-hut",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-placeholder",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-pops-out-for-a-quick-bite-to-eat",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-rainbow",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-reverse",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-roll-safe",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-scientist",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-sends-a-demand-signal",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-sigh",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-simba",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-stole-caribufos-antler",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-stop",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-sweep",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-trailhead",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-travels",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-unicorn",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufo-vibe-dance",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-wants-a-refund",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-wine",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "bufo-yeehaw",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "bufonomical",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "old-bufo-yells-at-hubble",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "the-more-you-bufo",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "wrong-frog",
+      "fileType": "png",
+      "reason": ""
+    },
+    {
+      "id": "yay-bufo-1",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "yay-bufo-2",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "yay-bufo-3",
+      "fileType": "gif",
+      "reason": ""
+    },
+    {
+      "id": "yay-bufo-4",
+      "fileType": "gif",
+      "reason": ""
+    }
+  ]
+}
