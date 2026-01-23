@@ -11,6 +11,9 @@
 # production
 /build
 
+# Active src folder (copied from src-v1 or src-v2)
+/src
+
 # misc
 .DS_Store
 .env.local
