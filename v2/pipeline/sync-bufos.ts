@@ -133,13 +133,18 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
     let imageBuffer: Buffer;
     let mimeType: string;
 
-    if (imagePath.endsWith(".gif")) {
-      const tempPngPath = imagePath.replace(/\.gif$/, "_temp.png");
-      await sharp(imagePath)
-        .png()
-        .toFile(tempPngPath);
-      imageBuffer = fs.readFileSync(tempPngPath);
-      fs.unlinkSync(tempPngPath);
+    if (imagePath.toLowerCase().endsWith(".gif")) {
+      const tempPngPath = imagePath.replace(/\.gif$/i, "_temp.png");
+      try {
+        await sharp(imagePath)
+          .png()
+          .toFile(tempPngPath);
+        imageBuffer = fs.readFileSync(tempPngPath);
+      } finally {
+        if (fs.existsSync(tempPngPath)) {
+          fs.unlinkSync(tempPngPath);
+        }
+      }
       mimeType = "image/png";
     } else {
       imageBuffer = fs.readFileSync(imagePath);
