@@ -1,5 +1,9 @@
 import { Bufo } from "./types";
 
+export function isGif(bufo: Bufo): boolean {
+  return bufo.fileType.toLowerCase() === "gif";
+}
+
 export function downloadBufo(bufo: Bufo): void {
   const link = document.createElement("a");
   link.href = `/bufos/${bufo.filename}`;
