@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { HomePage } from "./pages/HomePage";
-import { BuilderPage } from "./pages/BuilderPage";
+import { BuilderListPage } from "./pages/BuilderListPage";
+import { BuilderEditorPage } from "./pages/BuilderEditorPage";
 import { AboutPage } from "./pages/AboutPage";
 
 export function App() {
@@ -10,7 +11,8 @@ export function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/builder" element={<BuilderPage />} />
+        <Route path="/builder" element={<BuilderListPage />} />
+        <Route path="/builder/:id" element={<BuilderEditorPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </div>
