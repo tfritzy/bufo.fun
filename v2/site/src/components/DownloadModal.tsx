@@ -13,7 +13,6 @@ interface DownloadModalProps {
 
 const CASE_OPTIONS: { value: CaseStyle; label: string; example: string }[] = [
   { value: "kebab-case", label: "kebab-case", example: "bufo-happy" },
-  { value: "camelCase", label: "camelCase", example: "bufoHappy" },
   { value: "TitleCase", label: "TitleCase", example: "BufoHappy" },
   { value: "snake_case", label: "snake_case", example: "bufo_happy" },
 ];
@@ -148,7 +147,7 @@ export function DownloadModal({ bufos, isOpen, onClose }: DownloadModalProps) {
         <button
           onClick={handleDownload}
           disabled={isDownloading || bufos.length === 0}
-          className="w-full bg-bufo-400 text-white rounded-md px-4 py-2 font-medium border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+          className="btn-primary w-full px-4 py-2 font-medium flex items-center justify-center space-x-2"
         >
           {isDownloading ? (
             <>

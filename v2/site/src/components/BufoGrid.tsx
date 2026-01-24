@@ -21,7 +21,7 @@ export function BufoGrid({ bufos }: BufoGridProps) {
         <button
           onClick={() => setShowDownloadModal(true)}
           disabled={bufos.length === 0}
-          className="mr-2 px-3 py-1 bg-bufo-400 text-white text-sm rounded-md border border-bufo-500 hover:bg-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+          className="btn-primary mr-2 px-3 py-1 text-sm flex items-center space-x-1"
         >
           <svg
             className="w-4 h-4"
