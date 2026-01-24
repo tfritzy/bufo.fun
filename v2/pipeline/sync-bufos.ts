@@ -167,7 +167,7 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
     const uploadResponse = await fetch(uploadUrl, {
       method: "POST",
       headers: {
-        "Content-Length": imageBuffer.length.toString(),
+        "Content-Type": "application/octet-stream",
         "X-Goog-Upload-Offset": "0",
         "X-Goog-Upload-Command": "upload, finalize"
       },
