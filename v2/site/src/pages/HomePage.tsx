@@ -4,6 +4,7 @@ import { SearchBar } from "../components/SearchBar";
 import { BufoGrid } from "../components/BufoGrid";
 import { Tutorial } from "../components/Tutorial";
 import { CornerBufo } from "../components/CornerBufo";
+import { SEO } from "../components/SEO";
 
 export function HomePage() {
   const { bufos, allTags, loading, error } = useBufos();
@@ -34,6 +35,12 @@ export function HomePage() {
 
   return (
     <>
+      <SEO
+        title="Home - Bufo Emoji Repository"
+        description="A repository of bufo emojis, that can be exported to add to your discord and slack servers. Bufo is a charismatic frog, that is sometimes referred to as 'froge'."
+        keywords="bufo, frog, emoji, discord, slack, bufo.fun, froge, emojis, repository"
+        url="https://bufo.fun/"
+      />
       <div className="container mx-auto">
         <div className="mx-2 mb-2 mt-4">
           <SearchBar
