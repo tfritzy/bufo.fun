@@ -158,7 +158,7 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
       return { tags: [], skip: false, skipReason: "" };
     }
 
-    const uploadUrl = metadataResponse.headers.get("X-Goog-Upload-URL");
+    const uploadUrl = metadataResponse.headers.get("x-goog-upload-url");
     if (!uploadUrl) {
       console.error(`  No upload URL returned for ${filename}`);
       return { tags: [], skip: false, skipReason: "" };
