@@ -136,7 +136,7 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
                      imagePath.toLowerCase().endsWith(".webp") ? "image/webp" : "image/jpeg";
 
     const uploadResponse = await fetch(
-      `https://generativelanguage.googleapis.com/upload/v1beta/files?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/files?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
