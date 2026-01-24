@@ -34,7 +34,7 @@ export function HomePage() {
 
   return (
     <>
-      <div className="flex flex-col items-start max-w-4xl m-auto">
+      <div className="container mx-auto">
         <div className="mx-2 mb-2 mt-4">
           <SearchBar
             searchTerm={searchTerm}
