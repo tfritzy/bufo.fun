@@ -10,7 +10,7 @@ const BUFOS_DIR = "../site/public/bufos";
 const SMOL_BUFOS_DIR = "../site/public/smolBufos";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TEST_MODE = process.env.TEST_MODE === "true";
-const TEST_MODE_LIMIT = 10;
+const TEST_MODE_LIMIT = 20;
 
 // Types
 interface BufoEntry {
@@ -251,10 +251,21 @@ async function main() {
     return;
   }
 
-  // In test mode, limit the number of bufos to process
   if (TEST_MODE && newBufos.length > TEST_MODE_LIMIT) {
-    console.log(`Test mode: limiting to ${TEST_MODE_LIMIT} bufos\n`);
+    console.log(`Test mode: randomly selecting ${TEST_MODE_LIMIT} bufos from ${newBufos.length} available\n`);
+    
+    for (let i = newBufos.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newBufos[i], newBufos[j]] = [newBufos[j], newBufos[i]];
+    }
+    
     newBufos = newBufos.slice(0, TEST_MODE_LIMIT);
+    
+    console.log("Selected bufos for processing:");
+    newBufos.forEach((file, idx) => {
+      console.log(`  ${idx + 1}. ${file}`);
+    });
+    console.log("");
   }
 
   // Ensure directories exist
