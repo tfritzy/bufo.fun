@@ -5,7 +5,7 @@ export function AboutPage() {
     <>
       <SEO
         title="About - The History of Bufo"
-        description="Learn about the history and origin of Bufo, the charismatic frog character that has captured hearts across the internet. Discover the story behind the beloved bufo meme."
+        description="Learn about the history and origin of Bufo, a frog character. Information about the bufo meme."
         keywords="bufo, about, frog, history, origin, meme, character"
         url="https://bufo.fun/about"
       />
@@ -17,10 +17,10 @@ export function AboutPage() {
           </p>
           <div className="bg-white rounded-lg shadow-lg p-12 border-2 border-bufo-500">
             <p className="text-gray-500 text-lg mb-4">
-              Bufo is a charismatic frog character that has captured hearts across the internet.
+              Bufo is a frog character.
             </p>
             <p className="text-gray-500 text-lg">
-              Sometimes affectionately referred to as 'froge', Bufo has become a beloved figure in online communities.
+              Sometimes referred to as 'froge'.
             </p>
           </div>
         </div>
