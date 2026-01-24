@@ -130,12 +130,24 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
   }
 
   try {
-    // Read the image and convert to base64
-    const imageBuffer = fs.readFileSync(imagePath);
+    let imageBuffer: Buffer;
+    let mimeType: string;
+
+    if (imagePath.endsWith(".gif")) {
+      const tempPngPath = imagePath.replace(/\.gif$/, "_temp.png");
+      await sharp(imagePath)
+        .png()
+        .toFile(tempPngPath);
+      imageBuffer = fs.readFileSync(tempPngPath);
+      fs.unlinkSync(tempPngPath);
+      mimeType = "image/png";
+    } else {
+      imageBuffer = fs.readFileSync(imagePath);
+      mimeType = imagePath.endsWith(".png") ? "image/png" :
+                 imagePath.endsWith(".webp") ? "image/webp" : "image/jpeg";
+    }
+
     const base64Image = imageBuffer.toString("base64");
-    const mimeType = imagePath.endsWith(".gif") ? "image/gif" : 
-                     imagePath.endsWith(".png") ? "image/png" :
-                     imagePath.endsWith(".webp") ? "image/webp" : "image/jpeg";
 
     const prompt = `You are analyzing a "bufo" emoji/sticker image. Bufo is a cute cartoon frog character used in messaging apps.
 
@@ -152,7 +164,7 @@ Respond ONLY with valid JSON in this exact format:
 If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -165,7 +177,7 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
           }],
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 256,
+            maxOutputTokens: 1024,
           }
         })
       }
