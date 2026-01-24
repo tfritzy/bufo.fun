@@ -290,7 +290,6 @@ async function main() {
       console.log(`  Skipped: ${filename} (reason: ${result.skipReason})`);
       skippedCount++;
     } else {
-      // Add to bufo data and copy files
       bufoData.bufos.push({
         id,
         fileType,
