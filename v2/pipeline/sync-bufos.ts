@@ -130,29 +130,40 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
   }
 
   try {
-    let imageBuffer: Buffer;
-    let mimeType: string;
+    const imageBuffer = fs.readFileSync(imagePath);
+    const mimeType = imagePath.toLowerCase().endsWith(".gif") ? "image/gif" : 
+                     imagePath.toLowerCase().endsWith(".png") ? "image/png" :
+                     imagePath.toLowerCase().endsWith(".webp") ? "image/webp" : "image/jpeg";
 
-    if (imagePath.toLowerCase().endsWith(".gif")) {
-      const tempPngPath = imagePath.replace(/\.gif$/i, "_temp.png");
-      try {
-        await sharp(imagePath)
-          .png()
-          .toFile(tempPngPath);
-        imageBuffer = fs.readFileSync(tempPngPath);
-      } finally {
-        if (fs.existsSync(tempPngPath)) {
-          fs.unlinkSync(tempPngPath);
-        }
+    const uploadResponse = await fetch(
+      `https://generativelanguage.googleapis.com/upload/v1beta/files?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "X-Goog-Upload-Protocol": "resumable",
+          "X-Goog-Upload-Command": "start, upload, finalize",
+          "X-Goog-Upload-Header-Content-Type": mimeType,
+          "Content-Type": "application/octet-stream"
+        },
+        body: imageBuffer
       }
-      mimeType = "image/png";
-    } else {
-      imageBuffer = fs.readFileSync(imagePath);
-      mimeType = imagePath.endsWith(".png") ? "image/png" :
-                 imagePath.endsWith(".webp") ? "image/webp" : "image/jpeg";
+    );
+
+    if (!uploadResponse.ok) {
+      const errorBody = await uploadResponse.text();
+      console.error(`  File upload error for ${filename}:`);
+      console.error(`  Status: ${uploadResponse.status} ${uploadResponse.statusText}`);
+      console.error(`  Response body: ${errorBody}`);
+      return { tags: [], skip: false, skipReason: "" };
     }
 
-    const base64Image = imageBuffer.toString("base64");
+    const uploadResult = await uploadResponse.json() as { file?: { uri?: string } };
+    const fileUri = uploadResult.file?.uri;
+
+    if (!fileUri) {
+      console.error(`  No file URI returned for ${filename}`);
+      return { tags: [], skip: false, skipReason: "" };
+    }
 
     const prompt = `You are analyzing a "bufo" emoji/sticker image. Bufo is a cute cartoon frog character used in messaging apps.
 
@@ -177,7 +188,7 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
           contents: [{
             parts: [
               { text: prompt },
-              { inline_data: { mime_type: mimeType, data: base64Image } }
+              { file_data: { mime_type: mimeType, file_uri: fileUri } }
             ]
           }],
           generationConfig: {
