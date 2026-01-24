@@ -34,7 +34,6 @@ const getHashCode = (str: string) => {
 
 export const Tag = (props: TagProps) => {
   const tagIndex = getHashCode(props.name) % colorClasses.length;
-  console.log(colorClasses, tagIndex, colorClasses[tagIndex]);
   
   if (props.onClick) {
     return (
@@ -48,7 +47,7 @@ export const Tag = (props: TagProps) => {
   }
   
   return (
-    <span className={`${colorClasses[tagIndex]} + px-1 rounded-sm font-mono`}>
+    <span className={`${colorClasses[tagIndex]} px-1 rounded-sm font-mono`}>
       {props.name}
     </span>
   );
