@@ -68,7 +68,6 @@ function saveBufoData(data: BufoData): void {
   const dataPath = path.resolve(__dirname, BUFO_DATA_PATH);
   try {
     fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-    console.log(`Successfully saved bufo data to ${dataPath}`);
   } catch (error) {
     console.error(`Error saving bufo data to ${dataPath}:`, error);
     if (error instanceof Error) {
@@ -91,7 +90,6 @@ function saveSkipList(data: SkipList): void {
   const skipPath = path.resolve(__dirname, SKIP_LIST_PATH);
   try {
     fs.writeFileSync(skipPath, JSON.stringify(data, null, 2));
-    console.log(`Successfully saved skip list to ${skipPath}`);
   } catch (error) {
     console.error(`Error saving skip list to ${skipPath}:`, error);
     if (error instanceof Error) {
@@ -192,7 +190,6 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
     
     if (!text) {
       console.error(`  Gemini returned empty response for ${filename}`);
-      console.error(`  Full result:`, JSON.stringify(result, null, 2));
       return { tags: [], skip: false, skipReason: "" };
     }
     
@@ -263,7 +260,6 @@ async function generateSmolBufo(id: string, fileType: string): Promise<void> {
     }
     try {
       fs.copyFileSync(sourcePath, smolPath);
-      console.log(`  Copied original ${filename} as fallback for smol bufo`);
     } catch (fallbackError) {
       console.error(`  Failed to copy original as fallback for ${filename}:`, fallbackError);
       throw fallbackError;
