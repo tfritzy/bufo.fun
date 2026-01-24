@@ -37,6 +37,26 @@ export function BuilderEditorPage() {
     }
   }, [template]);
 
+  const getDefaultPosition = (tmpl: typeof template): LayerPosition => ({
+    x: tmpl ? tmpl.canvasWidth / 4 : 0,
+    y: tmpl ? tmpl.canvasHeight / 4 : 0,
+    width: tmpl ? tmpl.canvasWidth / 2 : 150,
+    height: tmpl ? tmpl.canvasHeight / 2 : 150,
+  });
+
+  const layerHasNoPosition = (layer: LayerState): boolean =>
+    layer.position.width === 0 && layer.position.height === 0;
+
+  const updateLayerWithImage = (
+    layer: LayerState,
+    imageData: string
+  ): LayerState => {
+    if (layerHasNoPosition(layer) && template) {
+      return { ...layer, imageData, position: getDefaultPosition(template) };
+    }
+    return { ...layer, imageData };
+  };
+
   const handlePaste = useCallback(
     (e: ClipboardEvent) => {
       const items = e.clipboardData?.items;
@@ -50,23 +70,11 @@ export function BuilderEditorPage() {
             reader.onload = (event) => {
               const imageData = event.target?.result as string;
               setLayers((prev) =>
-                prev.map((layer, idx) => {
-                  if (idx !== activeLayerIndex) return layer;
-                  const hasNoPosition = layer.position.width === 0 && layer.position.height === 0;
-                  if (hasNoPosition && template) {
-                    return {
-                      ...layer,
-                      imageData,
-                      position: {
-                        x: template.canvasWidth / 4,
-                        y: template.canvasHeight / 4,
-                        width: template.canvasWidth / 2,
-                        height: template.canvasHeight / 2,
-                      },
-                    };
-                  }
-                  return { ...layer, imageData };
-                })
+                prev.map((layer, idx) =>
+                  idx === activeLayerIndex
+                    ? updateLayerWithImage(layer, imageData)
+                    : layer
+                )
               );
             };
             reader.readAsDataURL(file);
@@ -92,23 +100,9 @@ export function BuilderEditorPage() {
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
       setLayers((prev) =>
-        prev.map((layer, idx) => {
-          if (idx !== layerIndex) return layer;
-          const hasNoPosition = layer.position.width === 0 && layer.position.height === 0;
-          if (hasNoPosition && template) {
-            return {
-              ...layer,
-              imageData,
-              position: {
-                x: template.canvasWidth / 4,
-                y: template.canvasHeight / 4,
-                width: template.canvasWidth / 2,
-                height: template.canvasHeight / 2,
-              },
-            };
-          }
-          return { ...layer, imageData };
-        })
+        prev.map((layer, idx) =>
+          idx === layerIndex ? updateLayerWithImage(layer, imageData) : layer
+        )
       );
     };
     reader.readAsDataURL(file);
@@ -259,12 +253,16 @@ export function BuilderEditorPage() {
     setShowDownloadModal(true);
   };
 
+  const triggerDownload = (url: string, filename: string) => {
+    const link = document.createElement("a");
+    link.download = filename;
+    link.href = url;
+    link.click();
+  };
+
   const handleDownload = () => {
     if (!previewUrl) return;
-    const link = document.createElement("a");
-    link.download = `${bufoName || "bufo"}.png`;
-    link.href = previewUrl;
-    link.click();
+    triggerDownload(previewUrl, `${bufoName || "bufo"}.png`);
   };
 
   const handleCopyToClipboard = async () => {
@@ -275,11 +273,8 @@ export function BuilderEditorPage() {
       await navigator.clipboard.write([
         new ClipboardItem({ "image/png": blob }),
       ]);
-    } catch {
-      const link = document.createElement("a");
-      link.download = `${bufoName || "bufo"}.png`;
-      link.href = previewUrl;
-      link.click();
+    } catch (err) {
+      triggerDownload(previewUrl, `${bufoName || "bufo"}.png`);
     }
   };
 
