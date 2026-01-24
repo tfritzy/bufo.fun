@@ -35,6 +35,14 @@ export const builderTemplates: BuilderTemplate[] = [
     canvasHeight: 500,
     layers: [
       {
+        id: "base",
+        name: "Base Bufo",
+        file: "/bufos/bufo-blank-stare.png",
+        position: { x: 50, y: 50, width: 400, height: 400 },
+        locked: true,
+        visible: true,
+      },
+      {
         id: "offering",
         name: "Your Image",
         file: "",
@@ -42,8 +50,16 @@ export const builderTemplates: BuilderTemplate[] = [
         locked: false,
         visible: true,
       },
+      {
+        id: "arm",
+        name: "Bufo Arm",
+        file: "/bufos/bufo-offers-a-cookie.png",
+        position: { x: 150, y: 200, width: 200, height: 200 },
+        locked: true,
+        visible: true,
+      },
     ],
-    activeLayerIndex: 0,
+    activeLayerIndex: 1,
   },
   {
     id: "bufo-takes",
@@ -54,6 +70,14 @@ export const builderTemplates: BuilderTemplate[] = [
     canvasHeight: 500,
     layers: [
       {
+        id: "base",
+        name: "Base Bufo",
+        file: "/bufos/bufo-blank-stare.png",
+        position: { x: 50, y: 50, width: 400, height: 400 },
+        locked: true,
+        visible: true,
+      },
+      {
         id: "item",
         name: "Your Image",
         file: "",
@@ -61,8 +85,16 @@ export const builderTemplates: BuilderTemplate[] = [
         locked: false,
         visible: true,
       },
+      {
+        id: "arm",
+        name: "Bufo Arm",
+        file: "/bufos/bufo-takes-your-boba.png",
+        position: { x: 120, y: 150, width: 250, height: 250 },
+        locked: true,
+        visible: true,
+      },
     ],
-    activeLayerIndex: 0,
+    activeLayerIndex: 1,
   },
 ];
 
