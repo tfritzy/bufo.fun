@@ -141,7 +141,7 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
         method: "POST",
         headers: {
           "X-Goog-Upload-Protocol": "resumable",
-          "X-Goog-Upload-Command": "start, upload, finalize",
+          "X-Goog-Upload-Command": "upload, finalize",
           "X-Goog-Upload-Header-Content-Type": mimeType,
           "Content-Type": "application/octet-stream"
         },
