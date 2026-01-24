@@ -14,7 +14,7 @@ The active system with automated daily syncing and AI-powered tagging. See [v2/R
 
 **Key Features:**
 - Daily automated sync from [all-the-bufo](https://github.com/knobiknows/all-the-bufo)
-- AI-powered tagging using Gemini 2.0 Flash Experimental
+- AI-powered tagging using Gemini 3 Flash Preview
 - JSON-based data format for fast loading
 - Searchable web interface with tag filtering
 

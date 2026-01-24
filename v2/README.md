@@ -15,7 +15,7 @@ The pipeline runs daily via GitHub Actions (workflow at `/.github/workflows/sync
 1. Clones the all-the-bufo repository
 2. Compares against existing bufos in `site/public/bufo-data.json`
 3. For new bufos:
-   - Uses **Gemini 2.0 Flash Experimental** (`gemini-2.0-flash-exp`) to analyze the image and filename
+   - Uses **Gemini 3 Flash Preview** (`gemini-3-flash-preview`) to analyze the image and filename
    - Determines if it should be skipped (e.g., tiling bufos like bigbufo_0_0.png)
    - Assigns appropriate tags from the known tag list
    - Creates a small version for thumbnails
@@ -51,7 +51,7 @@ The site will open at http://localhost:3000
 
 ## Model Information
 
-The pipeline uses **Gemini 2.0 Flash Experimental** (`gemini-2.0-flash-exp`), which is excellent for:
+The pipeline uses **Gemini 3 Flash Preview** (`gemini-3-flash-preview`), which is excellent for:
 - Image analysis
 - Understanding context from filenames
 - Consistent tag generation

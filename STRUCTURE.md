@@ -10,7 +10,7 @@ Exact copy of the original repository state before the v2 migration.
 ## v2/ - New System
 New pipeline and site with JSON-based data loading:
 - `site/` - React app that loads bufos from JSON
-- `pipeline/` - Automated sync pipeline using Gemini 2.0 Flash Experimental (gemini-exp-1206)
+- `pipeline/` - Automated sync pipeline using Gemini 3 Flash Preview (gemini-3-flash-preview)
 
 ## Workflows
 GitHub Actions workflows are stored at the root level in `.github/workflows/`:

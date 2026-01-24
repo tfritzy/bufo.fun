@@ -136,7 +136,7 @@ Respond ONLY with valid JSON in this exact format:
 If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
