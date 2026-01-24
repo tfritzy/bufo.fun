@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Header() {
   return (
     <nav className="w-full px-6 py-4 flex flex-col md:flex-row justify-between items-center bg-gray-100">
@@ -8,24 +10,24 @@ export function Header() {
         <p className="text-gray-500 text-sm font-medium">Quite a few bufos</p>
       </div>
       <div className="flex items-center space-x-6">
-        <a
+        <Link
           className="text-gray-600 hover:text-bufo-500 font-medium transition-colors"
-          href="/"
+          to="/"
         >
           Home
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-gray-600 hover:text-bufo-500 font-medium transition-colors"
-          href="/builder"
+          to="/builder"
         >
           Builder
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-gray-600 hover:text-bufo-500 font-medium transition-colors"
-          href="/about"
+          to="/about"
         >
           About
-        </a>
+        </Link>
         <a
           className="flex items-center gap-2 text-gray-600 hover:text-bufo-500 font-medium transition-colors"
           href="https://github.com/tfritzy/bufo.fun"
