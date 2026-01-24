@@ -80,12 +80,26 @@ export function SearchBar({
             onClick={() => onTagSelect(tag === selectedTag ? null : tag)}
           />
         ))}
-        <button
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-300 rounded shadow-sm hover:border-gray-400 transition-colors text-sm text-gray-500"
-          onClick={() => {}}
+        <select
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-300 rounded shadow-sm hover:border-gray-400 transition-colors text-sm text-gray-500 cursor-pointer appearance-none"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const tag = e.target.value;
+            if (tag) {
+              onTagSelect(tag);
+            }
+            e.target.value = "";
+          }}
+          value=""
         >
-          <span className="font-normal">+{nonMainTags.length} more tags</span>
-        </button>
+          <option value="" disabled>
+            +{nonMainTags.length} more tags
+          </option>
+          {nonMainTags.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag} ({tagCounts.get(tag) || 0})
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
