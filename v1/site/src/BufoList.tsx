@@ -6,6 +6,7 @@ import { fetchAndZipFiles } from "./downloadBufo";
 
 type BufoListProps = {
  matchingBufos: Set<string>;
+ onTagClick: (tagName: string) => void;
 };
 
 export const BufoList = (props: BufoListProps) => {
@@ -91,6 +92,7 @@ export const BufoList = (props: BufoListProps) => {
     bufo={BufoData[inspectedIndex || 0]}
     onClose={() => setInspectedIndex(null)}
     isOpen={inspectedIndex !== null}
+    onTagClick={props.onTagClick}
    />
   </div>
  );

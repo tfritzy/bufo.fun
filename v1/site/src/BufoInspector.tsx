@@ -90,7 +90,7 @@ const Message = (props: { bufo: BufoDetails }) => {
  );
 };
 
-const DetailsSection = (props: { bufo: BufoDetails }) => {
+const DetailsSection = (props: { bufo: BufoDetails; onTagClick: (tagName: string) => void }) => {
  return (
   <div className="text-sm">
    <div className="font-semibold mb-1">Details</div>
@@ -109,7 +109,7 @@ const DetailsSection = (props: { bufo: BufoDetails }) => {
         <div className="flex flex-row flex-wrap">
          {Array.from(props.bufo.tags).map((tagName) => (
           <div key={tagName} className="m-1">
-           <Tag name={tagName} />
+           <Tag name={tagName} onClick={() => props.onTagClick(tagName)} />
           </div>
          ))}
         </div>
@@ -128,6 +128,7 @@ type BufoInspectorProps = {
  bufo: BufoDetails;
  onClose: () => void;
  isOpen: boolean;
+ onTagClick: (tagName: string) => void;
 };
 
 export const BufoInspector = (props: BufoInspectorProps) => {
@@ -172,7 +173,7 @@ export const BufoInspector = (props: BufoInspectorProps) => {
 
     <Message bufo={props.bufo} />
 
-    <DetailsSection bufo={props.bufo} />
+    <DetailsSection bufo={props.bufo} onTagClick={props.onTagClick} />
 
     <div className="flex flex-row justify-end space-x-2">
      <button

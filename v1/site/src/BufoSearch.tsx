@@ -6,6 +6,8 @@ import { BufoData } from "./BufoData";
 
 type BufoSearchProps = {
  setMatchingBufos: (bufos: Set<string>) => void;
+ selectedTag: Tag | null | undefined;
+ setSelectedTag: (tag: Tag | null) => void;
 };
 
 const doesBufoMatchFilter = (
@@ -50,8 +52,6 @@ const mainTags: Tag[] = [
 
 export const BufoSearch = (props: BufoSearchProps) => {
  const [search, setSearch] = React.useState("");
- const [selectedTag, setSelectedTag] =
-  React.useState<Tag | null>();
 
  const allTags: Tag[] = React.useMemo(() => {
   const tags = new Set<Tag>();
@@ -64,14 +64,14 @@ export const BufoSearch = (props: BufoSearchProps) => {
  React.useEffect(() => {
   const matchingBufos = new Set<string>();
   BufoData.forEach((bufo) => {
-   if (doesBufoMatchFilter(bufo, search, selectedTag)) {
+   if (doesBufoMatchFilter(bufo, search, props.selectedTag)) {
     matchingBufos.add(bufo.name);
    }
   });
 
   props.setMatchingBufos(matchingBufos);
   // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [search, selectedTag]);
+ }, [search, props.selectedTag]);
 
  const nonMainTags = React.useMemo(() => {
   let tags = new Set<Tag>(allTags);
@@ -81,11 +81,11 @@ export const BufoSearch = (props: BufoSearchProps) => {
 
  const visibleTags = React.useMemo(() => {
   const visibleTags = new Set<Tag>(mainTags);
-  if (selectedTag) {
-   visibleTags.add(selectedTag);
+  if (props.selectedTag) {
+   visibleTags.add(props.selectedTag);
   }
   return Array.from(visibleTags);
- }, [selectedTag]);
+ }, [props.selectedTag]);
 
  return (
   <div className="flex flex-col space-y-2 mb-4">
@@ -106,9 +106,9 @@ export const BufoSearch = (props: BufoSearchProps) => {
        count={
         BufoData.filter((b) => b.tags.has(tag)).length
        }
-       selected={selectedTag === tag}
+       selected={props.selectedTag === tag}
        onClick={() => {
-        setSelectedTag(tag === selectedTag ? null : tag);
+        props.setSelectedTag(tag === props.selectedTag ? null : tag);
        }}
       />
      ))}
@@ -117,7 +117,7 @@ export const BufoSearch = (props: BufoSearchProps) => {
       className="px-2 py-1 rounded text-sm border bg-white text-gray-800 border-gray-200"
       onChange={(e) => {
        const tag = e.target.value as Tag | "all";
-       setSelectedTag(tag === "all" ? null : tag);
+       props.setSelectedTag(tag === "all" ? null : tag);
       }}
       value=""
      >
