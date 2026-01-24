@@ -3,10 +3,10 @@ export function AboutPage() {
     <div className="p-8">
       <h2 className="text-3xl font-bold text-bufo-500 mb-4">About</h2>
       <p className="text-bufo-600 mb-4">
-        Welcome to bufo.fun - your destination for all things bufo!
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </p>
       <p className="text-bufo-600">
-        Explore our collection of bufos, search by tags, and discover new favorites.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       </p>
     </div>
   );
