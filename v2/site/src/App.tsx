@@ -35,10 +35,10 @@ export function App() {
 
   return (
     <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
-      <div className="flex flex-col items-start max-w-4xl m-auto">
-        <Header />
+      <Header />
 
-        <div className="mx-2 mb-2">
+      <div className="flex flex-col items-start max-w-4xl m-auto">
+        <div className="mx-2 mb-2 mt-4">
           <SearchBar
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
