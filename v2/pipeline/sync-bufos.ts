@@ -157,15 +157,17 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
       return { tags: [], skip: false, skipReason: "" };
     }
 
-    const uploadResult = await uploadResponse.json() as { file?: { uri?: string } };
+    const uploadResult = await uploadResponse.json() as { file?: { uri?: string; name?: string } };
     const fileUri = uploadResult.file?.uri;
+    const fileName = uploadResult.file?.name;
 
     if (!fileUri) {
       console.error(`  No file URI returned for ${filename}`);
       return { tags: [], skip: false, skipReason: "" };
     }
 
-    const prompt = `You are analyzing a "bufo" emoji/sticker image. Bufo is a cute cartoon frog character used in messaging apps.
+    try {
+      const prompt = `You are analyzing a "bufo" emoji/sticker image. Bufo is a cute cartoon frog character used in messaging apps.
 
 Based on this image and its filename "${filename}", you need to:
 
@@ -179,79 +181,91 @@ Respond ONLY with valid JSON in this exact format:
 
 If skipping, set skip to true and provide the skipReason (must be "tiling bufo" or similar), and tags can be empty.`;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { file_data: { mime_type: mimeType, file_uri: fileUri } }
-            ]
-          }],
-          generationConfig: {
-            temperature: 0.1,
-            maxOutputTokens: 1024,
-          }
-        })
-      }
-    );
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error(`  Gemini API error for ${filename}:`);
-      console.error(`  Status: ${response.status} ${response.statusText}`);
-      console.error(`  Response body: ${errorBody}`);
-      return { tags: [], skip: false, skipReason: "" };
-    }
-
-    const result = await response.json() as {
-      candidates?: Array<{
-        content?: {
-          parts?: Array<{ text?: string }>;
-        };
-      }>;
-    };
-    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    
-    if (!text) {
-      console.error(`  Gemini returned empty response for ${filename}`);
-      return { tags: [], skip: false, skipReason: "" };
-    }
-    
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      try {
-        const parsed = JSON.parse(jsonMatch[0]);
-        const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
-        
-        if (parsed.tags && parsed.tags.length > 0 && validTags.length === 0) {
-          console.error(`  Warning: Gemini returned tags but none were valid for ${filename}`);
-          console.error(`  Returned tags:`, parsed.tags);
-          console.error(`  (Tags must be from the known tags list)`);
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: prompt },
+                { file_data: { mime_type: mimeType, file_uri: fileUri } }
+              ]
+            }],
+            generationConfig: {
+              temperature: 0.1,
+              maxOutputTokens: 1024,
+            }
+          })
         }
-        
-        if (!parsed.tags || parsed.tags.length === 0) {
-          console.error(`  Warning: Gemini returned no tags for ${filename}`);
-          console.error(`  Full response text: ${text}`);
-        }
-        
-        return { 
-          tags: validTags, 
-          skip: Boolean(parsed.skip),
-          skipReason: parsed.skipReason || ""
-        };
-      } catch (parseError) {
-        console.error(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
-        console.error(`  Response text was: ${text}`);
+      );
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        console.error(`  Gemini API error for ${filename}:`);
+        console.error(`  Status: ${response.status} ${response.statusText}`);
+        console.error(`  Response body: ${errorBody}`);
         return { tags: [], skip: false, skipReason: "" };
       }
-    } else {
-      console.error(`  Could not find JSON in Gemini response for ${filename}`);
-      console.error(`  Response text: ${text}`);
-      return { tags: [], skip: false, skipReason: "" };
+
+      const result = await response.json() as {
+        candidates?: Array<{
+          content?: {
+            parts?: Array<{ text?: string }>;
+          };
+        }>;
+      };
+      const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      
+      if (!text) {
+        console.error(`  Gemini returned empty response for ${filename}`);
+        return { tags: [], skip: false, skipReason: "" };
+      }
+      
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        try {
+          const parsed = JSON.parse(jsonMatch[0]);
+          const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
+          
+          if (parsed.tags && parsed.tags.length > 0 && validTags.length === 0) {
+            console.error(`  Warning: Gemini returned tags but none were valid for ${filename}`);
+            console.error(`  Returned tags:`, parsed.tags);
+            console.error(`  (Tags must be from the known tags list)`);
+          }
+          
+          if (!parsed.tags || parsed.tags.length === 0) {
+            console.error(`  Warning: Gemini returned no tags for ${filename}`);
+            console.error(`  Full response text: ${text}`);
+          }
+          
+          return { 
+            tags: validTags, 
+            skip: Boolean(parsed.skip),
+            skipReason: parsed.skipReason || ""
+          };
+        } catch (parseError) {
+          console.error(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
+          console.error(`  Response text was: ${text}`);
+          return { tags: [], skip: false, skipReason: "" };
+        }
+      } else {
+        console.error(`  Could not find JSON in Gemini response for ${filename}`);
+        console.error(`  Response text: ${text}`);
+        return { tags: [], skip: false, skipReason: "" };
+      }
+    } finally {
+      if (fileName) {
+        try {
+          await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/${fileName}?key=${GEMINI_API_KEY}`,
+            { method: "DELETE" }
+          );
+        } catch (deleteError) {
+          console.error(`  Warning: Failed to delete uploaded file for ${filename}`);
+        }
+      }
     }
   } catch (error) {
     console.error(`  Error analyzing ${filename}:`, error);
