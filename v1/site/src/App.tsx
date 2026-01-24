@@ -12,8 +12,8 @@ function App() {
  >(new Set());
  const [selectedTag, setSelectedTag] = React.useState<Tag | null>(null);
 
- const handleTagClick = (tagName: string) => {
-  setSelectedTag(tagName as Tag);
+ const handleTagClick = (tag: Tag) => {
+  setSelectedTag(tag);
  };
 
  return (

@@ -1,12 +1,12 @@
 import React from "react";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
-import { BufoData } from "./BufoData";
+import { BufoData, Tag } from "./BufoData";
 import { fetchAndZipFiles } from "./downloadBufo";
 
 type BufoListProps = {
  matchingBufos: Set<string>;
- onTagClick: (tagName: string) => void;
+ onTagClick: (tag: Tag) => void;
 };
 
 export const BufoList = (props: BufoListProps) => {
