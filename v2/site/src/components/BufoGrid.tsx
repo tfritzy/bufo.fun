@@ -3,6 +3,7 @@ import { Bufo } from "../types";
 import { BufoCard } from "./BufoCard";
 import { BufoModal } from "./BufoModal";
 import { DownloadModal } from "./DownloadModal";
+import { Button } from "./Button";
 
 interface BufoGridProps {
   bufos: Bufo[];
@@ -18,10 +19,10 @@ export function BufoGrid({ bufos }: BufoGridProps) {
         <span>
           <span className="font-semibold">{bufos.length}</span> bufos
         </span>
-        <button
+        <Button
           onClick={() => setShowDownloadModal(true)}
           disabled={bufos.length === 0}
-          className="btn-primary mr-2 px-3 py-1 text-sm flex items-center space-x-1"
+          className="mr-2 px-3 py-1 text-sm flex items-center space-x-1"
         >
           <svg
             className="w-4 h-4"
@@ -37,7 +38,7 @@ export function BufoGrid({ bufos }: BufoGridProps) {
             />
           </svg>
           <span>Download All</span>
-        </button>
+        </Button>
       </div>
       <div className="flex flex-row flex-wrap">
         {bufos.map((bufo) => (

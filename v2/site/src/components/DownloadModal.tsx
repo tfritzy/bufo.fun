@@ -3,6 +3,7 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { Bufo } from "../types";
 import { Modal } from "./Modal";
+import { Button } from "./Button";
 import { CaseStyle, convertCase } from "../utils";
 
 interface DownloadModalProps {
@@ -144,10 +145,10 @@ export function DownloadModal({ bufos, isOpen, onClose }: DownloadModalProps) {
           )}
         </div>
 
-        <button
+        <Button
           onClick={handleDownload}
           disabled={isDownloading || bufos.length === 0}
-          className="btn-primary w-full px-4 py-2 font-medium flex items-center justify-center space-x-2"
+          className="w-full px-4 py-2 font-medium flex items-center justify-center space-x-2"
         >
           {isDownloading ? (
             <>
@@ -191,7 +192,7 @@ export function DownloadModal({ bufos, isOpen, onClose }: DownloadModalProps) {
               <span>Download {bufos.length === 1 ? "Bufo" : `${bufos.length} Bufos`}</span>
             </>
           )}
-        </button>
+        </Button>
       </div>
     </Modal>
   );
