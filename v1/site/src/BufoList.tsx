@@ -1,12 +1,11 @@
 import React from "react";
 import { BufoItem } from "./BufoItem";
 import { BufoInspector } from "./BufoInspector";
-import { BufoData, Tag } from "./BufoData";
+import { BufoData } from "./BufoData";
 import { fetchAndZipFiles } from "./downloadBufo";
 
 type BufoListProps = {
  matchingBufos: Set<string>;
- onTagClick: (tag: Tag) => void;
 };
 
 export const BufoList = (props: BufoListProps) => {
@@ -92,7 +91,6 @@ export const BufoList = (props: BufoListProps) => {
     bufo={BufoData[inspectedIndex || 0]}
     onClose={() => setInspectedIndex(null)}
     isOpen={inspectedIndex !== null}
-    onTagClick={props.onTagClick}
    />
   </div>
  );

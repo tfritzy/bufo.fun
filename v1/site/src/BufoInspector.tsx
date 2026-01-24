@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "./components/Modal";
-import type { BufoDetails, Tag } from "./BufoData";
-import { Tag as TagComponent } from "./components/Tag";
+import type { BufoDetails } from "./BufoData";
+import { Tag } from "./components/Tag";
 import { proverbs } from "./proverbs";
 import { TruncatedText } from "./components/TruncatedText";
 import { downloadBufo } from "./downloadBufo";
@@ -90,7 +90,7 @@ const Message = (props: { bufo: BufoDetails }) => {
  );
 };
 
-const DetailsSection = (props: { bufo: BufoDetails; onTagClick: (tag: Tag) => void }) => {
+const DetailsSection = (props: { bufo: BufoDetails }) => {
  return (
   <div className="text-sm">
    <div className="font-semibold mb-1">Details</div>
@@ -109,7 +109,7 @@ const DetailsSection = (props: { bufo: BufoDetails; onTagClick: (tag: Tag) => vo
         <div className="flex flex-row flex-wrap">
          {Array.from(props.bufo.tags).map((tagName) => (
           <div key={tagName} className="m-1">
-           <TagComponent name={tagName} onClick={() => props.onTagClick(tagName)} />
+           <Tag name={tagName} />
           </div>
          ))}
         </div>
@@ -128,7 +128,6 @@ type BufoInspectorProps = {
  bufo: BufoDetails;
  onClose: () => void;
  isOpen: boolean;
- onTagClick: (tag: Tag) => void;
 };
 
 export const BufoInspector = (props: BufoInspectorProps) => {
@@ -173,7 +172,7 @@ export const BufoInspector = (props: BufoInspectorProps) => {
 
     <Message bufo={props.bufo} />
 
-    <DetailsSection bufo={props.bufo} onTagClick={props.onTagClick} />
+    <DetailsSection bufo={props.bufo} />
 
     <div className="flex flex-row justify-end space-x-2">
      <button

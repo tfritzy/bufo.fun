@@ -1,6 +1,5 @@
 type TagProps = {
   name: string;
-  onClick?: () => void;
 };
 
 const colorClasses = [
@@ -34,20 +33,9 @@ const getHashCode = (str: string) => {
 
 export const Tag = (props: TagProps) => {
   const tagIndex = getHashCode(props.name) % colorClasses.length;
-  
-  if (props.onClick) {
-    return (
-      <button 
-        className={`${colorClasses[tagIndex]} px-2 py-1 rounded text-sm font-mono focus:outline-none focus:ring-2 focus:ring-gray-300 focus:shadow-sm transition-all duration-150 ease-in-out hover:opacity-80 cursor-pointer`}
-        onClick={props.onClick}
-      >
-        {props.name}
-      </button>
-    );
-  }
-  
+  console.log(colorClasses, tagIndex, colorClasses[tagIndex]);
   return (
-    <span className={`${colorClasses[tagIndex]} px-1 rounded-sm font-mono`}>
+    <span className={`${colorClasses[tagIndex]} + px-1 rounded-sm font-mono`}>
       {props.name}
     </span>
   );

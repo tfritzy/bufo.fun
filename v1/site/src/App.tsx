@@ -4,17 +4,13 @@ import { BufoSearch } from "./BufoSearch";
 import { BufoList } from "./BufoList";
 import { CornerBufos } from "./CornerBufos";
 import { Tutorial } from "./Tutorial";
-import { Tag } from "./BufoData";
+import { BufoData } from "./BufoData";
 
 function App() {
  const [matchBufos, setMatchBufos] = React.useState<
   Set<string>
  >(new Set());
- const [selectedTag, setSelectedTag] = React.useState<Tag | null>(null);
 
- const handleTagClick = (tag: Tag) => {
-  setSelectedTag(tag);
- };
 
  return (
   <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
@@ -22,14 +18,10 @@ function App() {
     <Header />
 
     <div className="mx-2 mb-2">
-     <BufoSearch 
-      setMatchingBufos={setMatchBufos} 
-      selectedTag={selectedTag}
-      setSelectedTag={setSelectedTag}
-     />
+     <BufoSearch setMatchingBufos={setMatchBufos} />
     </div>
 
-    <BufoList matchingBufos={matchBufos} onTagClick={handleTagClick} />
+    <BufoList matchingBufos={matchBufos} />
    </div>
 
    <CornerBufos />
