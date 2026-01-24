@@ -67,16 +67,17 @@ export function BuilderEditorPage() {
     return () => document.removeEventListener("paste", handlePaste);
   }, [handlePaste]);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, targetLayerIndex?: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const layerIndex = targetLayerIndex !== undefined ? targetLayerIndex : activeLayerIndex;
     const reader = new FileReader();
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
       setLayers((prev) =>
         prev.map((layer, idx) =>
-          idx === activeLayerIndex ? { ...layer, imageData } : layer
+          idx === layerIndex ? { ...layer, imageData } : layer
         )
       );
     };
@@ -315,8 +316,8 @@ export function BuilderEditorPage() {
                         className="hidden"
                         accept="image/*"
                         onChange={(e) => {
+                          handleFileUpload(e, idx);
                           setActiveLayerIndex(idx);
-                          handleFileUpload(e);
                         }}
                       />
                     </label>
