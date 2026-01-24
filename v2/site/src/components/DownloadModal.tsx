@@ -12,7 +12,6 @@ interface DownloadModalProps {
 }
 
 const CASE_OPTIONS: { value: CaseStyle; label: string; example: string }[] = [
-  { value: "original", label: "Original", example: "bufo-happy" },
   { value: "kebab-case", label: "kebab-case", example: "bufo-happy" },
   { value: "camelCase", label: "camelCase", example: "bufoHappy" },
   { value: "TitleCase", label: "TitleCase", example: "BufoHappy" },
@@ -20,7 +19,7 @@ const CASE_OPTIONS: { value: CaseStyle; label: string; example: string }[] = [
 ];
 
 export function DownloadModal({ bufos, isOpen, onClose }: DownloadModalProps) {
-  const [caseStyle, setCaseStyle] = useState<CaseStyle>("original");
+  const [caseStyle, setCaseStyle] = useState<CaseStyle>("kebab-case");
   const [isDownloading, setIsDownloading] = useState(false);
 
   const getConvertedFilename = (bufo: Bufo): string => {
