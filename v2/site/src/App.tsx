@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { HomePage } from "./pages/HomePage";
 import { BuilderListPage } from "./pages/BuilderListPage";
@@ -6,12 +6,9 @@ import { BuilderEditorPage } from "./pages/BuilderEditorPage";
 import { AboutPage } from "./pages/AboutPage";
 
 export function App() {
-  const location = useLocation();
-  const isBuilderEditor = location.pathname.startsWith("/builder/");
-
   return (
     <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
-      {!isBuilderEditor && <Header />}
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/builder" element={<BuilderListPage />} />

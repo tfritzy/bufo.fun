@@ -5,7 +5,6 @@ import {
   TemplateLayer,
   LayerPosition,
 } from "../builderTemplates";
-import { BuilderHeader } from "../components/BuilderHeader";
 
 interface LayerState extends TemplateLayer {
   imageData: string | null;
@@ -20,6 +19,9 @@ export function BuilderEditorPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [bufoName, setBufoName] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
   const layerIdCounter = useRef(0);
@@ -48,9 +50,23 @@ export function BuilderEditorPage() {
             reader.onload = (event) => {
               const imageData = event.target?.result as string;
               setLayers((prev) =>
-                prev.map((layer, idx) =>
-                  idx === activeLayerIndex ? { ...layer, imageData } : layer
-                )
+                prev.map((layer, idx) => {
+                  if (idx !== activeLayerIndex) return layer;
+                  const hasNoPosition = layer.position.width === 0 && layer.position.height === 0;
+                  if (hasNoPosition && template) {
+                    return {
+                      ...layer,
+                      imageData,
+                      position: {
+                        x: template.canvasWidth / 4,
+                        y: template.canvasHeight / 4,
+                        width: template.canvasWidth / 2,
+                        height: template.canvasHeight / 2,
+                      },
+                    };
+                  }
+                  return { ...layer, imageData };
+                })
               );
             };
             reader.readAsDataURL(file);
@@ -59,7 +75,7 @@ export function BuilderEditorPage() {
         }
       }
     },
-    [activeLayerIndex]
+    [activeLayerIndex, template]
   );
 
   useEffect(() => {
@@ -76,9 +92,23 @@ export function BuilderEditorPage() {
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
       setLayers((prev) =>
-        prev.map((layer, idx) =>
-          idx === layerIndex ? { ...layer, imageData } : layer
-        )
+        prev.map((layer, idx) => {
+          if (idx !== layerIndex) return layer;
+          const hasNoPosition = layer.position.width === 0 && layer.position.height === 0;
+          if (hasNoPosition && template) {
+            return {
+              ...layer,
+              imageData,
+              position: {
+                x: template.canvasWidth / 4,
+                y: template.canvasHeight / 4,
+                width: template.canvasWidth / 2,
+                height: template.canvasHeight / 2,
+              },
+            };
+          }
+          return { ...layer, imageData };
+        })
       );
     };
     reader.readAsDataURL(file);
@@ -119,7 +149,7 @@ export function BuilderEditorPage() {
       id: `layer-${layerIdCounter.current}`,
       name: `Layer ${layers.length + 1}`,
       file: "",
-      position: { x: 150, y: 150, width: 150, height: 150 },
+      position: { x: 0, y: 0, width: 0, height: 0 },
       locked: false,
       visible: true,
       imageData: null,
@@ -184,12 +214,12 @@ export function BuilderEditorPage() {
     setIsResizing(false);
   };
 
-  const handleDownload = async () => {
+  const generatePreview = async (): Promise<string | null> => {
     const canvas = exportCanvasRef.current;
-    if (!canvas || !template) return;
+    if (!canvas || !template) return null;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) return null;
 
     canvas.width = template.canvasWidth;
     canvas.height = template.canvasHeight;
@@ -219,31 +249,55 @@ export function BuilderEditorPage() {
       });
     }
 
+    return canvas.toDataURL("image/png");
+  };
+
+  const openDownloadModal = async () => {
+    const preview = await generatePreview();
+    setPreviewUrl(preview);
+    setBufoName(`bufo-${template?.id || "custom"}`);
+    setShowDownloadModal(true);
+  };
+
+  const handleDownload = () => {
+    if (!previewUrl) return;
     const link = document.createElement("a");
-    link.download = `custom-${template.id}.png`;
-    link.href = canvas.toDataURL("image/png");
+    link.download = `${bufoName || "bufo"}.png`;
+    link.href = previewUrl;
     link.click();
+  };
+
+  const handleCopyToClipboard = async () => {
+    if (!previewUrl) return;
+    try {
+      const response = await fetch(previewUrl);
+      const blob = await response.blob();
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob }),
+      ]);
+    } catch {
+      const link = document.createElement("a");
+      link.download = `${bufoName || "bufo"}.png`;
+      link.href = previewUrl;
+      link.click();
+    }
   };
 
   if (!template) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <BuilderHeader backUrl="/builder" />
-        <div className="flex flex-col items-center justify-center flex-grow px-4">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Template not found
-          </h1>
-          <Link to="/builder" className="text-bufo-500 hover:underline">
-            Back to templates
-          </Link>
-        </div>
+      <div className="flex flex-col items-center justify-center flex-grow px-4">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">
+          Template not found
+        </h1>
+        <Link to="/builder" className="text-bufo-500 hover:underline">
+          Back to templates
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <BuilderHeader backUrl="/builder" />
+    <>
       <div className="flex flex-grow overflow-hidden">
         <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
           <div className="p-4 flex-grow">
@@ -468,40 +522,40 @@ export function BuilderEditorPage() {
           </div>
 
           <div className="p-4 border-t border-gray-200 bg-gray-50">
-          <button
-            onClick={handleDownload}
-            className="w-full py-3 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
-          >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <button
+              onClick={openDownloadModal}
+              className="w-full py-3 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
-            Download
-          </button>
-        </div>
-      </aside>
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+              Download
+            </button>
+          </div>
+        </aside>
 
-      <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-hidden">
-        <div
-          ref={canvasRef}
-          className="relative bg-white shadow-xl rounded-lg overflow-hidden"
-          style={{
-            width: template.canvasWidth,
-            height: template.canvasHeight,
-            backgroundImage:
-              "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
-            backgroundSize: "20px 20px",
-            backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
-          }}
+        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-hidden">
+          <div
+            ref={canvasRef}
+            className="relative bg-white shadow-xl rounded-lg overflow-hidden"
+            style={{
+              width: template.canvasWidth,
+              height: template.canvasHeight,
+              backgroundImage:
+                "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
+              backgroundSize: "20px 20px",
+              backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+            }}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
@@ -510,6 +564,8 @@ export function BuilderEditorPage() {
             if (!layer.visible) return null;
 
             const imgSrc = layer.imageData || layer.file;
+            if (!imgSrc) return null;
+
             const isActive = idx === activeLayerIndex && !layer.locked;
 
             return (
@@ -527,20 +583,12 @@ export function BuilderEditorPage() {
                 }}
                 onMouseDown={(e) => handleMouseDown(e, idx)}
               >
-                {imgSrc ? (
-                  <img
-                    src={imgSrc}
-                    alt={layer.name}
-                    className="w-full h-full object-contain pointer-events-none"
-                    draggable={false}
-                  />
-                ) : (
-                  <div className="w-full h-full border-2 border-dashed border-gray-300 rounded flex items-center justify-center bg-white bg-opacity-50">
-                    <span className="text-gray-400 text-sm text-center px-2">
-                      Paste or upload an image
-                    </span>
-                  </div>
-                )}
+                <img
+                  src={imgSrc}
+                  alt={layer.name}
+                  className="w-full h-full object-contain pointer-events-none"
+                  draggable={false}
+                />
                 {isActive && (
                   <div
                     className="absolute bottom-0 right-0 w-4 h-4 bg-bufo-500 cursor-se-resize rounded-tl"
@@ -554,6 +602,67 @@ export function BuilderEditorPage() {
         <canvas ref={exportCanvasRef} className="hidden" />
       </main>
       </div>
-    </div>
+
+      {showDownloadModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-gray-800">Save Your Bufo</h2>
+              <button
+                onClick={() => setShowDownloadModal(false)}
+                className="p-1 text-gray-400 hover:text-gray-600 rounded"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-4">
+              {previewUrl && (
+                <div className="mb-4 bg-gray-100 rounded-lg p-4 flex items-center justify-center">
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="max-w-full max-h-48 object-contain"
+                  />
+                </div>
+              )}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Bufo Name
+                </label>
+                <input
+                  type="text"
+                  value={bufoName}
+                  onChange={(e) => setBufoName(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
+                  placeholder="bufo-custom"
+                />
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleDownload}
+                  className="flex-1 py-2 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download
+                </button>
+                <button
+                  onClick={handleCopyToClipboard}
+                  className="flex-1 py-2 px-4 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                  </svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
