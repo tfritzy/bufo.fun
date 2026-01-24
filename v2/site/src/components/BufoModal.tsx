@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Bufo } from "../types";
 import { Modal } from "./Modal";
 import { Tag } from "./Tag";
-import { downloadBufo, copyBufoToClipboard } from "../utils";
+import { downloadBufo, copyBufoToClipboard, isGif } from "../utils";
 import { proverbs } from "../proverbs";
 
 interface BufoModalProps {
@@ -29,6 +29,7 @@ export function BufoModal({ bufo, isOpen, onClose }: BufoModalProps) {
   }
 
   const handleCopy = async () => {
+    if (isGif(bufo)) return;
     const success = await copyBufoToClipboard(bufo);
     if (success) {
       setCopied(true);
@@ -135,8 +136,14 @@ export function BufoModal({ bufo, isOpen, onClose }: BufoModalProps) {
         {/* Actions */}
         <div className="flex flex-row justify-end space-x-2">
           <button
-            className="text-gray-700 rounded px-2 py-1 mt-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm transition-all duration-150 ease-in-out"
+            className={`rounded px-2 py-1 mt-2 border transition-all duration-150 ease-in-out ${
+              isGif(bufo)
+                ? "text-gray-400 border-gray-200 cursor-not-allowed"
+                : "text-gray-700 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm"
+            }`}
             onClick={handleCopy}
+            disabled={isGif(bufo)}
+            title={isGif(bufo) ? "GIFs cannot be copied to clipboard" : undefined}
           >
             {copied ? "Copied!" : "Copy"}
           </button>
