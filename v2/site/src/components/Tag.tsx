@@ -26,13 +26,17 @@ function hashString(str: string): number {
 
 interface TagProps {
   name: string;
+  onClick?: () => void;
 }
 
-export function Tag({ name }: TagProps) {
+export function Tag({ name, onClick }: TagProps) {
   const colorIndex = hashString(name) % colorClasses.length;
 
   return (
-    <span className={`${colorClasses[colorIndex]} px-1 rounded-sm font-mono`}>
+    <span 
+      className={`${colorClasses[colorIndex]} px-1 rounded-sm font-mono ${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
+    >
       {name}
     </span>
   );

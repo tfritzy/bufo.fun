@@ -5,9 +5,10 @@ import { BufoModal } from "./BufoModal";
 
 interface BufoGridProps {
   bufos: Bufo[];
+  onTagClick?: (tag: string) => void;
 }
 
-export function BufoGrid({ bufos }: BufoGridProps) {
+export function BufoGrid({ bufos, onTagClick }: BufoGridProps) {
   const [selectedBufo, setSelectedBufo] = useState<Bufo | null>(null);
 
   return (
@@ -30,6 +31,7 @@ export function BufoGrid({ bufos }: BufoGridProps) {
         bufo={selectedBufo}
         isOpen={selectedBufo !== null}
         onClose={() => setSelectedBufo(null)}
+        onTagClick={onTagClick}
       />
     </div>
   );

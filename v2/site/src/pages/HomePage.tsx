@@ -46,7 +46,7 @@ export function HomePage() {
           />
         </div>
 
-        <BufoGrid bufos={filteredBufos} />
+        <BufoGrid bufos={filteredBufos} onTagClick={setSelectedTag} />
       </div>
 
       <CornerBufo />
