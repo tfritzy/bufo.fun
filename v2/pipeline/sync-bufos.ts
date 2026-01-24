@@ -66,7 +66,15 @@ function loadBufoData(): BufoData {
 
 function saveBufoData(data: BufoData): void {
   const dataPath = path.resolve(__dirname, BUFO_DATA_PATH);
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error(`Error saving bufo data to ${dataPath}:`, error);
+    if (error instanceof Error) {
+      console.error(`Error message: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 function loadSkipList(): SkipList {
@@ -80,7 +88,15 @@ function loadSkipList(): SkipList {
 
 function saveSkipList(data: SkipList): void {
   const skipPath = path.resolve(__dirname, SKIP_LIST_PATH);
-  fs.writeFileSync(skipPath, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(skipPath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error(`Error saving skip list to ${skipPath}:`, error);
+    if (error instanceof Error) {
+      console.error(`Error message: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 function getExistingBufoIds(data: BufoData, skipList: SkipList): Set<string> {
@@ -156,7 +172,10 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
     );
 
     if (!response.ok) {
-      console.log(`  Gemini API error for ${filename}: ${response.status}`);
+      const errorBody = await response.text();
+      console.error(`  Gemini API error for ${filename}:`);
+      console.error(`  Status: ${response.status} ${response.statusText}`);
+      console.error(`  Response body: ${errorBody}`);
       return { tags: [], skip: false, skipReason: "" };
     }
 
@@ -169,24 +188,49 @@ If skipping, set skip to true and provide the skipReason (must be "tiling bufo" 
     };
     const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
-    // Extract JSON from response
+    if (!text) {
+      console.error(`  Gemini returned empty response for ${filename}`);
+      return { tags: [], skip: false, skipReason: "" };
+    }
+    
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {
         const parsed = JSON.parse(jsonMatch[0]);
         const validTags = (parsed.tags || []).filter((t: string) => KNOWN_TAGS.includes(t));
+        
+        if (parsed.tags && parsed.tags.length > 0 && validTags.length === 0) {
+          console.error(`  Warning: Gemini returned tags but none were valid for ${filename}`);
+          console.error(`  Returned tags:`, parsed.tags);
+          console.error(`  (Tags must be from the known tags list)`);
+        }
+        
+        if (!parsed.tags || parsed.tags.length === 0) {
+          console.error(`  Warning: Gemini returned no tags for ${filename}`);
+          console.error(`  Full response text: ${text}`);
+        }
+        
         return { 
           tags: validTags, 
           skip: Boolean(parsed.skip),
           skipReason: parsed.skipReason || ""
         };
       } catch (parseError) {
-        console.log(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
+        console.error(`  Error parsing Gemini JSON response for ${filename}:`, parseError);
+        console.error(`  Response text was: ${text}`);
         return { tags: [], skip: false, skipReason: "" };
       }
+    } else {
+      console.error(`  Could not find JSON in Gemini response for ${filename}`);
+      console.error(`  Response text: ${text}`);
+      return { tags: [], skip: false, skipReason: "" };
     }
   } catch (error) {
-    console.log(`  Error analyzing ${filename}:`, error);
+    console.error(`  Error analyzing ${filename}:`, error);
+    if (error instanceof Error) {
+      console.error(`  Error message: ${error.message}`);
+      console.error(`  Error stack: ${error.stack}`);
+    }
   }
 
   return { tags: [], skip: false, skipReason: "" };
@@ -210,9 +254,16 @@ async function generateSmolBufo(id: string, fileType: string): Promise<void> {
         .toFile(smolPath);
     }
   } catch (error) {
-    console.log(`  Error generating smol bufo for ${filename}:`, error);
-    // Copy original as fallback
-    fs.copyFileSync(sourcePath, smolPath);
+    console.error(`  Error generating smol bufo for ${filename}:`, error);
+    if (error instanceof Error) {
+      console.error(`  Error message: ${error.message}`);
+    }
+    try {
+      fs.copyFileSync(sourcePath, smolPath);
+    } catch (fallbackError) {
+      console.error(`  Failed to copy original as fallback for ${filename}:`, fallbackError);
+      throw fallbackError;
+    }
   }
 }
 
@@ -221,7 +272,15 @@ async function copyBufoToSite(id: string, fileType: string): Promise<void> {
   const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
   const destPath = path.join(path.resolve(__dirname, BUFOS_DIR), filename);
   
-  fs.copyFileSync(sourcePath, destPath);
+  try {
+    fs.copyFileSync(sourcePath, destPath);
+  } catch (error) {
+    console.error(`  Error copying bufo ${filename} to site:`, error);
+    if (error instanceof Error) {
+      console.error(`  Error message: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 async function main() {
@@ -281,42 +340,46 @@ async function main() {
   for (const filename of newBufos) {
     console.log(`Processing: ${filename}`);
     
-    const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
-    
-    // Parse id and fileType from filename
-    const lastDotIndex = filename.lastIndexOf(".");
-    const id = filename.substring(0, lastDotIndex);
-    const fileType = filename.substring(lastDotIndex + 1);
-    
-    // Get analysis from Gemini
-    const result = await analyzeBufoWithGemini(filename, sourcePath);
+    try {
+      const sourcePath = path.join(ALL_THE_BUFO_DIR, filename);
+      
+      const lastDotIndex = filename.lastIndexOf(".");
+      const id = filename.substring(0, lastDotIndex);
+      const fileType = filename.substring(lastDotIndex + 1);
+      
+      const result = await analyzeBufoWithGemini(filename, sourcePath);
 
-    if (result.skip) {
-      // Add to skip list (don't store files)
-      skipList.skipped.push({
-        id,
-        fileType,
-        reason: result.skipReason
-      });
-      console.log(`  Skipped: ${filename} (reason: ${result.skipReason})`);
-      skippedCount++;
-    } else {
-      // Add to bufo data and copy files
-      bufoData.bufos.push({
-        id,
-        fileType,
-        tags: result.tags
-      });
+      if (result.skip) {
+        skipList.skipped.push({
+          id,
+          fileType,
+          reason: result.skipReason
+        });
+        console.log(`  Skipped: ${filename} (reason: ${result.skipReason})`);
+        skippedCount++;
+      } else {
+        bufoData.bufos.push({
+          id,
+          fileType,
+          tags: result.tags
+        });
 
-      await copyBufoToSite(id, fileType);
-      await generateSmolBufo(id, fileType);
-      console.log(`  Added: ${filename} with tags: [${result.tags.join(", ")}]`);
-      addedCount++;
-    }
+        await copyBufoToSite(id, fileType);
+        await generateSmolBufo(id, fileType);
+        console.log(`  Added: ${filename} with tags: [${result.tags.join(", ")}]`);
+        addedCount++;
+      }
 
-    // Rate limiting for Gemini API
-    if (GEMINI_API_KEY) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      if (GEMINI_API_KEY) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    } catch (error) {
+      console.error(`  CRITICAL ERROR processing ${filename}:`, error);
+      if (error instanceof Error) {
+        console.error(`  Error message: ${error.message}`);
+        console.error(`  Error stack: ${error.stack}`);
+      }
+      console.error(`  Skipping this bufo and continuing with next one...`);
     }
   }
 
