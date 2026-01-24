@@ -34,7 +34,7 @@ export function HomePage() {
 
   return (
     <>
-      <div className="mx-2 mb-2">
+      <div className="w-full flex flex-col gap-6 pb-32">
         <SearchBar
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
@@ -43,9 +43,9 @@ export function HomePage() {
           tagCounts={tagCounts}
           allTags={allTags}
         />
-      </div>
 
-      <BufoGrid bufos={filteredBufos} />
+        <BufoGrid bufos={filteredBufos} />
+      </div>
 
       <CornerBufo />
       <Tutorial />

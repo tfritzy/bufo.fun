@@ -47,16 +47,30 @@ export function SearchBar({
   }, [allTags]);
 
   return (
-    <div className="flex flex-col space-y-2 mb-4">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className="w-72 px-3 py-1 rounded-md border border-gray-200 focus:border-bufo-200 text-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 transition-all duration-200 ease-in-out"
-      />
-
-      <div>
+    <div className="flex flex-col gap-4">
+      <div className="relative w-full max-w-lg">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="w-full pl-4 pr-10 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-bufo-500 focus:border-transparent outline-none transition-shadow shadow-sm"
+        />
+        <svg
+          className="w-5 h-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+      <div className="flex flex-wrap gap-2 items-center">
         {visibleTags.map((tag) => (
           <TagFilter
             key={tag}
@@ -66,23 +80,12 @@ export function SearchBar({
             onClick={() => onTagSelect(tag === selectedTag ? null : tag)}
           />
         ))}
-        <select
-          className="px-2 py-1 rounded text-sm border bg-white text-gray-800 border-gray-200"
-          onChange={(e) => {
-            const tag = e.target.value;
-            onTagSelect(tag === "all" ? null : tag);
-          }}
-          value=""
+        <button
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-300 rounded shadow-sm hover:border-gray-400 transition-colors text-sm text-gray-500"
+          onClick={() => {}}
         >
-          <option disabled value="">
-            +{nonMainTags.length} more tags
-          </option>
-          {nonMainTags.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </select>
+          <span className="font-normal">+{nonMainTags.length} more tags</span>
+        </button>
       </div>
     </div>
   );

@@ -22,22 +22,19 @@ export function BufoCard({ bufo, onClick }: BufoCardProps) {
   };
 
   return (
-    <div className="w-[64px] min-w-[64px] m-2">
+    <div className="flex flex-col items-center gap-1 group cursor-pointer">
       <button
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        className="focus:outline-none focus:ring-2 focus:ring-bufo-300 focus:shadow-sm rounded transition-all duration-200 ease-in-out"
+        className="w-full aspect-square bg-white rounded-md border border-gray-200 flex items-center justify-center p-1 group-hover:border-bufo-500/50 group-hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-bufo-300"
       >
-        <div className="rounded w-[64px] min-w-[64px] h-[64px] min-h-[64px] border border-bufo-400 bg-bufo-50">
-          <img
-            src={`/smolBufos/${bufo.filename}`}
-            alt={bufo.id}
-            title={bufo.id}
-            className="w-full h-full"
-          />
-        </div>
+        <img
+          src={`/smolBufos/${bufo.filename}`}
+          alt={bufo.id}
+          className="w-full h-full object-contain rounded opacity-90 group-hover:opacity-100 transition-opacity"
+        />
       </button>
-      <span className="block text-center text-[10px] text-bufo-500 whitespace-nowrap overflow-x-clip">
+      <span className="text-[10px] sm:text-xs text-gray-500 truncate w-full text-center group-hover:text-bufo-500 transition-colors">
         {bufo.id}
       </span>
     </div>

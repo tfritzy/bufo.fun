@@ -7,7 +7,7 @@ import { AboutPage } from "./pages/AboutPage";
 export function App() {
   return (
     <div className="overflow-y-scroll min-h-screen max-h-screen bg-gray-100">
-      <div className="flex flex-col items-start max-w-4xl m-auto">
+      <div className="flex flex-col w-full max-w-[1600px] mx-auto px-4 md:px-6 py-6 gap-6">
         <Header />
 
         <Routes>

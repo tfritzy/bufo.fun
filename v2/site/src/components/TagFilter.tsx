@@ -7,18 +7,16 @@ interface TagFilterProps {
 
 export function TagFilter({ name, count, selected, onClick }: TagFilterProps) {
   const colorClass = selected
-    ? "bg-bufo-50 text-bufo-500 border-bufo-200"
-    : "bg-white text-gray-800 border-gray-200";
+    ? "bg-bufo-100 text-bufo-600 border-bufo-400"
+    : "bg-white border-gray-300 text-gray-700";
 
   return (
     <button
-      className={`px-2 m-[1px] py-1 rounded text-sm border ${colorClass} focus:outline-none focus:ring-2 focus:ring-bufo-300 focus:shadow-sm transition-all duration-150 ease-in-out`}
+      className={`flex items-center gap-1.5 px-3 py-1.5 ${colorClass} border rounded shadow-sm hover:border-gray-400 transition-colors text-sm`}
       onClick={onClick}
     >
-      <span className="flex flex-row space-x-1">
-        <span>{name}</span>
-        <span className="rounded-full px-1 font-semibold">{count}</span>
-      </span>
+      <span className="font-normal">{name}</span>
+      <span className="font-bold text-gray-900">{count}</span>
     </button>
   );
 }
