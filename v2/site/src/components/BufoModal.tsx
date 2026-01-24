@@ -9,6 +9,7 @@ interface BufoModalProps {
   bufo: Bufo | null;
   isOpen: boolean;
   onClose: () => void;
+  onTagClick?: (tag: string) => void;
 }
 
 function hashString(str: string): number {
@@ -21,7 +22,7 @@ function hashString(str: string): number {
   return Math.abs(hash);
 }
 
-export function BufoModal({ bufo, isOpen, onClose }: BufoModalProps) {
+export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps) {
   const [copied, setCopied] = useState(false);
 
   if (!bufo) {
@@ -120,7 +121,7 @@ export function BufoModal({ bufo, isOpen, onClose }: BufoModalProps) {
                     <div className="flex flex-row flex-wrap">
                       {bufo.tags.map((tag) => (
                         <div key={tag} className="m-1">
-                          <Tag name={tag} />
+                          <Tag name={tag} onClick={onTagClick ? () => onTagClick(tag) : undefined} />
                         </div>
                       ))}
                     </div>
