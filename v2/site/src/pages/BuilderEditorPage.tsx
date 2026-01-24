@@ -295,10 +295,10 @@ export function BuilderEditorPage() {
   return (
     <>
       <SEO
-        title={`${template?.name || "Bufo Builder"} - Create Custom Bufo`}
-        description={`Use the ${template?.name || "Bufo Builder"} template to create your own custom bufo emoji. Design, customize, and export your perfect bufo.`}
+        title={`${template.name} - Create Custom Bufo`}
+        description={`Use the ${template.name} template to create your own custom bufo emoji. Design, customize, and export your perfect bufo.`}
         keywords="bufo, builder, create, custom, emoji, design, editor"
-        url={`https://bufo.fun/builder/${id || ""}`}
+        url={`https://bufo.fun/builder/${id}`}
       />
       <div className="flex flex-grow overflow-hidden">
         <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
