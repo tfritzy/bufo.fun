@@ -10,8 +10,6 @@ interface LayerState extends TemplateLayer {
   imageData: string | null;
 }
 
-let layerIdCounter = 0;
-
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
   const template = id ? getTemplateById(id) : undefined;
@@ -23,6 +21,7 @@ export function BuilderEditorPage() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
+  const layerIdCounter = useRef(0);
 
   useEffect(() => {
     if (template) {
@@ -113,8 +112,9 @@ export function BuilderEditorPage() {
   };
 
   const addLayer = () => {
+    layerIdCounter.current += 1;
     const newLayer: LayerState = {
-      id: `layer-${++layerIdCounter}`,
+      id: `layer-${layerIdCounter.current}`,
       name: `Layer ${layers.length + 1}`,
       file: "",
       position: { x: 150, y: 150, width: 150, height: 150 },
