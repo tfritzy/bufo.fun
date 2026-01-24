@@ -135,19 +135,44 @@ async function analyzeBufoWithGemini(filename: string, imagePath: string): Promi
                      imagePath.toLowerCase().endsWith(".png") ? "image/png" :
                      imagePath.toLowerCase().endsWith(".webp") ? "image/webp" : "image/jpeg";
 
-    const uploadResponse = await fetch(
+    const metadataResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/files?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
           "X-Goog-Upload-Protocol": "resumable",
-          "X-Goog-Upload-Command": "upload, finalize",
+          "X-Goog-Upload-Command": "start",
+          "X-Goog-Upload-Header-Content-Length": imageBuffer.length.toString(),
           "X-Goog-Upload-Header-Content-Type": mimeType,
-          "Content-Type": "application/octet-stream"
+          "Content-Type": "application/json"
         },
-        body: imageBuffer
+        body: JSON.stringify({ file: { display_name: filename } })
       }
     );
+
+    if (!metadataResponse.ok) {
+      const errorBody = await metadataResponse.text();
+      console.error(`  File metadata upload error for ${filename}:`);
+      console.error(`  Status: ${metadataResponse.status} ${metadataResponse.statusText}`);
+      console.error(`  Response body: ${errorBody}`);
+      return { tags: [], skip: false, skipReason: "" };
+    }
+
+    const uploadUrl = metadataResponse.headers.get("X-Goog-Upload-URL");
+    if (!uploadUrl) {
+      console.error(`  No upload URL returned for ${filename}`);
+      return { tags: [], skip: false, skipReason: "" };
+    }
+
+    const uploadResponse = await fetch(uploadUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+        "X-Goog-Upload-Offset": "0",
+        "X-Goog-Upload-Command": "upload, finalize"
+      },
+      body: imageBuffer
+    });
 
     if (!uploadResponse.ok) {
       const errorBody = await uploadResponse.text();
