@@ -121,14 +121,6 @@ export function BuilderEditorPage() {
     );
   };
 
-  const toggleLayerLock = (index: number) => {
-    setLayers((prev) =>
-      prev.map((layer, idx) =>
-        idx === index ? { ...layer, locked: !layer.locked } : layer
-      )
-    );
-  };
-
   const toggleLayerVisibility = (index: number) => {
     setLayers((prev) =>
       prev.map((layer, idx) =>
@@ -144,7 +136,6 @@ export function BuilderEditorPage() {
       name: `Layer ${layers.length + 1}`,
       file: "",
       position: { x: 0, y: 0, width: 0, height: 0 },
-      locked: false,
       visible: true,
       imageData: null,
     };
@@ -161,8 +152,6 @@ export function BuilderEditorPage() {
   };
 
   const handleMouseDown = (e: React.MouseEvent, index: number) => {
-    if (layers[index].locked) return;
-
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
 
@@ -176,8 +165,6 @@ export function BuilderEditorPage() {
 
   const handleResizeStart = (e: React.MouseEvent, index: number) => {
     e.stopPropagation();
-    if (layers[index].locked) return;
-
     setActiveLayerIndex(index);
     setIsResizing(true);
     setDragStart({ x: e.clientX, y: e.clientY });
@@ -187,7 +174,7 @@ export function BuilderEditorPage() {
     if (!isDragging && !isResizing) return;
 
     const layer = layers[activeLayerIndex];
-    if (!layer || layer.locked) return;
+    if (!layer) return;
 
     if (isDragging) {
       const newX = e.clientX - dragStart.x;
@@ -293,7 +280,7 @@ export function BuilderEditorPage() {
 
   return (
     <>
-      <div className="flex flex-grow overflow-hidden">
+      <div className="flex flex-grow h-full">
         <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
           <div className="p-4 flex-grow">
             <div className="flex items-center justify-between mb-3">
@@ -324,7 +311,7 @@ export function BuilderEditorPage() {
               {[...layers].reverse().map((layer, reversedIdx) => {
                 const idx = layers.length - 1 - reversedIdx;
                 const hasImage = layer.imageData || layer.file;
-                const isEmptyEditableLayer = !hasImage && !layer.locked;
+                const isEmptyEditableLayer = !hasImage;
 
                 if (isEmptyEditableLayer) {
                   return (
@@ -454,41 +441,6 @@ export function BuilderEditorPage() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleLayerLock(idx);
-                        }}
-                        className={`p-1 rounded transition-colors ${
-                          layer.locked
-                            ? "text-bufo-500 hover:text-bufo-600"
-                            : "text-gray-400 hover:text-gray-600"
-                        }`}
-                        title={layer.locked ? "Unlock Layer" : "Lock Layer"}
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          {layer.locked ? (
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                            />
-                          ) : (
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
-                            />
-                          )}
-                        </svg>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
                           removeLayer(idx);
                         }}
                         className="p-1 text-gray-400 hover:text-red-500 rounded transition-colors"
@@ -561,14 +513,12 @@ export function BuilderEditorPage() {
             const imgSrc = layer.imageData || layer.file;
             if (!imgSrc) return null;
 
-            const isActive = idx === activeLayerIndex && !layer.locked;
+            const isActive = idx === activeLayerIndex;
 
             return (
               <div
                 key={layer.id}
-                className={`absolute ${
-                  layer.locked ? "" : "cursor-move"
-                } ${isActive ? "ring-2 ring-bufo-500 ring-offset-2" : ""}`}
+                className={`absolute cursor-move ${isActive ? "ring-2 ring-bufo-500 ring-offset-2" : ""}`}
                 style={{
                   left: layer.position.x,
                   top: layer.position.y,

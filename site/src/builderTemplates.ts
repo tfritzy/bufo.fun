@@ -10,7 +10,6 @@ export interface TemplateLayer {
   name: string;
   file: string;
   position: LayerPosition;
-  locked: boolean;
   visible: boolean;
 }
 
@@ -39,7 +38,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Base Bufo",
         file: "/bufos/bufo-blank-stare.png",
         position: { x: 50, y: 50, width: 400, height: 400 },
-        locked: true,
         visible: true,
       },
       {
@@ -47,7 +45,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Your Image",
         file: "",
         position: { x: 180, y: 280, width: 140, height: 140 },
-        locked: false,
         visible: true,
       },
       {
@@ -55,7 +52,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Bufo Arm",
         file: "/bufos/bufo-offers-a-cookie.png",
         position: { x: 150, y: 200, width: 200, height: 200 },
-        locked: true,
         visible: true,
       },
     ],
@@ -74,7 +70,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Base Bufo",
         file: "/bufos/bufo-blank-stare.png",
         position: { x: 50, y: 50, width: 400, height: 400 },
-        locked: true,
         visible: true,
       },
       {
@@ -82,7 +77,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Your Image",
         file: "",
         position: { x: 160, y: 200, width: 160, height: 160 },
-        locked: false,
         visible: true,
       },
       {
@@ -90,7 +84,6 @@ export const builderTemplates: BuilderTemplate[] = [
         name: "Bufo Arm",
         file: "/bufos/bufo-takes-your-boba.png",
         position: { x: 120, y: 150, width: 250, height: 250 },
-        locked: true,
         visible: true,
       },
     ],
