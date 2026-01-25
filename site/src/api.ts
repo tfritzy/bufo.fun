@@ -14,8 +14,15 @@ export async function fetchBufoData(): Promise<{
 
   const data: BufoData = await response.json();
 
+  const uniqueBufos = data.bufos.reduce((acc, bufo) => {
+    if (!acc.has(bufo.id)) {
+      acc.set(bufo.id, bufo);
+    }
+    return acc;
+  }, new Map());
+
   return {
-    bufos: data.bufos.map(toBufo),
+    bufos: Array.from(uniqueBufos.values()).map(toBufo),
     allTags: data.tags,
   };
 }
