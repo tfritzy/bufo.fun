@@ -3,7 +3,6 @@ import { Header } from "./components/Header";
 import { HomePage } from "./pages/HomePage";
 import { BuilderListPage } from "./pages/BuilderListPage";
 import { BuilderEditorPage } from "./pages/BuilderEditorPage";
-import { AboutPage } from "./pages/AboutPage";
 
 export function App() {
   return (
@@ -13,7 +12,6 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/builder" element={<BuilderListPage />} />
         <Route path="/builder/:id" element={<BuilderEditorPage />} />
-        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </div>
   );
