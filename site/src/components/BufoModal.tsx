@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bufo } from "../types";
 import { Modal } from "./Modal";
 import { Tag } from "./Tag";
+import { Button } from "./Button";
 import { downloadBufo, copyBufoToClipboard, isGif } from "../utils";
 import { proverbs } from "../proverbs";
 
@@ -148,12 +149,12 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
           >
             {copied ? "Copied!" : "Copy"}
           </button>
-          <button
-            className="bg-bufo-400 text-white rounded-md px-2 mt-2 border border-bufo-500 focus:outline-none focus:ring-2 focus:ring-bufo-200 focus:shadow-sm transition-all duration-150 ease-in-out"
+          <Button
+            className="px-2 mt-2"
             onClick={() => downloadBufo(bufo)}
           >
             Download
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>
