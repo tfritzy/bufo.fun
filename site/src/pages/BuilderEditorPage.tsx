@@ -18,7 +18,9 @@ export function BuilderEditorPage() {
   const [activeLayerIndex, setActiveLayerIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const [resizeDirection, setResizeDirection] = useState<string>("");
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [initialSize, setInitialSize] = useState({ width: 0, height: 0 });
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [bufoName, setBufoName] = useState("");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -163,11 +165,16 @@ export function BuilderEditorPage() {
     });
   };
 
-  const handleResizeStart = (e: React.MouseEvent, index: number) => {
+  const handleResizeStart = (e: React.MouseEvent, index: number, direction: string) => {
     e.stopPropagation();
     setActiveLayerIndex(index);
     setIsResizing(true);
+    setResizeDirection(direction);
     setDragStart({ x: e.clientX, y: e.clientY });
+    setInitialSize({
+      width: layers[index].position.width,
+      height: layers[index].position.height,
+    });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -183,16 +190,77 @@ export function BuilderEditorPage() {
     } else if (isResizing) {
       const deltaX = e.clientX - dragStart.x;
       const deltaY = e.clientY - dragStart.y;
-      const delta = Math.max(deltaX, deltaY);
-      const newSize = Math.max(50, layer.position.width + delta);
-      updateLayerPosition(activeLayerIndex, { width: newSize, height: newSize });
-      setDragStart({ x: e.clientX, y: e.clientY });
+      
+      let updates: Partial<LayerPosition> = {};
+
+      switch (resizeDirection) {
+        case 'se':
+          const seDelta = Math.max(deltaX, deltaY);
+          updates = {
+            width: Math.max(50, initialSize.width + seDelta),
+            height: Math.max(50, initialSize.height + seDelta),
+          };
+          break;
+        case 'nw':
+          const nwDelta = Math.max(-deltaX, -deltaY);
+          const nwNewSize = Math.max(50, initialSize.width + nwDelta);
+          updates = {
+            x: layer.position.x - (nwNewSize - layer.position.width),
+            y: layer.position.y - (nwNewSize - layer.position.height),
+            width: nwNewSize,
+            height: nwNewSize,
+          };
+          break;
+        case 'ne':
+          const neDelta = Math.max(deltaX, -deltaY);
+          const neNewSize = Math.max(50, initialSize.width + neDelta);
+          updates = {
+            y: layer.position.y - (neNewSize - layer.position.height),
+            width: neNewSize,
+            height: neNewSize,
+          };
+          break;
+        case 'sw':
+          const swDelta = Math.max(-deltaX, deltaY);
+          const swNewSize = Math.max(50, initialSize.width + swDelta);
+          updates = {
+            x: layer.position.x - (swNewSize - layer.position.width),
+            width: swNewSize,
+            height: swNewSize,
+          };
+          break;
+        case 'n':
+          updates = {
+            y: layer.position.y + deltaY,
+            height: Math.max(50, initialSize.height - deltaY),
+          };
+          break;
+        case 's':
+          updates = {
+            height: Math.max(50, initialSize.height + deltaY),
+          };
+          break;
+        case 'e':
+          updates = {
+            width: Math.max(50, initialSize.width + deltaX),
+          };
+          break;
+        case 'w':
+          updates = {
+            x: layer.position.x + deltaX,
+            width: Math.max(50, initialSize.width - deltaX),
+          };
+          break;
+      }
+
+      updateLayerPosition(activeLayerIndex, updates);
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
     setIsResizing(false);
+    setResizeDirection("");
   };
 
   const generatePreview = async (): Promise<string | null> => {
@@ -535,10 +603,40 @@ export function BuilderEditorPage() {
                   draggable={false}
                 />
                 {isActive && (
-                  <div
-                    className="absolute bottom-0 right-0 w-4 h-4 bg-bufo-500 cursor-se-resize rounded-tl"
-                    onMouseDown={(e) => handleResizeStart(e, idx)}
-                  />
+                  <>
+                    <div
+                      className="absolute top-0 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-nw-resize -translate-x-1/2 -translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'nw')}
+                    />
+                    <div
+                      className="absolute top-0 left-1/2 w-3 h-3 bg-white border-2 border-bufo-500 cursor-n-resize -translate-x-1/2 -translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'n')}
+                    />
+                    <div
+                      className="absolute top-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-ne-resize translate-x-1/2 -translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'ne')}
+                    />
+                    <div
+                      className="absolute top-1/2 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-e-resize translate-x-1/2 -translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'e')}
+                    />
+                    <div
+                      className="absolute bottom-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-se-resize translate-x-1/2 translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'se')}
+                    />
+                    <div
+                      className="absolute bottom-0 left-1/2 w-3 h-3 bg-white border-2 border-bufo-500 cursor-s-resize -translate-x-1/2 translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 's')}
+                    />
+                    <div
+                      className="absolute bottom-0 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-sw-resize -translate-x-1/2 translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'sw')}
+                    />
+                    <div
+                      className="absolute top-1/2 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-w-resize -translate-x-1/2 -translate-y-1/2"
+                      onMouseDown={(e) => handleResizeStart(e, idx, 'w')}
+                    />
+                  </>
                 )}
               </div>
             );
