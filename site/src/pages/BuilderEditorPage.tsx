@@ -5,6 +5,7 @@ import {
   TemplateLayer,
   LayerPosition,
 } from "../builderTemplates";
+import { SEO } from "../components/SEO";
 
 interface LayerState extends TemplateLayer {
   imageData: string | null;
@@ -328,6 +329,12 @@ export function BuilderEditorPage() {
 
   return (
     <>
+      <SEO
+        title={`${template.name} - Create Custom Bufo`}
+        description={`Use the ${template.name} template to create your own custom bufo emoji. Design, customize, and export your perfect bufo.`}
+        keywords="bufo, builder, create, custom, emoji, design, editor"
+        url={`https://bufo.fun/builder/${id}`}
+      />
       <div className="flex flex-grow h-full">
         <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
           <div className="p-4 flex-grow">
