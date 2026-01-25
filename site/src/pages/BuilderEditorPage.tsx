@@ -10,6 +10,8 @@ interface LayerState extends TemplateLayer {
   imageData: string | null;
 }
 
+type ResizeDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | '';
+
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
   const template = id ? getTemplateById(id) : undefined;
@@ -18,7 +20,7 @@ export function BuilderEditorPage() {
   const [activeLayerIndex, setActiveLayerIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
-  const [resizeDirection, setResizeDirection] = useState<string>("");
+  const [resizeDirection, setResizeDirection] = useState<ResizeDirection>("");
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [initialSize, setInitialSize] = useState({ width: 0, height: 0 });
   const [showDownloadModal, setShowDownloadModal] = useState(false);
@@ -165,7 +167,7 @@ export function BuilderEditorPage() {
     });
   };
 
-  const handleResizeStart = (e: React.MouseEvent, index: number, direction: string) => {
+  const handleResizeStart = (e: React.MouseEvent, index: number, direction: ResizeDirection) => {
     e.stopPropagation();
     setActiveLayerIndex(index);
     setIsResizing(true);
