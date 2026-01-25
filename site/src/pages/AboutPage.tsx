@@ -5,7 +5,7 @@ export function AboutPage() {
     <>
       <SEO
         title="About - The History of Bufo"
-        description="Learn about the history of bufo as far as I know it. If you have additional details, please open a pr and add them."
+        description="Learn about the history of bufo as far as I know it. If you have additional details, please open a PR and add them."
         keywords="bufo, about, frog, history, origin, meme, character"
         url="https://bufo.fun/about"
       />
