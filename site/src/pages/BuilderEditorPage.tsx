@@ -10,7 +10,7 @@ interface LayerState extends TemplateLayer {
   imageData: string | null;
 }
 
-type ResizeDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | '';
+type ResizeDirection = 'nw' | 'ne' | 'se' | 'sw' | '';
 
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -229,28 +229,6 @@ export function BuilderEditorPage() {
             x: layer.position.x - (swNewSize - layer.position.width),
             width: swNewSize,
             height: swNewSize,
-          };
-          break;
-        case 'n':
-          updates = {
-            y: layer.position.y + deltaY,
-            height: Math.max(50, initialSize.height - deltaY),
-          };
-          break;
-        case 's':
-          updates = {
-            height: Math.max(50, initialSize.height + deltaY),
-          };
-          break;
-        case 'e':
-          updates = {
-            width: Math.max(50, initialSize.width + deltaX),
-          };
-          break;
-        case 'w':
-          updates = {
-            x: layer.position.x + deltaX,
-            width: Math.max(50, initialSize.width - deltaX),
           };
           break;
       }
@@ -611,32 +589,16 @@ export function BuilderEditorPage() {
                       onMouseDown={(e) => handleResizeStart(e, idx, 'nw')}
                     />
                     <div
-                      className="absolute top-0 left-1/2 w-3 h-3 bg-white border-2 border-bufo-500 cursor-n-resize -translate-x-1/2 -translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'n')}
-                    />
-                    <div
                       className="absolute top-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-ne-resize translate-x-1/2 -translate-y-1/2"
                       onMouseDown={(e) => handleResizeStart(e, idx, 'ne')}
-                    />
-                    <div
-                      className="absolute top-1/2 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-e-resize translate-x-1/2 -translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'e')}
                     />
                     <div
                       className="absolute bottom-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-se-resize translate-x-1/2 translate-y-1/2"
                       onMouseDown={(e) => handleResizeStart(e, idx, 'se')}
                     />
                     <div
-                      className="absolute bottom-0 left-1/2 w-3 h-3 bg-white border-2 border-bufo-500 cursor-s-resize -translate-x-1/2 translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 's')}
-                    />
-                    <div
                       className="absolute bottom-0 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-sw-resize -translate-x-1/2 translate-y-1/2"
                       onMouseDown={(e) => handleResizeStart(e, idx, 'sw')}
-                    />
-                    <div
-                      className="absolute top-1/2 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-w-resize -translate-x-1/2 -translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'w')}
                     />
                   </>
                 )}
