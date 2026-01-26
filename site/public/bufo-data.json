@@ -1,6 +1,7 @@
 {
   "tags": [
     "accessories",
+    "acknowledgement",
     "agree",
     "amogus",
     "anger",
@@ -9,6 +10,7 @@
     "anthropomorphic",
     "anxiety",
     "approve",
+    "arrival",
     "avoids-you",
     "awkward",
     "baby",
@@ -52,6 +54,7 @@
     "je-ne-sais-quoi",
     "kills-you",
     "laugh",
+    "like",
     "love",
     "low-fi",
     "mario",
@@ -62,6 +65,7 @@
     "offers",
     "pain",
     "panic",
+    "pray",
     "profession",
     "punishment",
     "rage",
@@ -144,7 +148,8 @@
       "fileType": "png",
       "tags": [
         "approve",
-        "encouragement"
+        "encouragement",
+        "like"
       ]
     },
     {
@@ -159,7 +164,7 @@
       "id": "bufo-ack",
       "fileType": "png",
       "tags": [
-        "agree",
+        "acknowledgement",
         "core"
       ]
     },
@@ -209,7 +214,7 @@
       "id": "bufo-all-good",
       "fileType": "png",
       "tags": [
-        "agree",
+        "acknowledgement",
         "core",
         "cry",
         "sad"
@@ -309,7 +314,7 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "greetings"
+        "arrival"
       ]
     },
     {
@@ -1025,7 +1030,8 @@
         "agree",
         "approve",
         "core",
-        "encouragement"
+        "encouragement",
+        "like"
       ]
     },
     {
@@ -1425,7 +1431,7 @@
       "tags": [
         "core",
         "cry",
-        "religion"
+        "pray"
       ]
     },
     {
@@ -1935,7 +1941,7 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "greetings"
+        "arrival"
       ]
     },
     {
@@ -4364,7 +4370,7 @@
       "id": "bufo-offers-a-like",
       "fileType": "png",
       "tags": [
-        "approve",
+        "like",
         "offers"
       ]
     },
@@ -5775,7 +5781,7 @@
       "fileType": "png",
       "tags": [
         "anthropomorphic",
-        "approve"
+        "like"
       ]
     },
     {
@@ -5996,7 +6002,7 @@
       "id": "bufo-salute",
       "fileType": "png",
       "tags": [
-        "agree"
+        "acknowledgement"
       ]
     },
     {
@@ -6555,7 +6561,7 @@
       "fileType": "png",
       "tags": [
         "happy",
-        "religion"
+        "pray"
       ]
     },
     {
@@ -6822,7 +6828,7 @@
       "fileType": "png",
       "tags": [
         "gratitude",
-        "religion"
+        "pray"
       ]
     },
     {
@@ -6998,7 +7004,7 @@
       "id": "bufo-tips-hat",
       "fileType": "png",
       "tags": [
-        "agree"
+        "acknowledgement"
       ]
     },
     {
@@ -7183,7 +7189,7 @@
       "id": "bufo-typing",
       "fileType": "gif",
       "tags": [
-        "agree",
+        "acknowledgement",
         "animated",
         "core"
       ]
@@ -7237,8 +7243,8 @@
       "fileType": "png",
       "tags": [
         "agree",
-        "approve",
-        "encouragement"
+        "encouragement",
+        "like"
       ]
     },
     {
@@ -7706,7 +7712,7 @@
       "fileType": "png",
       "tags": [
         "food",
-        "religion"
+        "pray"
       ]
     },
     {
