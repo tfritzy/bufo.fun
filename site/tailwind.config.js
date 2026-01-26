@@ -2,9 +2,18 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      screens: {
+        sm: "640px",
+        md: "720px",
+        lg: "960px",
+        xl: "960px",
+        "2xl": "960px",
+      },
+    },
     extend: {
       boxShadow: {
-        keyline: "0 0 0 1px rgba(0, 0, 0, 0.5)", // Customize as needed
+        keyline: "0 0 0 1px rgba(0, 0, 0, 0.5)",
       },
       colors: {
         transparent: "transparent",
