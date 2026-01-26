@@ -27,6 +27,10 @@ export function BuilderEditorPage() {
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [bufoName, setBufoName] = useState("");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [canvasWidth, setCanvasWidth] = useState<number>(500);
+  const [canvasHeight, setCanvasHeight] = useState<number>(500);
+  const [widthInput, setWidthInput] = useState<string>("500");
+  const [heightInput, setHeightInput] = useState<string>("500");
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
   const layerIdCounter = useRef(0);
@@ -39,28 +43,54 @@ export function BuilderEditorPage() {
       }));
       setLayers(initialLayers);
       setActiveLayerIndex(template.activeLayerIndex);
+      setCanvasWidth(template.canvasWidth);
+      setCanvasHeight(template.canvasHeight);
+      setWidthInput(String(template.canvasWidth));
+      setHeightInput(String(template.canvasHeight));
     }
   }, [template]);
-
-  const getDefaultPosition = (tmpl: typeof template): LayerPosition => ({
-    x: tmpl ? tmpl.canvasWidth / 4 : 0,
-    y: tmpl ? tmpl.canvasHeight / 4 : 0,
-    width: tmpl ? tmpl.canvasWidth / 2 : 150,
-    height: tmpl ? tmpl.canvasHeight / 2 : 150,
-  });
 
   const layerHasNoPosition = (layer: LayerState): boolean =>
     layer.position.width === 0 && layer.position.height === 0;
 
-  const updateLayerWithImage = (
-    layer: LayerState,
-    imageData: string
-  ): LayerState => {
-    if (layerHasNoPosition(layer) && template) {
-      return { ...layer, imageData, position: getDefaultPosition(template) };
-    }
-    return { ...layer, imageData };
-  };
+  const loadImageWithPosition = useCallback(
+    (imageData: string, layerIndex: number): Promise<void> => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          setLayers((prev) =>
+            prev.map((layer, idx) => {
+              if (idx !== layerIndex) return layer;
+              if (layerHasNoPosition(layer)) {
+                return {
+                  ...layer,
+                  imageData,
+                  position: {
+                    x: canvasWidth / 4,
+                    y: canvasHeight / 4,
+                    width: img.naturalWidth,
+                    height: img.naturalHeight,
+                  },
+                };
+              }
+              return { ...layer, imageData };
+            })
+          );
+          resolve();
+        };
+        img.onerror = () => {
+          setLayers((prev) =>
+            prev.map((layer, idx) =>
+              idx === layerIndex ? { ...layer, imageData } : layer
+            )
+          );
+          resolve();
+        };
+        img.src = imageData;
+      });
+    },
+    [canvasWidth, canvasHeight]
+  );
 
   const handlePaste = useCallback(
     (e: ClipboardEvent) => {
@@ -74,13 +104,7 @@ export function BuilderEditorPage() {
             const reader = new FileReader();
             reader.onload = (event) => {
               const imageData = event.target?.result as string;
-              setLayers((prev) =>
-                prev.map((layer, idx) =>
-                  idx === activeLayerIndex
-                    ? updateLayerWithImage(layer, imageData)
-                    : layer
-                )
-              );
+              loadImageWithPosition(imageData, activeLayerIndex);
             };
             reader.readAsDataURL(file);
           }
@@ -88,7 +112,7 @@ export function BuilderEditorPage() {
         }
       }
     },
-    [activeLayerIndex, template]
+    [activeLayerIndex, loadImageWithPosition]
   );
 
   useEffect(() => {
@@ -104,11 +128,7 @@ export function BuilderEditorPage() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
-      setLayers((prev) =>
-        prev.map((layer, idx) =>
-          idx === layerIndex ? updateLayerWithImage(layer, imageData) : layer
-        )
-      );
+      loadImageWithPosition(imageData, layerIndex);
     };
     reader.readAsDataURL(file);
   };
@@ -246,13 +266,13 @@ export function BuilderEditorPage() {
 
   const generatePreview = async (): Promise<string | null> => {
     const canvas = exportCanvasRef.current;
-    if (!canvas || !template) return null;
+    if (!canvas) return null;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
 
-    canvas.width = template.canvasWidth;
-    canvas.height = template.canvasHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (const layer of layers) {
@@ -338,6 +358,47 @@ export function BuilderEditorPage() {
       <div className="flex flex-grow h-full">
         <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
           <div className="p-4 flex-grow">
+            <div className="mb-4 pb-4 border-b border-gray-200">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                Canvas Size
+              </h3>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <label className="block text-xs text-gray-600 mb-1">Width (px)</label>
+                  <input
+                    type="number"
+                    min="100"
+                    max="2000"
+                    value={widthInput}
+                    onChange={(e) => setWidthInput(e.target.value)}
+                    onBlur={() => {
+                      const value = parseInt(widthInput, 10);
+                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+                      setCanvasWidth(validated);
+                      setWidthInput(String(validated));
+                    }}
+                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-xs text-gray-600 mb-1">Height (px)</label>
+                  <input
+                    type="number"
+                    min="100"
+                    max="2000"
+                    value={heightInput}
+                    onChange={(e) => setHeightInput(e.target.value)}
+                    onBlur={() => {
+                      const value = parseInt(heightInput, 10);
+                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+                      setCanvasHeight(validated);
+                      setHeightInput(String(validated));
+                    }}
+                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
+                  />
+                </div>
+              </div>
+            </div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 Layers
@@ -551,8 +612,8 @@ export function BuilderEditorPage() {
             ref={canvasRef}
             className="relative bg-white shadow-xl rounded-lg overflow-hidden"
             style={{
-              width: template.canvasWidth,
-              height: template.canvasHeight,
+              width: canvasWidth,
+              height: canvasHeight,
               backgroundImage:
                 "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
               backgroundSize: "20px 20px",
