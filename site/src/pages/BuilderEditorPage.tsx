@@ -361,7 +361,10 @@ export function BuilderEditorPage() {
                     min="100"
                     max="2000"
                     value={canvasWidth}
-                    onChange={(e) => setCanvasWidth(Math.max(100, Math.min(2000, parseInt(e.target.value) || 100)))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value, 10);
+                      setCanvasWidth(isNaN(value) ? 100 : Math.max(100, Math.min(2000, value)));
+                    }}
                     className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
                   />
                 </div>
@@ -372,7 +375,10 @@ export function BuilderEditorPage() {
                     min="100"
                     max="2000"
                     value={canvasHeight}
-                    onChange={(e) => setCanvasHeight(Math.max(100, Math.min(2000, parseInt(e.target.value) || 100)))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value, 10);
+                      setCanvasHeight(isNaN(value) ? 100 : Math.max(100, Math.min(2000, value)));
+                    }}
                     className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
                   />
                 </div>
