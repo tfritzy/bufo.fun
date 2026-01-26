@@ -1,35 +1,24 @@
 {
   "tags": [
     "accessories",
-    "acknowledgement",
     "agree",
     "amogus",
     "anger",
-    "angry",
     "animal",
     "animated",
     "anthropomorphic",
     "anxiety",
     "approve",
-    "arrival",
     "avoids-you",
     "awkward",
     "baby",
-    "birthday",
     "blank-stare",
-    "boba",
     "bonk",
-    "but-instead",
-    "but-you-can-see",
     "cannibalism",
     "celebration",
-    "chonker",
-    "christmas",
-    "clown",
     "confused",
     "cool",
     "core",
-    "country",
     "covid",
     "cozy",
     "cry",
@@ -41,40 +30,30 @@
     "discomfort",
     "dislike",
     "drink",
-    "drowning",
     "emergency",
     "encouragement",
     "evil",
     "excited",
     "fancy",
     "farewell",
-    "feel-better",
     "fight",
     "fire",
     "food",
     "found-something",
     "fruit",
-    "gandalf",
     "gratitude",
     "greetings",
-    "hacker",
     "happy",
     "has-a",
     "high-quality",
     "holiday",
     "horror",
     "hotdog",
-    "ice",
-    "inspirational",
     "je-ne-sais-quoi",
-    "jealous",
-    "judging",
     "kills-you",
     "laugh",
-    "like",
     "love",
     "low-fi",
-    "magic",
     "mario",
     "meme",
     "meta",
@@ -83,34 +62,22 @@
     "offers",
     "pain",
     "panic",
-    "plead",
-    "pokemon",
-    "pray",
     "profession",
     "punishment",
     "rage",
     "reference",
-    "relief",
     "religion",
-    "request",
     "sad",
-    "sarcasam",
     "shock",
     "skepticism",
-    "smart",
     "software-reference",
     "space",
     "sports",
-    "stab",
-    "star-wars",
-    "stonks",
     "sus",
-    "sword",
     "take-a-look",
     "takes-your",
     "thinks-about",
     "tired",
-    "trapped",
     "ui",
     "unsure",
     "upset",
@@ -123,7 +90,6 @@
       "id": "add-bufo",
       "fileType": "png",
       "tags": [
-        "request",
         "ui"
       ]
     },
@@ -131,22 +97,21 @@
       "id": "australian-bufo",
       "fileType": "png",
       "tags": [
-        "reference",
-        "accessories"
+        "accessories",
+        "reference"
       ]
     },
     {
       "id": "awesomebufo",
       "fileType": "png",
       "tags": [
-        "sarcasam"
+        "skepticism"
       ]
     },
     {
       "id": "be-the-bufo-you-want-to-see",
       "fileType": "png",
       "tags": [
-        "inspirational",
         "encouragement"
       ]
     },
@@ -161,9 +126,9 @@
       "id": "bufo+1",
       "fileType": "png",
       "tags": [
-        "encouragement",
         "agree",
-        "core"
+        "core",
+        "encouragement"
       ]
     },
     {
@@ -178,24 +143,23 @@
       "id": "bufo-10",
       "fileType": "png",
       "tags": [
-        "encouragement",
         "approve",
-        "like"
+        "encouragement"
       ]
     },
     {
       "id": "bufo-2022",
       "fileType": "png",
       "tags": [
-        "reference",
-        "accessories"
+        "accessories",
+        "reference"
       ]
     },
     {
       "id": "bufo-ack",
       "fileType": "png",
       "tags": [
-        "acknowledgement",
+        "agree",
         "core"
       ]
     },
@@ -210,18 +174,18 @@
       "id": "bufo-ages-rapidly-in-the-void",
       "fileType": "png",
       "tags": [
-        "void",
         "disbelief",
-        "shock"
+        "shock",
+        "void"
       ]
     },
     {
       "id": "bufo-aight-imma-head-out",
       "fileType": "gif",
       "tags": [
-        "farewell",
         "animated",
-        "avoids-you"
+        "avoids-you",
+        "farewell"
       ]
     },
     {
@@ -235,54 +199,53 @@
       "id": "bufo-alarma",
       "fileType": "gif",
       "tags": [
-        "panic",
+        "animated",
         "core",
         "emergency",
-        "animated"
+        "panic"
       ]
     },
     {
       "id": "bufo-all-good",
       "fileType": "png",
       "tags": [
-        "cry",
-        "sad",
+        "agree",
         "core",
-        "acknowledgement"
+        "cry",
+        "sad"
       ]
     },
     {
       "id": "bufo-all-warm-and-fuzzy-inside",
       "fileType": "png",
       "tags": [
-        "love",
         "core",
-        "happy"
+        "happy",
+        "love"
       ]
     },
     {
       "id": "bufo-am-i",
       "fileType": "png",
       "tags": [
-        "reference",
-        "star-wars"
+        "reference"
       ]
     },
     {
       "id": "bufo-amaze",
       "fileType": "gif",
       "tags": [
-        "core",
-        "animated"
+        "animated",
+        "core"
       ]
     },
     {
       "id": "bufo-ambiently-existing",
       "fileType": "png",
       "tags": [
-        "high-quality",
         "anxiety",
         "blank-stare",
+        "high-quality",
         "worry"
       ]
     },
@@ -297,16 +260,15 @@
       "id": "bufo-angel",
       "fileType": "png",
       "tags": [
-        "plead",
-        "religion"
+        "religion",
+        "sad"
       ]
     },
     {
       "id": "bufo-angrily-gives-you-a-birthday-gift",
       "fileType": "png",
       "tags": [
-        "anger",
-        "jealous"
+        "anger"
       ]
     },
     {
@@ -330,17 +292,16 @@
       "id": "bufo-angryandfrozen",
       "fileType": "png",
       "tags": [
-        "trapped",
         "anger",
-        "ice"
+        "panic"
       ]
     },
     {
       "id": "bufo-anime-glasses",
       "fileType": "png",
       "tags": [
-        "reference",
-        "accessories"
+        "accessories",
+        "reference"
       ]
     },
     {
@@ -348,26 +309,26 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "arrival"
+        "greetings"
       ]
     },
     {
       "id": "bufo-approve",
       "fileType": "png",
       "tags": [
+        "agree",
         "approve",
         "core",
-        "encouragement",
-        "agree"
+        "encouragement"
       ]
     },
     {
       "id": "bufo-are-you-seeing-this",
       "fileType": "gif",
       "tags": [
-        "shock",
+        "animated",
         "disbelief",
-        "animated"
+        "shock"
       ]
     },
     {
@@ -389,7 +350,6 @@
       "id": "bufo-asks-politely-to-stop",
       "fileType": "png",
       "tags": [
-        "request",
         "dislike"
       ]
     },
@@ -397,33 +357,33 @@
       "id": "bufo-assists-with-the-landing",
       "fileType": "gif",
       "tags": [
-        "encouragement",
+        "animated",
         "cute",
-        "animated"
+        "encouragement"
       ]
     },
     {
       "id": "bufo-atc",
       "fileType": "png",
       "tags": [
-        "profession",
-        "accessories"
+        "accessories",
+        "profession"
       ]
     },
     {
       "id": "bufo-away",
       "fileType": "png",
       "tags": [
-        "ui",
-        "avoids-you"
+        "avoids-you",
+        "ui"
       ]
     },
     {
       "id": "bufo-awkward-smile-nod",
       "fileType": "gif",
       "tags": [
-        "awkward",
         "animated",
+        "awkward",
         "discomfort"
       ]
     },
@@ -432,33 +392,32 @@
       "fileType": "png",
       "tags": [
         "awkward",
-        "discomfort",
-        "core"
+        "core",
+        "discomfort"
       ]
     },
     {
       "id": "bufo-ayy",
       "fileType": "png",
       "tags": [
-        "cool",
-        "accessories"
+        "accessories",
+        "cool"
       ]
     },
     {
       "id": "bufo-baby",
       "fileType": "png",
       "tags": [
-        "cute",
-        "baby"
+        "baby",
+        "cute"
       ]
     },
     {
       "id": "bufo-back-pat",
       "fileType": "png",
       "tags": [
-        "encouragement",
         "core",
-        "feel-better"
+        "encouragement"
       ]
     },
     {
@@ -487,17 +446,17 @@
       "id": "bufo-baker",
       "fileType": "png",
       "tags": [
-        "profession",
         "accessories",
-        "food"
+        "food",
+        "profession"
       ]
     },
     {
       "id": "bufo-baller",
       "fileType": "png",
       "tags": [
-        "cool",
-        "accessories"
+        "accessories",
+        "cool"
       ]
     },
     {
@@ -518,24 +477,24 @@
       "id": "bufo-barrister",
       "fileType": "png",
       "tags": [
-        "profession",
-        "accessories"
+        "accessories",
+        "profession"
       ]
     },
     {
       "id": "bufo-baseball",
       "fileType": "png",
       "tags": [
-        "sports",
-        "anthropomorphic"
+        "anthropomorphic",
+        "sports"
       ]
     },
     {
       "id": "bufo-basketball",
       "fileType": "png",
       "tags": [
-        "sports",
-        "anthropomorphic"
+        "anthropomorphic",
+        "sports"
       ]
     },
     {
@@ -563,51 +522,51 @@
       "id": "bufo-behind-bars",
       "fileType": "png",
       "tags": [
-        "trapped",
-        "sad",
-        "cry"
+        "cry",
+        "panic",
+        "sad"
       ]
     },
     {
       "id": "bufo-bell-pepper",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "bufo-betray-but-its-a-hotdog",
       "fileType": "png",
       "tags": [
-        "hotdog",
-        "stab"
+        "fight",
+        "hotdog"
       ]
     },
     {
       "id": "bufo-betray",
       "fileType": "png",
       "tags": [
-        "stab",
-        "dislike"
+        "dislike",
+        "fight"
       ]
     },
     {
       "id": "bufo-birthday-but-not-particularly-happy",
       "fileType": "png",
       "tags": [
-        "sad",
-        "birthday"
+        "celebration",
+        "sad"
       ]
     },
     {
       "id": "bufo-blank-stare",
       "fileType": "png",
       "tags": [
+        "anxiety",
         "core",
         "disbelief",
-        "anxiety",
         "shock"
       ]
     },
@@ -637,16 +596,16 @@
       "id": "bufo-bless-back",
       "fileType": "png",
       "tags": [
-        "gratitude",
-        "core"
+        "core",
+        "gratitude"
       ]
     },
     {
       "id": "bufo-bless",
       "fileType": "png",
       "tags": [
-        "gratitude",
-        "core"
+        "core",
+        "gratitude"
       ]
     },
     {
@@ -660,32 +619,31 @@
       "id": "bufo-blueberries",
       "fileType": "png",
       "tags": [
-        "fruit",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
       "id": "bufo-blush",
       "fileType": "gif",
       "tags": [
+        "animated",
         "cute",
-        "love",
-        "animated"
+        "love"
       ]
     },
     {
       "id": "bufo-boba-army",
       "fileType": "png",
       "tags": [
-        "boba"
+        "drink"
       ]
     },
     {
       "id": "bufo-boba",
       "fileType": "png",
       "tags": [
-        "boba",
         "drink"
       ]
     },
@@ -719,16 +677,16 @@
       "id": "bufo-bops-you-on-the-head-with-a-rolled-up-newspaper",
       "fileType": "png",
       "tags": [
-        "punishment",
-        "dislike"
+        "dislike",
+        "punishment"
       ]
     },
     {
       "id": "bufo-bouncer-says-its-time-to-go-now",
       "fileType": "png",
       "tags": [
-        "dislike",
         "cool",
+        "dislike",
         "punishment"
       ]
     },
@@ -736,8 +694,8 @@
       "id": "bufo-bouquet",
       "fileType": "png",
       "tags": [
-        "love",
-        "cute"
+        "cute",
+        "love"
       ]
     },
     {
@@ -751,34 +709,33 @@
       "id": "bufo-bowser",
       "fileType": "png",
       "tags": [
-        "reference",
-        "mario"
+        "mario",
+        "reference"
       ]
     },
     {
       "id": "bufo-box-of-chocolates",
       "fileType": "png",
       "tags": [
-        "love",
-        "food"
+        "food",
+        "love"
       ]
     },
     {
       "id": "bufo-brain",
       "fileType": "png",
       "tags": [
-        "high-quality",
-        "smart",
-        "core"
+        "core",
+        "high-quality"
       ]
     },
     {
       "id": "bufo-breakdown",
       "fileType": "png",
       "tags": [
+        "core",
         "cry",
-        "sad",
-        "core"
+        "sad"
       ]
     },
     {
@@ -792,8 +749,8 @@
       "id": "bufo-brings-a-new-meaning-to-brain-freeze-by-bopping-you-on-the-head-with-a-popsicle",
       "fileType": "gif",
       "tags": [
-        "food",
-        "bonk"
+        "bonk",
+        "food"
       ]
     },
     {
@@ -807,17 +764,16 @@
       "id": "bufo-brings-magic-to-the-riot",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "magic"
+        "animated"
       ]
     },
     {
       "id": "bufo-broccoli",
       "fileType": "png",
       "tags": [
-        "vegetable",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -831,8 +787,8 @@
       "id": "bufo-brought-a-taco",
       "fileType": "png",
       "tags": [
-        "food",
-        "accessories"
+        "accessories",
+        "food"
       ]
     },
     {
@@ -854,33 +810,29 @@
       "id": "bufo-but-instead-of-green-its-hotdogs",
       "fileType": "png",
       "tags": [
-        "hotdog",
-        "but-instead"
+        "hotdog"
       ]
     },
     {
       "id": "bufo-but-instead-of-green-its-pizza",
       "fileType": "png",
-      "tags": [
-        "but-instead"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-but-you-can-feel-the-electro-house-music-in-the-gif-and-oh-yea-theres-also-a-dapper-chicken",
       "fileType": "gif",
       "tags": [
+        "animal",
         "animated",
         "core",
-        "happy",
         "dance",
-        "animal"
+        "happy"
       ]
     },
     {
       "id": "bufo-but-you-can-see-the-bufo-in-bufos-eyes",
       "fileType": "png",
       "tags": [
-        "but-you-can-see",
         "meta"
       ]
     },
@@ -888,7 +840,6 @@
       "id": "bufo-but-you-can-see-the-hotdog-in-their-eyes",
       "fileType": "png",
       "tags": [
-        "but-you-can-see",
         "hotdog"
       ]
     },
@@ -896,7 +847,7 @@
       "id": "bufo-buy-high-sell-low",
       "fileType": "png",
       "tags": [
-        "stonks",
+        "money",
         "sad"
       ]
     },
@@ -904,8 +855,8 @@
       "id": "bufo-buy-low-sell-high",
       "fileType": "png",
       "tags": [
-        "stonks",
-        "happy"
+        "happy",
+        "money"
       ]
     },
     {
@@ -913,16 +864,16 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "laugh",
-        "evil"
+        "evil",
+        "laugh"
       ]
     },
     {
       "id": "bufo-call-for-help",
       "fileType": "png",
       "tags": [
-        "fire",
-        "emergency"
+        "emergency",
+        "fire"
       ]
     },
     {
@@ -936,9 +887,9 @@
       "id": "bufo-cantelope",
       "fileType": "png",
       "tags": [
-        "fruit",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -967,34 +918,33 @@
       "id": "bufo-carnage",
       "fileType": "png",
       "tags": [
-        "rage",
         "evil",
+        "high-quality",
         "horror",
-        "high-quality"
+        "rage"
       ]
     },
     {
       "id": "bufo-carrot",
       "fileType": "png",
       "tags": [
-        "vegetable",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "bufo-cash-money",
       "fileType": "png",
       "tags": [
-        "money",
-        "cool"
+        "cool",
+        "money"
       ]
     },
     {
       "id": "bufo-casts-a-spell-on-you",
       "fileType": "gif",
       "tags": [
-        "magic",
         "animated"
       ]
     },
@@ -1002,8 +952,8 @@
       "id": "bufo-catch",
       "fileType": "png",
       "tags": [
-        "sports",
-        "found-something"
+        "found-something",
+        "sports"
       ]
     },
     {
@@ -1027,8 +977,8 @@
       "fileType": "png",
       "tags": [
         "anxiety",
-        "panic",
         "emergency",
+        "panic",
         "software-reference"
       ]
     },
@@ -1043,8 +993,8 @@
       "id": "bufo-chatting",
       "fileType": "gif",
       "tags": [
-        "core",
-        "animated"
+        "animated",
+        "core"
       ]
     },
     {
@@ -1058,7 +1008,7 @@
       "id": "bufo-checks-out-the-vibe",
       "fileType": "png",
       "tags": [
-        "judging"
+        "skepticism"
       ]
     },
     {
@@ -1072,20 +1022,19 @@
       "id": "bufo-chefkiss",
       "fileType": "png",
       "tags": [
-        "core",
+        "agree",
         "approve",
-        "encouragement",
-        "like",
-        "agree"
+        "core",
+        "encouragement"
       ]
     },
     {
       "id": "bufo-cherries",
       "fileType": "png",
       "tags": [
-        "fruit",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -1107,9 +1056,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "holiday",
-        "christmas",
-        "happy"
+        "happy",
+        "holiday"
       ]
     },
     {
@@ -1123,25 +1071,23 @@
       "id": "bufo-clap",
       "fileType": "gif",
       "tags": [
+        "animated",
         "approve",
-        "happy",
         "encouragement",
-        "animated"
+        "happy"
       ]
     },
     {
       "id": "bufo-claus",
       "fileType": "png",
       "tags": [
-        "holiday",
-        "christmas"
+        "holiday"
       ]
     },
     {
       "id": "bufo-clown",
       "fileType": "png",
       "tags": [
-        "clown",
         "reference"
       ]
     },
@@ -1149,16 +1095,15 @@
       "id": "bufo-coconut",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
       "id": "bufo-code-freeze",
       "fileType": "png",
       "tags": [
-        "ice",
         "software-reference"
       ]
     },
@@ -1166,18 +1111,18 @@
       "id": "bufo-coding",
       "fileType": "png",
       "tags": [
-        "software-reference",
+        "anger",
         "profession",
-        "angry"
+        "software-reference"
       ]
     },
     {
       "id": "bufo-coffee-happy",
       "fileType": "png",
       "tags": [
+        "core",
         "drink",
-        "happy",
-        "core"
+        "happy"
       ]
     },
     {
@@ -1192,10 +1137,9 @@
       "id": "bufo-come-to-the-dark-side",
       "fileType": "png",
       "tags": [
+        "core",
         "evil",
-        "reference",
-        "star-wars",
-        "core"
+        "reference"
       ]
     },
     {
@@ -1218,17 +1162,17 @@
       "id": "bufo-concerned",
       "fileType": "png",
       "tags": [
-        "worry",
         "anxiety",
-        "core"
+        "core",
+        "worry"
       ]
     },
     {
       "id": "bufo-cone-of-shame",
       "fileType": "png",
       "tags": [
-        "punishment",
-        "dislike"
+        "dislike",
+        "punishment"
       ]
     },
     {
@@ -1236,8 +1180,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "disbelief",
-        "confused"
+        "confused",
+        "disbelief"
       ]
     },
     {
@@ -1251,27 +1195,27 @@
       "id": "bufo-cool-glasses",
       "fileType": "gif",
       "tags": [
-        "cool",
-        "animated"
+        "animated",
+        "cool"
       ]
     },
     {
       "id": "bufo-corn",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "bufo-cornucopia",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
         "fruit",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -1285,8 +1229,8 @@
       "id": "bufo-cowboy",
       "fileType": "png",
       "tags": [
-        "profession",
-        "accessories"
+        "accessories",
+        "profession"
       ]
     },
     {
@@ -1463,16 +1407,16 @@
       "id": "bufo-crikey",
       "fileType": "png",
       "tags": [
-        "reference",
-        "accessories"
+        "accessories",
+        "reference"
       ]
     },
     {
       "id": "bufo-crustacean",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "animal"
+        "animal",
+        "software-reference"
       ]
     },
     {
@@ -1481,7 +1425,7 @@
       "tags": [
         "core",
         "cry",
-        "pray"
+        "religion"
       ]
     },
     {
@@ -1496,27 +1440,27 @@
       "id": "bufo-crying-in-the-rain",
       "fileType": "png",
       "tags": [
-        "sad",
+        "accessories",
         "cry",
-        "accessories"
+        "sad"
       ]
     },
     {
       "id": "bufo-crying-jail",
       "fileType": "png",
       "tags": [
-        "sad",
         "cry",
-        "punishment"
+        "punishment",
+        "sad"
       ]
     },
     {
       "id": "bufo-crying-stop",
       "fileType": "gif",
       "tags": [
-        "cry",
+        "anger",
         "animated",
-        "anger"
+        "cry"
       ]
     },
     {
@@ -1539,26 +1483,26 @@
       "id": "bufo-crying",
       "fileType": "gif",
       "tags": [
+        "animated",
         "cry",
-        "sad",
-        "animated"
+        "sad"
       ]
     },
     {
       "id": "bufo-cucumber",
       "fileType": "png",
       "tags": [
-        "vegetable",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "bufo-cuddle",
       "fileType": "png",
       "tags": [
-        "love",
-        "cute"
+        "cute",
+        "love"
       ]
     },
     {
@@ -1603,8 +1547,8 @@
       "id": "bufo-deal-with-it",
       "fileType": "png",
       "tags": [
-        "cool",
-        "accessories"
+        "accessories",
+        "cool"
       ]
     },
     {
@@ -1612,17 +1556,16 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "skepticism",
         "core",
-        "disagree"
+        "disagree",
+        "skepticism"
       ]
     },
     {
       "id": "bufo-defend",
       "fileType": "png",
       "tags": [
-        "fight",
-        "sword"
+        "fight"
       ]
     },
     {
@@ -1630,8 +1573,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "avoids-you"
+        "avoids-you",
+        "farewell"
       ]
     },
     {
@@ -1639,16 +1582,15 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "food",
-        "chonker"
+        "food"
       ]
     },
     {
       "id": "bufo-detective",
       "fileType": "png",
       "tags": [
-        "profession",
         "accessories",
+        "profession",
         "skepticism",
         "take-a-look"
       ]
@@ -1657,8 +1599,8 @@
       "id": "bufo-develops-clairvoyance-while-trapped-in-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "horror"
+        "horror",
+        "void"
       ]
     },
     {
@@ -1673,18 +1615,18 @@
       "id": "bufo-devouring-his-son",
       "fileType": "png",
       "tags": [
-        "reference",
         "cannibalism",
-        "horror"
+        "horror",
+        "reference"
       ]
     },
     {
       "id": "bufo-di-beppo",
       "fileType": "png",
       "tags": [
-        "reference",
+        "accessories",
         "food",
-        "accessories"
+        "reference"
       ]
     },
     {
@@ -1705,8 +1647,8 @@
       "id": "bufo-disappointed",
       "fileType": "png",
       "tags": [
-        "sad",
-        "dislike"
+        "dislike",
+        "sad"
       ]
     },
     {
@@ -1720,7 +1662,6 @@
       "id": "bufo-disguise",
       "fileType": "png",
       "tags": [
-        "clown",
         "accessories"
       ]
     },
@@ -1737,16 +1678,16 @@
       "fileType": "png",
       "tags": [
         "anxiety",
-        "panic",
-        "emergency"
+        "emergency",
+        "panic"
       ]
     },
     {
       "id": "bufo-dodge",
       "fileType": "png",
       "tags": [
-        "fight",
-        "avoids-you"
+        "avoids-you",
+        "fight"
       ]
     },
     {
@@ -1790,17 +1731,15 @@
       "id": "bufo-dont-trust-whats-over-there",
       "fileType": "png",
       "tags": [
-        "disbelief",
         "anxiety",
+        "disbelief",
         "skepticism"
       ]
     },
     {
       "id": "bufo-double-chin",
       "fileType": "png",
-      "tags": [
-        "chonker"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-double-vaccinated",
@@ -1813,16 +1752,16 @@
       "id": "bufo-doubt",
       "fileType": "png",
       "tags": [
-        "skepticism",
-        "reference"
+        "reference",
+        "skepticism"
       ]
     },
     {
       "id": "bufo-dough",
       "fileType": "png",
       "tags": [
-        "food",
-        "anthropomorphic"
+        "anthropomorphic",
+        "food"
       ]
     },
     {
@@ -1859,25 +1798,25 @@
       "fileType": "png",
       "tags": [
         "core",
-        "meme",
-        "disagree"
+        "disagree",
+        "meme"
       ]
     },
     {
       "id": "bufo-drake-yes",
       "fileType": "png",
       "tags": [
+        "agree",
         "core",
-        "meme",
-        "agree"
+        "meme"
       ]
     },
     {
       "id": "bufo-drifts-through-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "low-fi"
+        "low-fi",
+        "void"
       ]
     },
     {
@@ -1899,24 +1838,20 @@
       "id": "bufo-drowning-in-leeks",
       "fileType": "png",
       "tags": [
-        "je-ne-sais-quoi",
-        "drowning"
+        "je-ne-sais-quoi"
       ]
     },
     {
       "id": "bufo-drowns-in-memories-of-ocean",
       "fileType": "png",
-      "tags": [
-        "drowning"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-drowns-in-tickets-but-ok",
       "fileType": "png",
       "tags": [
-        "drowning",
-        "software-reference",
-        "cry"
+        "cry",
+        "software-reference"
       ]
     },
     {
@@ -1930,8 +1865,8 @@
       "id": "bufo-eating-hotdog",
       "fileType": "png",
       "tags": [
-        "hotdog",
-        "food"
+        "food",
+        "hotdog"
       ]
     },
     {
@@ -1961,8 +1896,8 @@
       "id": "bufo-eats-bufo-taco",
       "fileType": "png",
       "tags": [
-        "food",
-        "cannibalism"
+        "cannibalism",
+        "food"
       ]
     },
     {
@@ -1991,16 +1926,16 @@
       "id": "bufo-enraged",
       "fileType": "png",
       "tags": [
-        "rage",
-        "angry"
+        "anger",
+        "rage"
       ]
     },
     {
       "id": "bufo-enter",
       "fileType": "gif",
       "tags": [
-        "arrival",
-        "animated"
+        "animated",
+        "greetings"
       ]
     },
     {
@@ -2015,10 +1950,10 @@
       "id": "bufo-everything-is-on-fire",
       "fileType": "gif",
       "tags": [
-        "panic",
+        "animated",
         "anxiety",
         "emergency",
-        "animated"
+        "panic"
       ]
     },
     {
@@ -2026,7 +1961,7 @@
       "fileType": "png",
       "tags": [
         "evil",
-        "star-wars"
+        "reference"
       ]
     },
     {
@@ -2043,8 +1978,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -2062,24 +1997,24 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "avoids-you"
+        "avoids-you",
+        "farewell"
       ]
     },
     {
       "id": "bufo-experiences-euneirophrenia",
       "fileType": "png",
       "tags": [
-        "happy",
-        "cozy"
+        "cozy",
+        "happy"
       ]
     },
     {
       "id": "bufo-extra-cool",
       "fileType": "gif",
       "tags": [
-        "cool",
-        "animated"
+        "animated",
+        "cool"
       ]
     },
     {
@@ -2087,8 +2022,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "dislike",
-        "disbelief"
+        "disbelief",
+        "dislike"
       ]
     },
     {
@@ -2102,8 +2037,8 @@
       "id": "bufo-fab",
       "fileType": "png",
       "tags": [
-        "fancy",
-        "accessories"
+        "accessories",
+        "fancy"
       ]
     },
     {
@@ -2156,8 +2091,7 @@
       "id": "bufo-feel-better",
       "fileType": "png",
       "tags": [
-        "encouragement",
-        "feel-better"
+        "encouragement"
       ]
     },
     {
@@ -2192,8 +2126,8 @@
       "id": "bufo-fellow-kids",
       "fileType": "png",
       "tags": [
-        "reference",
-        "meme"
+        "meme",
+        "reference"
       ]
     },
     {
@@ -2207,8 +2141,8 @@
       "id": "bufo-fight",
       "fileType": "png",
       "tags": [
-        "fight",
-        "anger"
+        "anger",
+        "fight"
       ]
     },
     {
@@ -2238,18 +2172,18 @@
       "id": "bufo-fire",
       "fileType": "gif",
       "tags": [
-        "panic",
-        "emergency",
         "animated",
-        "fire"
+        "emergency",
+        "fire",
+        "panic"
       ]
     },
     {
       "id": "bufo-firefighter",
       "fileType": "png",
       "tags": [
-        "profession",
-        "accessories"
+        "accessories",
+        "profession"
       ]
     },
     {
@@ -2340,17 +2274,17 @@
       "id": "bufo-fun-is-over",
       "fileType": "png",
       "tags": [
-        "sad",
-        "farewell"
+        "farewell",
+        "sad"
       ]
     },
     {
       "id": "bufo-furiously-writes-an-epic-update",
       "fileType": "gif",
       "tags": [
-        "software-reference",
         "animated",
-        "anxiety"
+        "anxiety",
+        "software-reference"
       ]
     },
     {
@@ -2358,8 +2292,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "software-reference",
-        "anxiety"
+        "anxiety",
+        "software-reference"
       ]
     },
     {
@@ -2374,7 +2308,6 @@
       "fileType": "png",
       "tags": [
         "reference",
-        "gandalf",
         "shock"
       ]
     },
@@ -2382,9 +2315,8 @@
       "id": "bufo-gandalf-wat",
       "fileType": "png",
       "tags": [
-        "reference",
-        "gandalf",
-        "disbelief"
+        "disbelief",
+        "reference"
       ]
     },
     {
@@ -2392,17 +2324,17 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "gandalf",
-        "core"
+        "core",
+        "reference"
       ]
     },
     {
       "id": "bufo-garlic",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -2438,8 +2370,8 @@
       "id": "bufo-get-in-loser-were-going-shopping",
       "fileType": "png",
       "tags": [
-        "reference",
-        "animal"
+        "animal",
+        "reference"
       ]
     },
     {
@@ -2481,8 +2413,8 @@
       "id": "bufo-ghost",
       "fileType": "png",
       "tags": [
-        "sad",
-        "feel-better"
+        "encouragement",
+        "sad"
       ]
     },
     {
@@ -2542,9 +2474,9 @@
       "id": "bufo-good-morning",
       "fileType": "png",
       "tags": [
-        "happy",
+        "drink",
         "greetings",
-        "drink"
+        "happy"
       ]
     },
     {
@@ -2560,9 +2492,9 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
+        "cute",
         "dance",
-        "cute"
+        "happy"
       ]
     },
     {
@@ -2576,17 +2508,17 @@
       "id": "bufo-got-zapped",
       "fileType": "png",
       "tags": [
-        "shock",
-        "confused"
+        "confused",
+        "shock"
       ]
     },
     {
       "id": "bufo-grapes",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -2609,15 +2541,15 @@
       "fileType": "png",
       "tags": [
         "reference",
-        "hacker"
+        "software-reference"
       ]
     },
     {
       "id": "bufo-haha-yes-haha-yes",
       "fileType": "png",
       "tags": [
-        "reference",
-        "evil"
+        "evil",
+        "reference"
       ]
     },
     {
@@ -2631,8 +2563,8 @@
       "id": "bufo-halloween",
       "fileType": "gif",
       "tags": [
-        "holiday",
-        "animated"
+        "animated",
+        "holiday"
       ]
     },
     {
@@ -2648,8 +2580,8 @@
       "id": "bufo-hands",
       "fileType": "png",
       "tags": [
-        "sad",
-        "cry"
+        "cry",
+        "sad"
       ]
     },
     {
@@ -2664,17 +2596,17 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "avoids-you"
+        "avoids-you",
+        "farewell"
       ]
     },
     {
       "id": "bufo-hannibal-lecter",
       "fileType": "png",
       "tags": [
-        "reference",
         "cannibalism",
-        "horror"
+        "horror",
+        "reference"
       ]
     },
     {
@@ -2689,8 +2621,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "drink"
+        "drink",
+        "happy"
       ]
     },
     {
@@ -2742,8 +2674,8 @@
       "id": "bufo-has-a-crush",
       "fileType": "png",
       "tags": [
-        "love",
-        "cute"
+        "cute",
+        "love"
       ]
     },
     {
@@ -2766,9 +2698,9 @@
       "id": "bufo-has-a-headache",
       "fileType": "gif",
       "tags": [
+        "anger",
         "animated",
         "pain",
-        "anger",
         "rage"
       ]
     },
@@ -2816,23 +2748,23 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "hacker"
+        "software-reference"
       ]
     },
     {
       "id": "bufo-has-midas-touch",
       "fileType": "png",
       "tags": [
-        "money",
-        "horror"
+        "horror",
+        "money"
       ]
     },
     {
       "id": "bufo-has-read-enough-documentation-for-today",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "confused"
+        "confused",
+        "software-reference"
       ]
     },
     {
@@ -2878,9 +2810,9 @@
       "id": "bufo-headphones",
       "fileType": "png",
       "tags": [
-        "music",
         "accessories",
-        "avoids-you"
+        "avoids-you",
+        "music"
       ]
     },
     {
@@ -2894,17 +2826,17 @@
       "id": "bufo-heart",
       "fileType": "png",
       "tags": [
-        "love",
-        "happy"
+        "happy",
+        "love"
       ]
     },
     {
       "id": "bufo-hearts",
       "fileType": "png",
       "tags": [
-        "love",
+        "core",
         "happy",
-        "core"
+        "love"
       ]
     },
     {
@@ -2920,8 +2852,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "evil",
-        "core"
+        "core",
+        "evil"
       ]
     },
     {
@@ -2929,17 +2861,17 @@
       "fileType": "gif",
       "tags": [
         "animated",
+        "core",
         "greetings",
-        "happy",
-        "core"
+        "happy"
       ]
     },
     {
       "id": "bufo-heralds-an-incident",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "emergency"
+        "emergency",
+        "software-reference"
       ]
     },
     {
@@ -2954,16 +2886,16 @@
       "id": "bufo-heralds-your-success",
       "fileType": "png",
       "tags": [
-        "happy",
-        "celebration"
+        "celebration",
+        "happy"
       ]
     },
     {
       "id": "bufo-hides",
       "fileType": "png",
       "tags": [
-        "avoids-you",
-        "anxiety"
+        "anxiety",
+        "avoids-you"
       ]
     },
     {
@@ -2998,8 +2930,8 @@
       "id": "bufo-hmm-no",
       "fileType": "gif",
       "tags": [
-        "disagree",
-        "animated"
+        "animated",
+        "disagree"
       ]
     },
     {
@@ -3014,8 +2946,8 @@
       "id": "bufo-hmm",
       "fileType": "png",
       "tags": [
-        "skepticism",
-        "disbelief"
+        "disbelief",
+        "skepticism"
       ]
     },
     {
@@ -3052,16 +2984,16 @@
       "id": "bufo-hug",
       "fileType": "png",
       "tags": [
-        "feel-better"
+        "encouragement"
       ]
     },
     {
       "id": "bufo-i-just-love-it-so-much",
       "fileType": "png",
       "tags": [
-        "love",
+        "cry",
         "happy",
-        "cry"
+        "love"
       ]
     },
     {
@@ -3089,8 +3021,8 @@
       "id": "bufo-imposter",
       "fileType": "png",
       "tags": [
-        "sus",
-        "amogus"
+        "amogus",
+        "sus"
       ]
     },
     {
@@ -3111,8 +3043,8 @@
       "id": "bufo-increases-his-dimensionality-while-trapped-in-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "meta"
+        "meta",
+        "void"
       ]
     },
     {
@@ -3135,7 +3067,7 @@
       "id": "bufo-inspired",
       "fileType": "png",
       "tags": [
-        "inspirational"
+        "encouragement"
       ]
     },
     {
@@ -3165,8 +3097,8 @@
       "id": "bufo-iron-throne",
       "fileType": "png",
       "tags": [
-        "reference",
-        "baby"
+        "baby",
+        "reference"
       ]
     },
     {
@@ -3189,8 +3121,8 @@
       "id": "bufo-is-about-to-zap-you",
       "fileType": "png",
       "tags": [
-        "fight",
-        "anger"
+        "anger",
+        "fight"
       ]
     },
     {
@@ -3210,18 +3142,18 @@
       "id": "bufo-is-getting-paged-now",
       "fileType": "png",
       "tags": [
+        "anxiety",
         "horror",
-        "software-reference",
-        "anxiety"
+        "software-reference"
       ]
     },
     {
       "id": "bufo-is-happy-youre-happy",
       "fileType": "png",
       "tags": [
-        "happy",
         "encouragement",
-        "sarcasam"
+        "happy",
+        "skepticism"
       ]
     },
     {
@@ -3244,8 +3176,7 @@
       "id": "bufo-is-jealous-its-your-birthday",
       "fileType": "png",
       "tags": [
-        "birthday",
-        "jealous"
+        "celebration"
       ]
     },
     {
@@ -3261,8 +3192,8 @@
       "id": "bufo-is-lost-in-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "sad"
+        "sad",
+        "void"
       ]
     },
     {
@@ -3284,8 +3215,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "panic",
-        "anxiety"
+        "anxiety",
+        "panic"
       ]
     },
     {
@@ -3323,8 +3254,8 @@
       "id": "bufo-is-ready-to-riot",
       "fileType": "png",
       "tags": [
-        "fight",
         "anger",
+        "fight",
         "fire"
       ]
     },
@@ -3346,9 +3277,9 @@
       "id": "bufo-is-so-happy-youre-here",
       "fileType": "png",
       "tags": [
-        "happy",
+        "excited",
         "greetings",
-        "excited"
+        "happy"
       ]
     },
     {
@@ -3384,8 +3315,8 @@
       "id": "bufo-is-working-too-much",
       "fileType": "png",
       "tags": [
-        "tired",
-        "blank-stare"
+        "blank-stare",
+        "tired"
       ]
     },
     {
@@ -3438,16 +3369,14 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "music",
-        "dance"
+        "dance",
+        "music"
       ]
     },
     {
       "id": "bufo-jealous",
       "fileType": "png",
-      "tags": [
-        "jealous"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-juice",
@@ -3495,9 +3424,7 @@
     {
       "id": "bufo-just-ice",
       "fileType": "png",
-      "tags": [
-        "ice"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-just-walked-into-an-awkward-conversation-and-is-now-trying-to-figure-out-how-to-leave",
@@ -3515,25 +3442,23 @@
     {
       "id": "bufo-keeps-his-password-written-on-a-post-it-note-stuck-to-his-monitor",
       "fileType": "png",
-      "tags": [
-        "clown"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-king",
       "fileType": "png",
       "tags": [
-        "fancy",
-        "encouragement"
+        "encouragement",
+        "fancy"
       ]
     },
     {
       "id": "bufo-kiwi",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -3555,18 +3480,18 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "music",
+        "dance",
         "happy",
-        "dance"
+        "music"
       ]
     },
     {
       "id": "bufo-knuckle-sandwich",
       "fileType": "gif",
       "tags": [
+        "anger",
         "animated",
-        "fight",
-        "anger"
+        "fight"
       ]
     },
     {
@@ -3622,8 +3547,8 @@
       "id": "bufo-laughs-to-mask-the-pain",
       "fileType": "png",
       "tags": [
-        "laugh",
         "cry",
+        "laugh",
         "pain"
       ]
     },
@@ -3648,9 +3573,9 @@
       "id": "bufo-lemon",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -3664,8 +3589,8 @@
       "id": "bufo-lgtm",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "approve"
+        "approve",
+        "software-reference"
       ]
     },
     {
@@ -3678,9 +3603,7 @@
     {
       "id": "bufo-liberty",
       "fileType": "png",
-      "tags": [
-        "country"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-librarian",
@@ -3715,8 +3638,8 @@
       "id": "bufo-likes-that-idea",
       "fileType": "png",
       "tags": [
-        "approve",
-        "agree"
+        "agree",
+        "approve"
       ]
     },
     {
@@ -3786,18 +3709,18 @@
       "id": "bufo-loves-blobs",
       "fileType": "png",
       "tags": [
-        "love",
-        "happy"
+        "happy",
+        "love"
       ]
     },
     {
       "id": "bufo-loves-doges",
       "fileType": "gif",
       "tags": [
+        "animal",
         "animated",
         "cute",
-        "happy",
-        "animal"
+        "happy"
       ]
     },
     {
@@ -3825,16 +3748,16 @@
       "id": "bufo-loves-this-song",
       "fileType": "png",
       "tags": [
-        "music",
-        "happy"
+        "happy",
+        "music"
       ]
     },
     {
       "id": "bufo-luigi",
       "fileType": "png",
       "tags": [
-        "reference",
-        "mario"
+        "mario",
+        "reference"
       ]
     },
     {
@@ -3842,8 +3765,8 @@
       "fileType": "png",
       "tags": [
         "greetings",
-        "take-a-look",
-        "sus"
+        "sus",
+        "take-a-look"
       ]
     },
     {
@@ -3868,9 +3791,7 @@
     {
       "id": "bufo-magician",
       "fileType": "png",
-      "tags": [
-        "magic"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-makes-it-rain",
@@ -3928,8 +3849,8 @@
       "id": "bufo-melting",
       "fileType": "png",
       "tags": [
-        "horror",
-        "core"
+        "core",
+        "horror"
       ]
     },
     {
@@ -3937,8 +3858,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "cool"
+        "cool",
+        "farewell"
       ]
     },
     {
@@ -3951,8 +3872,8 @@
       "fileType": "png",
       "tags": [
         "anxiety",
-        "panic",
-        "blank-stare"
+        "blank-stare",
+        "panic"
       ]
     },
     {
@@ -3967,26 +3888,24 @@
       "id": "bufo-mindblown",
       "fileType": "png",
       "tags": [
-        "shock",
-        "disbelief"
+        "disbelief",
+        "shock"
       ]
     },
     {
       "id": "bufo-minecraft-attack",
       "fileType": "gif",
       "tags": [
-        "fight",
         "animated",
-        "sword"
+        "fight"
       ]
     },
     {
       "id": "bufo-minecraft-defend",
       "fileType": "gif",
       "tags": [
-        "fight",
         "animated",
-        "sword"
+        "fight"
       ]
     },
     {
@@ -4046,9 +3965,9 @@
       "id": "bufo-mushroom",
       "fileType": "png",
       "tags": [
-        "vegetable",
+        "anthropomorphic",
         "food",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -4083,16 +4002,16 @@
       "id": "bufo-needs-some-hot-tea-to-process-this-news",
       "fileType": "png",
       "tags": [
-        "shock",
-        "disbelief"
+        "disbelief",
+        "shock"
       ]
     },
     {
       "id": "bufo-needs-to-vent",
       "fileType": "png",
       "tags": [
-        "blank-stare",
-        "anger"
+        "anger",
+        "blank-stare"
       ]
     },
     {
@@ -4183,8 +4102,8 @@
       "id": "bufo-nod",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "agree"
+        "agree",
+        "animated"
       ]
     },
     {
@@ -4200,8 +4119,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "avoids-you"
+        "avoids-you",
+        "farewell"
       ]
     },
     {
@@ -4270,41 +4189,41 @@
       "id": "bufo-offers-200",
       "fileType": "png",
       "tags": [
-        "approve",
-        "agree"
+        "agree",
+        "approve"
       ]
     },
     {
       "id": "bufo-offers-a-bagel",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-ball-of-mud",
       "fileType": "png",
       "tags": [
+        "horror",
         "offers",
-        "software-reference",
-        "horror"
+        "software-reference"
       ]
     },
     {
       "id": "bufo-offers-a-banana-in-these-trying-times",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-beer",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
@@ -4318,8 +4237,8 @@
       "id": "bufo-offers-a-bolillo-para-el-susto",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4333,40 +4252,40 @@
       "id": "bufo-offers-a-bufo-egg-in-this-trying-time",
       "fileType": "png",
       "tags": [
-        "offers",
-        "meta"
+        "meta",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-burger",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-cake",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-clover",
       "fileType": "png",
       "tags": [
-        "offers",
-        "holiday"
+        "holiday",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-cookie",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4380,16 +4299,16 @@
       "id": "bufo-offers-a-flan",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-a-focaccia",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4445,8 +4364,8 @@
       "id": "bufo-offers-a-like",
       "fileType": "png",
       "tags": [
-        "offers",
-        "like"
+        "approve",
+        "offers"
       ]
     },
     {
@@ -4460,8 +4379,8 @@
       "id": "bufo-offers-a-loading-spinner-spinning",
       "fileType": "gif",
       "tags": [
-        "offers",
         "animated",
+        "offers",
         "ui"
       ]
     },
@@ -4469,8 +4388,8 @@
       "id": "bufo-offers-a-loading-spinner",
       "fileType": "gif",
       "tags": [
-        "offers",
         "animated",
+        "offers",
         "ui"
       ]
     },
@@ -4499,8 +4418,8 @@
       "id": "bufo-offers-a-piece-of-cake",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4552,8 +4471,8 @@
       "id": "bufo-offers-a-speedy-recovery",
       "fileType": "png",
       "tags": [
-        "offers",
-        "feel-better"
+        "encouragement",
+        "offers"
       ]
     },
     {
@@ -4582,8 +4501,8 @@
       "id": "bufo-offers-a-torta-ahogada",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4606,8 +4525,8 @@
       "id": "bufo-offers-a-wednesday",
       "fileType": "png",
       "tags": [
-        "offers",
-        "meme"
+        "meme",
+        "offers"
       ]
     },
     {
@@ -4635,16 +4554,16 @@
       "id": "bufo-offers-an-eclair",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-an-egg-in-this-trying-time",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4687,32 +4606,32 @@
       "id": "bufo-offers-approval",
       "fileType": "png",
       "tags": [
-        "offers",
-        "approve"
+        "approve",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-avocado",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-bento",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-boba",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
@@ -4733,8 +4652,8 @@
       "id": "bufo-offers-bufo-offers",
       "fileType": "png",
       "tags": [
-        "offers",
-        "meta"
+        "meta",
+        "offers"
       ]
     },
     {
@@ -4748,8 +4667,8 @@
       "id": "bufo-offers-bufomelon",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4757,8 +4676,7 @@
       "fileType": "png",
       "tags": [
         "offers",
-        "software-reference",
-        "clown"
+        "software-reference"
       ]
     },
     {
@@ -4786,24 +4704,24 @@
       "id": "bufo-offers-coffee",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-corn",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-covid",
       "fileType": "png",
       "tags": [
-        "offers",
-        "covid"
+        "covid",
+        "offers"
       ]
     },
     {
@@ -4838,8 +4756,8 @@
       "id": "bufo-offers-falafel",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -4867,8 +4785,8 @@
       "id": "bufo-offers-gatorade",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
@@ -4883,8 +4801,8 @@
       "id": "bufo-offers-golden-handcuffs",
       "fileType": "png",
       "tags": [
-        "offers",
-        "money"
+        "money",
+        "offers"
       ]
     },
     {
@@ -4926,9 +4844,9 @@
       "id": "bufo-offers-hotdog",
       "fileType": "png",
       "tags": [
-        "offers",
         "food",
-        "hotdog"
+        "hotdog",
+        "offers"
       ]
     },
     {
@@ -4950,8 +4868,8 @@
       "id": "bufo-offers-moneybag",
       "fileType": "png",
       "tags": [
-        "offers",
-        "money"
+        "money",
+        "offers"
       ]
     },
     {
@@ -4965,33 +4883,33 @@
       "id": "bufo-offers-oatmilk",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-pancakes",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-peanuts",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-pineapple",
       "fileType": "png",
       "tags": [
-        "offers",
         "food",
-        "fruit"
+        "fruit",
+        "offers"
       ]
     },
     {
@@ -5028,24 +4946,24 @@
       "id": "bufo-offers-spam",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-stash-of-tea-from-the-office-for-the-weekend",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-tayto",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -5059,8 +4977,8 @@
       "id": "bufo-offers-the-weeknd",
       "fileType": "png",
       "tags": [
-        "offers",
-        "music"
+        "music",
+        "offers"
       ]
     },
     {
@@ -5081,33 +4999,33 @@
       "id": "bufo-offers-tim-tams",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-turkish-delights",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-ube",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-watermelon",
       "fileType": "png",
       "tags": [
-        "offers",
         "food",
         "fruit",
+        "offers",
         "software-reference"
       ]
     },
@@ -5115,8 +5033,8 @@
       "id": "bufo-offers-you-a-comically-oversized-waffle",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
@@ -5131,8 +5049,8 @@
       "id": "bufo-offers-you-a-gdpr-compliant-cookie",
       "fileType": "png",
       "tags": [
-        "offers",
         "food",
+        "offers",
         "software-reference"
       ]
     },
@@ -5140,24 +5058,24 @@
       "id": "bufo-offers-you-a-kfc-16-piece-family-size-bucket-of-fried-chicken",
       "fileType": "png",
       "tags": [
-        "offers",
-        "food"
+        "food",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-you-a-monster-early-in-the-morning",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
       "id": "bufo-offers-you-a-pint-m8",
       "fileType": "png",
       "tags": [
-        "offers",
-        "drink"
+        "drink",
+        "offers"
       ]
     },
     {
@@ -5188,9 +5106,9 @@
       "id": "bufo-offers-you-his-crypto-before-he-pumps-and-dumps-it",
       "fileType": "png",
       "tags": [
-        "offers",
+        "evil",
         "money",
-        "evil"
+        "offers"
       ]
     },
     {
@@ -5205,8 +5123,8 @@
       "id": "bufo-offers-you-money-in-this-trying-time",
       "fileType": "png",
       "tags": [
-        "offers",
-        "money"
+        "money",
+        "offers"
       ]
     },
     {
@@ -5273,8 +5191,8 @@
       "id": "bufo-ok",
       "fileType": "png",
       "tags": [
-        "approve",
-        "agree"
+        "agree",
+        "approve"
       ]
     },
     {
@@ -5294,9 +5212,9 @@
       "id": "bufo-olives",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -5325,9 +5243,9 @@
       "id": "bufo-onion",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -5349,19 +5267,19 @@
       "id": "bufo-orange",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
       "id": "bufo-pager-duty",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "panic",
         "anxiety",
-        "emergency"
+        "emergency",
+        "panic",
+        "software-reference"
       ]
     },
     {
@@ -5370,8 +5288,8 @@
       "tags": [
         "animated",
         "cute",
-        "happy",
-        "dance"
+        "dance",
+        "happy"
       ]
     },
     {
@@ -5379,7 +5297,7 @@
       "fileType": "png",
       "tags": [
         "evil",
-        "star-wars"
+        "reference"
       ]
     },
     {
@@ -5387,8 +5305,8 @@
       "fileType": "png",
       "tags": [
         "anxiety",
-        "panic",
-        "cry"
+        "cry",
+        "panic"
       ]
     },
     {
@@ -5396,11 +5314,11 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "dance",
-        "core",
-        "high-quality",
         "celebration",
-        "excited"
+        "core",
+        "dance",
+        "excited",
+        "high-quality"
       ]
     },
     {
@@ -5408,9 +5326,9 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
         "celebration",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -5437,9 +5355,9 @@
       "id": "bufo-pear",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -5476,7 +5394,7 @@
       "id": "bufo-phew",
       "fileType": "png",
       "tags": [
-        "relief"
+        "encouragement"
       ]
     },
     {
@@ -5523,9 +5441,9 @@
       "id": "bufo-pineapple",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -5546,53 +5464,53 @@
       "id": "bufo-pleading-1",
       "fileType": "png",
       "tags": [
-        "plead"
+        "sad"
       ]
     },
     {
       "id": "bufo-pleading",
       "fileType": "png",
       "tags": [
-        "plead"
+        "sad"
       ]
     },
     {
       "id": "bufo-please",
       "fileType": "png",
       "tags": [
-        "plead"
+        "sad"
       ]
     },
     {
       "id": "bufo-pointing-down-there",
       "fileType": "gif",
       "tags": [
-        "meta",
-        "animated"
+        "animated",
+        "meta"
       ]
     },
     {
       "id": "bufo-pointing-over-there",
       "fileType": "gif",
       "tags": [
-        "meta",
-        "animated"
+        "animated",
+        "meta"
       ]
     },
     {
       "id": "bufo-pointing-right-there",
       "fileType": "gif",
       "tags": [
-        "meta",
-        "animated"
+        "animated",
+        "meta"
       ]
     },
     {
       "id": "bufo-pointing-up-there",
       "fileType": "gif",
       "tags": [
-        "meta",
-        "animated"
+        "animated",
+        "meta"
       ]
     },
     {
@@ -5607,7 +5525,7 @@
       "id": "bufo-poliwhirl",
       "fileType": "png",
       "tags": [
-        "pokemon"
+        "reference"
       ]
     },
     {
@@ -5659,9 +5577,9 @@
       "id": "bufo-potato",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -5761,9 +5679,9 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "software-reference",
+        "fire",
         "panic",
-        "fire"
+        "software-reference"
       ]
     },
     {
@@ -5792,8 +5710,8 @@
       "id": "bufo-rad",
       "fileType": "png",
       "tags": [
-        "cool",
-        "accessories"
+        "accessories",
+        "cool"
       ]
     },
     {
@@ -5812,9 +5730,7 @@
     {
       "id": "bufo-reading",
       "fileType": "png",
-      "tags": [
-        "smart"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-red-flags",
@@ -5833,33 +5749,33 @@
       "id": "bufo-regret",
       "fileType": "png",
       "tags": [
+        "cry",
         "sad",
-        "upset",
-        "cry"
+        "upset"
       ]
     },
     {
       "id": "bufo-remains-perturbed-from-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "confused"
+        "confused",
+        "void"
       ]
     },
     {
       "id": "bufo-returns-to-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "farewell"
+        "farewell",
+        "void"
       ]
     },
     {
       "id": "bufo-retweet",
       "fileType": "png",
       "tags": [
-        "like",
-        "anthropomorphic"
+        "anthropomorphic",
+        "approve"
       ]
     },
     {
@@ -5880,26 +5796,26 @@
       "id": "bufo-riding-goose",
       "fileType": "gif",
       "tags": [
+        "animal",
         "animated",
-        "cute",
-        "animal"
+        "cute"
       ]
     },
     {
       "id": "bufo-riot",
       "fileType": "gif",
       "tags": [
-        "fire",
         "animated",
-        "fight"
+        "fight",
+        "fire"
       ]
     },
     {
       "id": "bufo-rip",
       "fileType": "png",
       "tags": [
-        "sad",
-        "farewell"
+        "farewell",
+        "sad"
       ]
     },
     {
@@ -5963,8 +5879,8 @@
       "id": "bufo-rude",
       "fileType": "png",
       "tags": [
-        "upset",
-        "anger"
+        "anger",
+        "upset"
       ]
     },
     {
@@ -5998,18 +5914,17 @@
       "id": "bufo-sad-baguette",
       "fileType": "png",
       "tags": [
-        "food",
         "cry",
-        "sad",
-        "country"
+        "food",
+        "sad"
       ]
     },
     {
       "id": "bufo-sad-but-ok",
       "fileType": "png",
       "tags": [
-        "sad",
-        "cry"
+        "cry",
+        "sad"
       ]
     },
     {
@@ -6017,16 +5932,16 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "sad",
-        "cry"
+        "cry",
+        "sad"
       ]
     },
     {
       "id": "bufo-sad-swinging",
       "fileType": "gif",
       "tags": [
-        "baby",
         "animated",
+        "baby",
         "sad"
       ]
     },
@@ -6035,17 +5950,17 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "sad",
-        "music"
+        "music",
+        "sad"
       ]
     },
     {
       "id": "bufo-sad",
       "fileType": "png",
       "tags": [
-        "sad",
+        "core",
         "cry",
-        "core"
+        "sad"
       ]
     },
     {
@@ -6081,7 +5996,7 @@
       "id": "bufo-salute",
       "fileType": "png",
       "tags": [
-        "acknowledgement"
+        "agree"
       ]
     },
     {
@@ -6100,8 +6015,8 @@
       "id": "bufo-sends-to-print",
       "fileType": "gif",
       "tags": [
-        "software-reference",
-        "animated"
+        "animated",
+        "software-reference"
       ]
     },
     {
@@ -6132,8 +6047,8 @@
       "id": "bufo-shame",
       "fileType": "png",
       "tags": [
-        "punishment",
-        "trapped"
+        "panic",
+        "punishment"
       ]
     },
     {
@@ -6160,24 +6075,24 @@
       "id": "bufo-shifty",
       "fileType": "gif",
       "tags": [
-        "anxiety",
-        "animated"
+        "animated",
+        "anxiety"
       ]
     },
     {
       "id": "bufo-ship",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "excited"
+        "excited",
+        "software-reference"
       ]
     },
     {
       "id": "bufo-shipit",
       "fileType": "png",
       "tags": [
-        "software-reference",
-        "fancy"
+        "fancy",
+        "software-reference"
       ]
     },
     {
@@ -6233,8 +6148,8 @@
       "id": "bufo-shy",
       "fileType": "gif",
       "tags": [
-        "anxiety",
-        "animated"
+        "animated",
+        "anxiety"
       ]
     },
     {
@@ -6242,8 +6157,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "dance",
-        "cute"
+        "cute",
+        "dance"
       ]
     },
     {
@@ -6257,7 +6172,6 @@
       "id": "bufo-sinks",
       "fileType": "gif",
       "tags": [
-        "drowning",
         "animated"
       ]
     },
@@ -6292,33 +6206,33 @@
       "id": "bufo-skeledance",
       "fileType": "gif",
       "tags": [
+        "animated",
         "cursed",
-        "dance",
-        "animated"
+        "dance"
       ]
     },
     {
       "id": "bufo-skellington-1",
       "fileType": "png",
       "tags": [
-        "horror",
-        "holiday"
+        "holiday",
+        "horror"
       ]
     },
     {
       "id": "bufo-skellington",
       "fileType": "png",
       "tags": [
-        "horror",
-        "holiday"
+        "holiday",
+        "horror"
       ]
     },
     {
       "id": "bufo-sleep",
       "fileType": "png",
       "tags": [
-        "tired",
-        "happy"
+        "happy",
+        "tired"
       ]
     },
     {
@@ -6385,8 +6299,7 @@
       "id": "bufo-snow",
       "fileType": "png",
       "tags": [
-        "happy",
-        "ice"
+        "happy"
       ]
     },
     {
@@ -6402,16 +6315,16 @@
       "id": "bufo-soccer",
       "fileType": "png",
       "tags": [
-        "sports",
-        "anthropomorphic"
+        "anthropomorphic",
+        "sports"
       ]
     },
     {
       "id": "bufo-softball",
       "fileType": "png",
       "tags": [
-        "sports",
-        "anthropomorphic"
+        "anthropomorphic",
+        "sports"
       ]
     },
     {
@@ -6448,8 +6361,8 @@
       "id": "bufo-sports",
       "fileType": "png",
       "tags": [
-        "sports",
-        "anthropomorphic"
+        "anthropomorphic",
+        "sports"
       ]
     },
     {
@@ -6465,9 +6378,9 @@
       "id": "bufo-squash",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -6481,24 +6394,24 @@
       "id": "bufo-stab-murder",
       "fileType": "gif",
       "tags": [
-        "kills-you",
-        "fight"
+        "fight",
+        "kills-you"
       ]
     },
     {
       "id": "bufo-stab-reverse",
       "fileType": "gif",
       "tags": [
-        "kills-you",
-        "fight"
+        "fight",
+        "kills-you"
       ]
     },
     {
       "id": "bufo-stab",
       "fileType": "gif",
       "tags": [
-        "kills-you",
-        "fight"
+        "fight",
+        "kills-you"
       ]
     },
     {
@@ -6537,8 +6450,8 @@
       "id": "bufo-starstruck",
       "fileType": "png",
       "tags": [
-        "excited",
-        "encouragement"
+        "encouragement",
+        "excited"
       ]
     },
     {
@@ -6552,9 +6465,9 @@
       "id": "bufo-stick",
       "fileType": "gif",
       "tags": [
+        "bonk",
         "fight",
-        "found-something",
-        "bonk"
+        "found-something"
       ]
     },
     {
@@ -6575,8 +6488,8 @@
       "tags": [
         "animated",
         "disagree",
-        "dislike",
-        "disbelief"
+        "disbelief",
+        "dislike"
       ]
     },
     {
@@ -6606,9 +6519,9 @@
       "id": "bufo-strawberry",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -6627,8 +6540,7 @@
       "id": "bufo-stuffed",
       "fileType": "png",
       "tags": [
-        "food",
-        "chonker"
+        "food"
       ]
     },
     {
@@ -6643,7 +6555,7 @@
       "fileType": "png",
       "tags": [
         "happy",
-        "pray"
+        "religion"
       ]
     },
     {
@@ -6664,8 +6576,8 @@
       "id": "bufo-sus",
       "fileType": "png",
       "tags": [
-        "sus",
         "disbelief",
+        "sus",
         "unsure"
       ]
     },
@@ -6673,8 +6585,8 @@
       "id": "bufo-sushi",
       "fileType": "png",
       "tags": [
-        "food",
-        "anthropomorphic"
+        "anthropomorphic",
+        "food"
       ]
     },
     {
@@ -6682,8 +6594,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "sus",
-        "cursed"
+        "cursed",
+        "sus"
       ]
     },
     {
@@ -6698,17 +6610,17 @@
       "id": "bufo-sweet-dreams",
       "fileType": "png",
       "tags": [
-        "tired",
-        "happy"
+        "happy",
+        "tired"
       ]
     },
     {
       "id": "bufo-sweet-potato",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -6722,25 +6634,24 @@
       "id": "bufo-sword",
       "fileType": "png",
       "tags": [
-        "fight",
-        "sword"
+        "fight"
       ]
     },
     {
       "id": "bufo-taco",
       "fileType": "png",
       "tags": [
-        "food",
-        "cannibalism"
+        "cannibalism",
+        "food"
       ]
     },
     {
       "id": "bufo-tada",
       "fileType": "png",
       "tags": [
-        "happy",
         "celebration",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -6782,64 +6693,64 @@
       "id": "bufo-takes-your-approval",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "approve"
+        "approve",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-boba",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "drink"
+        "drink",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-bufo-taco",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "food"
+        "food",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-burrito",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "food"
+        "food",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-fud-away",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "encouragement"
+        "encouragement",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-golden-handcuffs",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "money"
+        "money",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-incident",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "software-reference"
+        "software-reference",
+        "takes-your"
       ]
     },
     {
       "id": "bufo-takes-your-pizza",
       "fileType": "png",
       "tags": [
-        "takes-your",
-        "food"
+        "food",
+        "takes-your"
       ]
     },
     {
@@ -6853,8 +6764,8 @@
       "id": "bufo-tapioca-pearl",
       "fileType": "png",
       "tags": [
-        "food",
-        "anthropomorphic"
+        "anthropomorphic",
+        "food"
       ]
     },
     {
@@ -6874,8 +6785,8 @@
       "id": "bufo-tears-of-joy",
       "fileType": "png",
       "tags": [
-        "happy",
-        "cry"
+        "cry",
+        "happy"
       ]
     },
     {
@@ -6911,7 +6822,7 @@
       "fileType": "png",
       "tags": [
         "gratitude",
-        "pray"
+        "religion"
       ]
     },
     {
@@ -6964,7 +6875,6 @@
       "id": "bufo-think",
       "fileType": "png",
       "tags": [
-        "smart",
         "anthropomorphic"
       ]
     },
@@ -6972,8 +6882,8 @@
       "id": "bufo-thinking",
       "fileType": "png",
       "tags": [
-        "take-a-look",
-        "core"
+        "core",
+        "take-a-look"
       ]
     },
     {
@@ -6994,8 +6904,8 @@
       "id": "bufo-thinks-about-telemetry",
       "fileType": "png",
       "tags": [
-        "thinks-about",
-        "software-reference"
+        "software-reference",
+        "thinks-about"
       ]
     },
     {
@@ -7023,17 +6933,17 @@
       "id": "bufo-thonk",
       "fileType": "png",
       "tags": [
-        "thinks-about",
-        "confused"
+        "confused",
+        "thinks-about"
       ]
     },
     {
       "id": "bufo-thonks-from-the-void",
       "fileType": "png",
       "tags": [
-        "void",
+        "confused",
         "thinks-about",
-        "confused"
+        "void"
       ]
     },
     {
@@ -7048,16 +6958,16 @@
       "id": "bufo-thumbsup",
       "fileType": "png",
       "tags": [
-        "approve",
-        "agree"
+        "agree",
+        "approve"
       ]
     },
     {
       "id": "bufo-thunk",
       "fileType": "png",
       "tags": [
-        "thinks-about",
-        "confused"
+        "confused",
+        "thinks-about"
       ]
     },
     {
@@ -7073,8 +6983,8 @@
       "id": "bufo-timeout",
       "fileType": "png",
       "tags": [
-        "punishment",
-        "baby"
+        "baby",
+        "punishment"
       ]
     },
     {
@@ -7088,7 +6998,7 @@
       "id": "bufo-tips-hat",
       "fileType": "png",
       "tags": [
-        "acknowledgement"
+        "agree"
       ]
     },
     {
@@ -7102,27 +7012,27 @@
       "id": "bufo-toad",
       "fileType": "png",
       "tags": [
-        "reference",
-        "mario"
+        "mario",
+        "reference"
       ]
     },
     {
       "id": "bufo-tofu",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "bufo-tomato",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
         "fruit",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -7130,8 +7040,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -7162,8 +7072,8 @@
       "id": "bufo-tophat",
       "fileType": "png",
       "tags": [
-        "fancy",
-        "accessories"
+        "accessories",
+        "fancy"
       ]
     },
     {
@@ -7213,8 +7123,8 @@
       "id": "bufo-tries-to-fight-you-but-his-arms-are-too-short-so-count-yourself-lucky",
       "fileType": "gif",
       "tags": [
-        "fight",
-        "cute"
+        "cute",
+        "fight"
       ]
     },
     {
@@ -7265,17 +7175,17 @@
       "id": "bufo-tux",
       "fileType": "png",
       "tags": [
-        "fancy",
-        "accessories"
+        "accessories",
+        "fancy"
       ]
     },
     {
       "id": "bufo-typing",
       "fileType": "gif",
       "tags": [
+        "agree",
         "animated",
-        "core",
-        "acknowledgement"
+        "core"
       ]
     },
     {
@@ -7289,8 +7199,8 @@
       "id": "bufo-ugh",
       "fileType": "png",
       "tags": [
-        "upset",
-        "disbelief"
+        "disbelief",
+        "upset"
       ]
     },
     {
@@ -7304,8 +7214,8 @@
       "id": "bufo-uhhh",
       "fileType": "png",
       "tags": [
-        "disbelief",
-        "awkward"
+        "awkward",
+        "disbelief"
       ]
     },
     {
@@ -7326,16 +7236,15 @@
       "id": "bufo-upvote",
       "fileType": "png",
       "tags": [
-        "like",
-        "encouragement",
-        "agree"
+        "agree",
+        "approve",
+        "encouragement"
       ]
     },
     {
       "id": "bufo-uses-100-percent-of-his-brain",
       "fileType": "png",
       "tags": [
-        "smart",
         "high-quality"
       ]
     },
@@ -7385,8 +7294,8 @@
       "id": "bufo-very-angry",
       "fileType": "gif",
       "tags": [
-        "animated",
         "anger",
+        "animated",
         "rage"
       ]
     },
@@ -7445,9 +7354,9 @@
       "id": "bufo-wants-to-have-a-calm-and-civilized-conversation-with-you",
       "fileType": "png",
       "tags": [
+        "disagree",
         "fight",
-        "fire",
-        "disagree"
+        "fire"
       ]
     },
     {
@@ -7462,16 +7371,15 @@
       "id": "bufo-wards-off-the-evil-spirits",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "magic"
+        "animated"
       ]
     },
     {
       "id": "bufo-was-eavesdropping-and-got-offended-by-your-convo-but-now-has-to-pretend-he-didnt-hear-you",
       "fileType": "png",
       "tags": [
-        "upset",
-        "awkward"
+        "awkward",
+        "upset"
       ]
     },
     {
@@ -7504,9 +7412,9 @@
       "id": "bufo-watermelon",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -7514,32 +7422,32 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "greetings",
-        "farewell"
+        "farewell",
+        "greetings"
       ]
     },
     {
       "id": "bufo-waves-hello-from-the-void",
       "fileType": "png",
       "tags": [
-        "void",
-        "greetings"
+        "greetings",
+        "void"
       ]
     },
     {
       "id": "bufo-wears-a-paper-crown",
       "fileType": "png",
       "tags": [
-        "happy",
-        "celebration"
+        "celebration",
+        "happy"
       ]
     },
     {
       "id": "bufo-wears-the-cone-of-shame",
       "fileType": "png",
       "tags": [
+        "panic",
         "punishment",
-        "trapped",
         "sad"
       ]
     },
@@ -7547,8 +7455,8 @@
       "id": "bufo-wedding",
       "fileType": "png",
       "tags": [
-        "love",
-        "happy"
+        "happy",
+        "love"
       ]
     },
     {
@@ -7575,9 +7483,9 @@
       "id": "bufo-what-are-you-doing-with-that",
       "fileType": "png",
       "tags": [
-        "kills-you",
+        "blank-stare",
         "fight",
-        "blank-stare"
+        "kills-you"
       ]
     },
     {
@@ -7592,41 +7500,39 @@
       "id": "bufo-what-have-i-done",
       "fileType": "png",
       "tags": [
-        "upset",
+        "anxiety",
         "core",
-        "anxiety"
+        "upset"
       ]
     },
     {
       "id": "bufo-what-have-you-done",
       "fileType": "png",
       "tags": [
-        "upset",
+        "anxiety",
         "core",
-        "anxiety"
+        "upset"
       ]
     },
     {
       "id": "bufo-what-if",
       "fileType": "png",
-      "tags": [
-        "smart"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-whatever",
       "fileType": "png",
       "tags": [
+        "avoids-you",
         "disagree",
-        "dislike",
-        "avoids-you"
+        "dislike"
       ]
     },
     {
       "id": "bufo-whew",
       "fileType": "png",
       "tags": [
-        "relief"
+        "encouragement"
       ]
     },
     {
@@ -7649,18 +7555,18 @@
       "id": "bufo-wholesome",
       "fileType": "png",
       "tags": [
-        "happy",
+        "cute",
         "encouragement",
-        "cute"
+        "happy"
       ]
     },
     {
       "id": "bufo-why-must-it-be-this-way",
       "fileType": "png",
       "tags": [
-        "upset",
         "core",
-        "cry"
+        "cry",
+        "upset"
       ]
     },
     {
@@ -7700,16 +7606,16 @@
       "id": "bufo-wields-mjolnir",
       "fileType": "png",
       "tags": [
-        "fight",
-        "cool"
+        "cool",
+        "fight"
       ]
     },
     {
       "id": "bufo-wields-the-hylian-shield",
       "fileType": "png",
       "tags": [
-        "reference",
-        "sword"
+        "fight",
+        "reference"
       ]
     },
     {
@@ -7724,8 +7630,8 @@
       "id": "bufo-will-not-be-going-to-space-today",
       "fileType": "png",
       "tags": [
-        "space",
-        "cry"
+        "cry",
+        "space"
       ]
     },
     {
@@ -7740,8 +7646,8 @@
       "id": "bufo-wishes-you-a-happy-valentines-day",
       "fileType": "png",
       "tags": [
-        "love",
-        "holiday"
+        "holiday",
+        "love"
       ]
     },
     {
@@ -7749,8 +7655,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "farewell",
-        "discomfort"
+        "discomfort",
+        "farewell"
       ]
     },
     {
@@ -7764,8 +7670,7 @@
       "id": "bufo-wizard",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "magic"
+        "animated"
       ]
     },
     {
@@ -7773,8 +7678,8 @@
       "fileType": "png",
       "tags": [
         "food",
-        "reference",
-        "pain"
+        "pain",
+        "reference"
       ]
     },
     {
@@ -7801,7 +7706,7 @@
       "fileType": "png",
       "tags": [
         "food",
-        "pray"
+        "religion"
       ]
     },
     {
@@ -7814,9 +7719,9 @@
       "fileType": "png",
       "tags": [
         "confused",
+        "core",
         "disbelief",
-        "unsure",
-        "core"
+        "unsure"
       ]
     },
     {
@@ -7832,8 +7737,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -7898,7 +7803,7 @@
       "id": "bufochu",
       "fileType": "png",
       "tags": [
-        "pokemon"
+        "reference"
       ]
     },
     {
@@ -7942,9 +7847,9 @@
       "id": "bufonana",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "fruit",
-        "anthropomorphic"
+        "fruit"
       ]
     },
     {
@@ -7964,7 +7869,7 @@
       "id": "buforce-be-with-you",
       "fileType": "png",
       "tags": [
-        "star-wars"
+        "reference"
       ]
     },
     {
@@ -8001,7 +7906,7 @@
       "id": "bufowhirl",
       "fileType": "png",
       "tags": [
-        "pokemon"
+        "reference"
       ]
     },
     {
@@ -8014,18 +7919,16 @@
     {
       "id": "chonky-bufo-wants-to-be-held",
       "fileType": "png",
-      "tags": [
-        "chonker"
-      ]
+      "tags": []
     },
     {
       "id": "christmas-bufo-on-a-goose",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "holiday",
         "animal",
-        "baby"
+        "animated",
+        "baby",
+        "holiday"
       ]
     },
     {
@@ -8056,9 +7959,9 @@
       "id": "daily-dose-of-bufo-vitamins",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "fruit",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
@@ -8077,17 +7980,17 @@
       "id": "eggplant-bufo",
       "fileType": "png",
       "tags": [
+        "anthropomorphic",
         "food",
-        "vegetable",
-        "anthropomorphic"
+        "vegetable"
       ]
     },
     {
       "id": "et-tu-bufo",
       "fileType": "png",
       "tags": [
-        "kills-you",
-        "fight"
+        "fight",
+        "kills-you"
       ]
     },
     {
@@ -8095,8 +7998,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "void",
-        "anxiety"
+        "anxiety",
+        "void"
       ]
     },
     {
@@ -8160,17 +8063,17 @@
       "id": "great-white-bufo",
       "fileType": "png",
       "tags": [
-        "high-quality",
         "animal",
-        "anthropomorphic"
+        "anthropomorphic",
+        "high-quality"
       ]
     },
     {
       "id": "holiday-bufo-offers-you-a-candy-cane",
       "fileType": "png",
       "tags": [
-        "holiday",
-        "food"
+        "food",
+        "holiday"
       ]
     },
     {
@@ -8178,8 +8081,8 @@
       "fileType": "png",
       "tags": [
         "disbelief",
-        "unsure",
-        "sus"
+        "sus",
+        "unsure"
       ]
     },
     {
@@ -8229,8 +8132,8 @@
       "id": "king-bufo",
       "fileType": "png",
       "tags": [
-        "reference",
-        "fancy"
+        "fancy",
+        "reference"
       ]
     },
     {
@@ -8243,9 +8146,7 @@
     {
       "id": "le-bufo",
       "fileType": "png",
-      "tags": [
-        "country"
-      ]
+      "tags": []
     },
     {
       "id": "looks-good-to-bufo",
@@ -8258,8 +8159,8 @@
       "id": "low-fidelity-bufo-cant-believe-youve-done-this",
       "fileType": "png",
       "tags": [
-        "low-fi",
         "disbelief",
+        "low-fi",
         "upset"
       ]
     },
@@ -8268,24 +8169,24 @@
       "fileType": "png",
       "tags": [
         "low-fi",
-        "worry",
-        "unsure"
+        "unsure",
+        "worry"
       ]
     },
     {
       "id": "low-fidelity-bufo-excited",
       "fileType": "png",
       "tags": [
-        "low-fi",
-        "happy"
+        "happy",
+        "low-fi"
       ]
     },
     {
       "id": "low-fidelity-bufo-gets-whiplash",
       "fileType": "png",
       "tags": [
-        "low-fi",
-        "confused"
+        "confused",
+        "low-fi"
       ]
     },
     {
@@ -8341,8 +8242,8 @@
       "id": "our-bufo-is-in-another-castle",
       "fileType": "png",
       "tags": [
-        "reference",
-        "mario"
+        "mario",
+        "reference"
       ]
     },
     {
@@ -8357,8 +8258,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "celebration"
+        "celebration",
+        "happy"
       ]
     },
     {
@@ -8366,8 +8267,8 @@
       "fileType": "gif",
       "tags": [
         "je-ne-sais-quoi",
-        "space",
-        "meta"
+        "meta",
+        "space"
       ]
     },
     {
@@ -8381,9 +8282,9 @@
       "id": "press-x-to-bufo",
       "fileType": "png",
       "tags": [
+        "meme",
         "reference",
-        "unsure",
-        "meme"
+        "unsure"
       ]
     },
     {
@@ -8398,16 +8299,14 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "horror",
-        "cursed"
+        "cursed",
+        "horror"
       ]
     },
     {
       "id": "sen\\u0303or-bufo",
       "fileType": "png",
-      "tags": [
-        "country"
-      ]
+      "tags": []
     },
     {
       "id": "shiny-bufo",
@@ -8458,8 +8357,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "happy",
-        "excited"
+        "excited",
+        "happy"
       ]
     },
     {
@@ -8474,8 +8373,8 @@
       "id": "super-bufo-bros",
       "fileType": "png",
       "tags": [
-        "reference",
-        "mario"
+        "mario",
+        "reference"
       ]
     },
     {
@@ -8489,8 +8388,8 @@
       "id": "tabufo",
       "fileType": "png",
       "tags": [
-        "happy",
-        "celebration"
+        "celebration",
+        "happy"
       ]
     },
     {
@@ -8511,8 +8410,7 @@
       "id": "the-bufo-nightmare-before-christmas",
       "fileType": "png",
       "tags": [
-        "holiday",
-        "christmas"
+        "holiday"
       ]
     },
     {
@@ -8547,17 +8445,17 @@
       "id": "this-8-dollar-starbucks-drink-isnt-helping-bufo-feel-any-better",
       "fileType": "png",
       "tags": [
+        "blank-stare",
         "drink",
-        "tired",
-        "blank-stare"
+        "tired"
       ]
     },
     {
       "id": "this-is-bufo",
       "fileType": "png",
       "tags": [
-        "meme",
-        "fire"
+        "fire",
+        "meme"
       ]
     },
     {
@@ -8571,7 +8469,7 @@
       "id": "triumphant-bufo",
       "fileType": "png",
       "tags": [
-        "angry"
+        "anger"
       ]
     },
     {
@@ -8622,8 +8520,8 @@
       "id": "you-have-awoken-the-bufo",
       "fileType": "png",
       "tags": [
-        "fight",
-        "anger"
+        "anger",
+        "fight"
       ]
     },
     {
@@ -8631,8 +8529,8 @@
       "fileType": "png",
       "tags": [
         "approve",
-        "meta",
-        "core"
+        "core",
+        "meta"
       ]
     },
     {
