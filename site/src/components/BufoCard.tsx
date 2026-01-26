@@ -26,7 +26,7 @@ export function BufoCard({ bufo, onClick }: BufoCardProps) {
       <button
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        className="focus:outline-none focus:ring-2 focus:ring-bufo-300 focus:shadow-sm rounded transition-all duration-200 ease-in-out"
+        className="focus:outline-none focus:ring-2 focus:ring-bufo-300 rounded transition-shadow"
       >
         <div className="rounded w-[64px] min-w-[64px] h-[64px] min-h-[64px] border border-bufo-400 bg-bufo-50">
           <img

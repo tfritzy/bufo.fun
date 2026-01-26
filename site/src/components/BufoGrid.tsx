@@ -23,7 +23,7 @@ export function BufoGrid({ bufos, onTagClick }: BufoGridProps) {
 
   return (
     <div className="w-full">
-      <div className="ml-2 text-sm text-bufo-500 flex flex-row space-x-1 items-center justify-between">
+      <div className="ml-2 text-sm text-bufo-500 flex flex-row space-x-1 items-center justify-between pr-[70px]">
         <span>
           <span className="font-semibold">{bufos.length}</span> bufos
         </span>
@@ -45,7 +45,7 @@ export function BufoGrid({ bufos, onTagClick }: BufoGridProps) {
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
             />
           </svg>
-          <span>Download All</span>
+          <span>Download all</span>
         </Button>
       </div>
       <div className="flex flex-row flex-wrap">

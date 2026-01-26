@@ -377,7 +377,7 @@ export function BuilderEditorPage() {
                       setCanvasWidth(validated);
                       setWidthInput(String(validated));
                     }}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
+                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-300 outline-none transition-shadow"
                   />
                 </div>
                 <div className="flex-1">
@@ -394,7 +394,7 @@ export function BuilderEditorPage() {
                       setCanvasHeight(validated);
                       setHeightInput(String(validated));
                     }}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
+                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-300 outline-none transition-shadow"
                   />
                 </div>
               </div>
