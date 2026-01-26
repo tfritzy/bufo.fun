@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 import App from "./App";
 import { BufoProvider } from "./BufoContext";
@@ -11,10 +12,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <BufoProvider>
-        <App />
-      </BufoProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <BufoProvider>
+          <App />
+        </BufoProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>
 );

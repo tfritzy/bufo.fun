@@ -9,5 +9,9 @@
         "Cache-Control": "public, max-age=3600"
       }
     }
-  ]
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/bufo-data.json", "/bufos/*", "/smolBufos/*", "/*.{js,css,png,jpg,jpeg,gif,svg,ico,json,woff,woff2,ttf,eot}"]
+  }
 }
