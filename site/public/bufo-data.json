@@ -104,9 +104,7 @@
     {
       "id": "awesomebufo",
       "fileType": "png",
-      "tags": [
-        "skepticism"
-      ]
+      "tags": []
     },
     {
       "id": "be-the-bufo-you-want-to-see",
@@ -258,8 +256,7 @@
       "id": "bufo-angel",
       "fileType": "png",
       "tags": [
-        "religion",
-        "sad"
+        "religion"
       ]
     },
     {
@@ -290,8 +287,7 @@
       "id": "bufo-angryandfrozen",
       "fileType": "png",
       "tags": [
-        "anger",
-        "panic"
+        "anger"
       ]
     },
     {
@@ -520,7 +516,6 @@
       "fileType": "png",
       "tags": [
         "cry",
-        "panic",
         "sad"
       ]
     },
@@ -537,7 +532,6 @@
       "id": "bufo-betray-but-its-a-hotdog",
       "fileType": "png",
       "tags": [
-        "fight",
         "hotdog"
       ]
     },
@@ -545,15 +539,13 @@
       "id": "bufo-betray",
       "fileType": "png",
       "tags": [
-        "dislike",
-        "fight"
+        "dislike"
       ]
     },
     {
       "id": "bufo-birthday-but-not-particularly-happy",
       "fileType": "png",
       "tags": [
-        "celebration",
         "sad"
       ]
     },
@@ -633,9 +625,7 @@
     {
       "id": "bufo-boba-army",
       "fileType": "png",
-      "tags": [
-        "drink"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-boba",
@@ -844,7 +834,6 @@
       "id": "bufo-buy-high-sell-low",
       "fileType": "png",
       "tags": [
-        "money",
         "sad"
       ]
     },
@@ -852,8 +841,7 @@
       "id": "bufo-buy-low-sell-high",
       "fileType": "png",
       "tags": [
-        "happy",
-        "money"
+        "happy"
       ]
     },
     {
@@ -1004,9 +992,7 @@
     {
       "id": "bufo-checks-out-the-vibe",
       "fileType": "png",
-      "tags": [
-        "skepticism"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-cheese",
@@ -1955,8 +1941,7 @@
       "id": "bufo-evil",
       "fileType": "png",
       "tags": [
-        "evil",
-        "reference"
+        "evil"
       ]
     },
     {
@@ -2319,8 +2304,7 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "core",
-        "reference"
+        "core"
       ]
     },
     {
@@ -2408,7 +2392,6 @@
       "id": "bufo-ghost",
       "fileType": "png",
       "tags": [
-        "encouragement",
         "sad"
       ]
     },
@@ -2535,8 +2518,7 @@
       "id": "bufo-hacker",
       "fileType": "png",
       "tags": [
-        "reference",
-        "software-reference"
+        "reference"
       ]
     },
     {
@@ -2742,8 +2724,7 @@
       "id": "bufo-has-infiltrated-your-secure-system",
       "fileType": "gif",
       "tags": [
-        "animated",
-        "software-reference"
+        "animated"
       ]
     },
     {
@@ -2978,9 +2959,7 @@
     {
       "id": "bufo-hug",
       "fileType": "png",
-      "tags": [
-        "encouragement"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-i-just-love-it-so-much",
@@ -3061,9 +3040,7 @@
     {
       "id": "bufo-inspired",
       "fileType": "png",
-      "tags": [
-        "encouragement"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-instigates-a-dramatic-turn-of-events",
@@ -3147,8 +3124,7 @@
       "fileType": "png",
       "tags": [
         "encouragement",
-        "happy",
-        "skepticism"
+        "happy"
       ]
     },
     {
@@ -3170,9 +3146,7 @@
     {
       "id": "bufo-is-jealous-its-your-birthday",
       "fileType": "png",
-      "tags": [
-        "celebration"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-is-keeping-his-eye-on-you",
@@ -4465,7 +4439,6 @@
       "id": "bufo-offers-a-speedy-recovery",
       "fileType": "png",
       "tags": [
-        "encouragement",
         "offers"
       ]
     },
@@ -5290,8 +5263,7 @@
       "id": "bufo-palpatine",
       "fileType": "png",
       "tags": [
-        "evil",
-        "reference"
+        "evil"
       ]
     },
     {
@@ -5387,9 +5359,7 @@
     {
       "id": "bufo-phew",
       "fileType": "png",
-      "tags": [
-        "encouragement"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-phonecall",
@@ -5457,23 +5427,17 @@
     {
       "id": "bufo-pleading-1",
       "fileType": "png",
-      "tags": [
-        "sad"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-pleading",
       "fileType": "png",
-      "tags": [
-        "sad"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-please",
       "fileType": "png",
-      "tags": [
-        "sad"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-pointing-down-there",
@@ -5518,9 +5482,7 @@
     {
       "id": "bufo-poliwhirl",
       "fileType": "png",
-      "tags": [
-        "reference"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-poof",
@@ -6038,7 +6000,6 @@
       "id": "bufo-shame",
       "fileType": "png",
       "tags": [
-        "panic",
         "punishment"
       ]
     },
@@ -7431,7 +7392,6 @@
       "id": "bufo-wears-the-cone-of-shame",
       "fileType": "png",
       "tags": [
-        "panic",
         "punishment",
         "sad"
       ]
@@ -7516,9 +7476,7 @@
     {
       "id": "bufo-whew",
       "fileType": "png",
-      "tags": [
-        "encouragement"
-      ]
+      "tags": []
     },
     {
       "id": "bufo-whisky",
@@ -7599,7 +7557,6 @@
       "id": "bufo-wields-the-hylian-shield",
       "fileType": "png",
       "tags": [
-        "fight",
         "reference"
       ]
     },
@@ -7786,9 +7743,7 @@
     {
       "id": "bufochu",
       "fileType": "png",
-      "tags": [
-        "reference"
-      ]
+      "tags": []
     },
     {
       "id": "bufocopter",
@@ -7852,9 +7807,7 @@
     {
       "id": "buforce-be-with-you",
       "fileType": "png",
-      "tags": [
-        "reference"
-      ]
+      "tags": []
     },
     {
       "id": "buforead",
@@ -7889,9 +7842,7 @@
     {
       "id": "bufowhirl",
       "fileType": "png",
-      "tags": [
-        "reference"
-      ]
+      "tags": []
     },
     {
       "id": "but-wait-theres-bufo",
