@@ -29,6 +29,8 @@ export function BuilderEditorPage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [canvasWidth, setCanvasWidth] = useState<number>(500);
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
+  const [widthInput, setWidthInput] = useState<string>("500");
+  const [heightInput, setHeightInput] = useState<string>("500");
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
   const layerIdCounter = useRef(0);
@@ -43,6 +45,8 @@ export function BuilderEditorPage() {
       setActiveLayerIndex(template.activeLayerIndex);
       setCanvasWidth(template.canvasWidth);
       setCanvasHeight(template.canvasHeight);
+      setWidthInput(String(template.canvasWidth));
+      setHeightInput(String(template.canvasHeight));
     }
   }, [template]);
 
@@ -353,31 +357,37 @@ export function BuilderEditorPage() {
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                 Canvas Size
               </h3>
-              <div className="space-y-2">
-                <div>
+              <div className="flex gap-2">
+                <div className="flex-1">
                   <label className="block text-xs text-gray-600 mb-1">Width (px)</label>
                   <input
                     type="number"
                     min="100"
                     max="2000"
-                    value={canvasWidth}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value, 10);
-                      setCanvasWidth(isNaN(value) ? 100 : Math.max(100, Math.min(2000, value)));
+                    value={widthInput}
+                    onChange={(e) => setWidthInput(e.target.value)}
+                    onBlur={() => {
+                      const value = parseInt(widthInput, 10);
+                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+                      setCanvasWidth(validated);
+                      setWidthInput(String(validated));
                     }}
                     className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
                   />
                 </div>
-                <div>
+                <div className="flex-1">
                   <label className="block text-xs text-gray-600 mb-1">Height (px)</label>
                   <input
                     type="number"
                     min="100"
                     max="2000"
-                    value={canvasHeight}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value, 10);
-                      setCanvasHeight(isNaN(value) ? 100 : Math.max(100, Math.min(2000, value)));
+                    value={heightInput}
+                    onChange={(e) => setHeightInput(e.target.value)}
+                    onBlur={() => {
+                      const value = parseInt(heightInput, 10);
+                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+                      setCanvasHeight(validated);
+                      setHeightInput(String(validated));
                     }}
                     className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-500 focus:border-bufo-500 outline-none"
                   />
