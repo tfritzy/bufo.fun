@@ -53,6 +53,45 @@ export function BuilderEditorPage() {
   const layerHasNoPosition = (layer: LayerState): boolean =>
     layer.position.width === 0 && layer.position.height === 0;
 
+  const loadImageWithPosition = useCallback(
+    (imageData: string, layerIndex: number): Promise<void> => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          setLayers((prev) =>
+            prev.map((layer, idx) => {
+              if (idx !== layerIndex) return layer;
+              if (layerHasNoPosition(layer)) {
+                return {
+                  ...layer,
+                  imageData,
+                  position: {
+                    x: canvasWidth / 4,
+                    y: canvasHeight / 4,
+                    width: img.naturalWidth,
+                    height: img.naturalHeight,
+                  },
+                };
+              }
+              return { ...layer, imageData };
+            })
+          );
+          resolve();
+        };
+        img.onerror = () => {
+          setLayers((prev) =>
+            prev.map((layer, idx) =>
+              idx === layerIndex ? { ...layer, imageData } : layer
+            )
+          );
+          resolve();
+        };
+        img.src = imageData;
+      });
+    },
+    [canvasWidth, canvasHeight]
+  );
+
   const handlePaste = useCallback(
     (e: ClipboardEvent) => {
       const items = e.clipboardData?.items;
@@ -65,24 +104,7 @@ export function BuilderEditorPage() {
             const reader = new FileReader();
             reader.onload = (event) => {
               const imageData = event.target?.result as string;
-              setLayers((prev) =>
-                prev.map((layer, idx) => {
-                  if (idx !== activeLayerIndex) return layer;
-                  if (layerHasNoPosition(layer)) {
-                    return {
-                      ...layer,
-                      imageData,
-                      position: {
-                        x: canvasWidth / 4,
-                        y: canvasHeight / 4,
-                        width: canvasWidth / 2,
-                        height: canvasHeight / 2,
-                      },
-                    };
-                  }
-                  return { ...layer, imageData };
-                })
-              );
+              loadImageWithPosition(imageData, activeLayerIndex);
             };
             reader.readAsDataURL(file);
           }
@@ -90,7 +112,7 @@ export function BuilderEditorPage() {
         }
       }
     },
-    [activeLayerIndex, canvasWidth, canvasHeight]
+    [activeLayerIndex, loadImageWithPosition]
   );
 
   useEffect(() => {
@@ -106,24 +128,7 @@ export function BuilderEditorPage() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
-      setLayers((prev) =>
-        prev.map((layer, idx) => {
-          if (idx !== layerIndex) return layer;
-          if (layerHasNoPosition(layer)) {
-            return {
-              ...layer,
-              imageData,
-              position: {
-                x: canvasWidth / 4,
-                y: canvasHeight / 4,
-                width: canvasWidth / 2,
-                height: canvasHeight / 2,
-              },
-            };
-          }
-          return { ...layer, imageData };
-        })
-      );
+      loadImageWithPosition(imageData, layerIndex);
     };
     reader.readAsDataURL(file);
   };
