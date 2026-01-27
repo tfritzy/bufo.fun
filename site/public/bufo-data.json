@@ -1941,7 +1941,8 @@
       "id": "bufo-evil",
       "fileType": "png",
       "tags": [
-        "evil"
+        "evil",
+        "reference"
       ]
     },
     {
@@ -2304,7 +2305,8 @@
       "fileType": "gif",
       "tags": [
         "animated",
-        "core"
+        "core",
+        "reference"
       ]
     },
     {
@@ -5263,7 +5265,8 @@
       "id": "bufo-palpatine",
       "fileType": "png",
       "tags": [
-        "evil"
+        "evil",
+        "reference"
       ]
     },
     {
@@ -5482,7 +5485,9 @@
     {
       "id": "bufo-poliwhirl",
       "fileType": "png",
-      "tags": []
+      "tags": [
+        "reference"
+      ]
     },
     {
       "id": "bufo-poof",
@@ -7743,7 +7748,9 @@
     {
       "id": "bufochu",
       "fileType": "png",
-      "tags": []
+      "tags": [
+        "reference"
+      ]
     },
     {
       "id": "bufocopter",
@@ -7807,7 +7814,9 @@
     {
       "id": "buforce-be-with-you",
       "fileType": "png",
-      "tags": []
+      "tags": [
+        "reference"
+      ]
     },
     {
       "id": "buforead",
@@ -7842,7 +7851,9 @@
     {
       "id": "bufowhirl",
       "fileType": "png",
-      "tags": []
+      "tags": [
+        "reference"
+      ]
     },
     {
       "id": "but-wait-theres-bufo",
