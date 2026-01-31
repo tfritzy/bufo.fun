@@ -71,7 +71,7 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
         </div>
 
         {/* Full size bufo */}
-        <div className="flex justify-center py-4 bg-gradient-to-b from-bufo-50 to-white rounded-lg">
+        <div className="flex justify-center items-center h-[160px] bg-gradient-to-b from-bufo-50 to-white rounded-lg">
           <img
             src={`/bufos/${bufo.filename}`}
             alt={bufo.id}
