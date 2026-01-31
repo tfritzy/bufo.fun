@@ -70,6 +70,16 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
           </button>
         </div>
 
+        {/* Full size bufo */}
+        <div className="flex justify-center py-4 bg-gradient-to-b from-bufo-50 to-white rounded-lg">
+          <img
+            src={`/bufos/${bufo.filename}`}
+            alt={bufo.id}
+            className="max-w-[128px] max-h-[128px] object-contain"
+            style={{ imageRendering: "pixelated" }}
+          />
+        </div>
+
         {/* Message preview */}
         <div className="flex flex-row space-x-2 bg-gray-50 shadow-sm p-2 border border-gray-200 min-w-80">
           <img
