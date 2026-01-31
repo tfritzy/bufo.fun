@@ -540,7 +540,7 @@ export function BuilderEditorPage() {
         <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-hidden">
           <div
             ref={canvasRef}
-            className="relative bg-white shadow-xl rounded-lg overflow-hidden"
+            className="relative bg-white shadow-xl overflow-hidden"
             style={{
               width: canvasWidth,
               height: canvasHeight,
