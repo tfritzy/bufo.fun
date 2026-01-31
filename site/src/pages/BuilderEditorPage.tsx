@@ -289,7 +289,7 @@ export function BuilderEditorPage() {
   const openDownloadModal = async () => {
     const preview = await generatePreview();
     setPreviewUrl(preview);
-    setBufoName(`bufo-${template?.id || "custom"}`);
+    setBufoName(`${template?.id || "bufo"}-`);
     setShowDownloadModal(true);
   };
 
