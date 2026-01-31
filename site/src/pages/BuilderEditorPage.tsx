@@ -27,6 +27,7 @@ export function BuilderEditorPage() {
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [bufoName, setBufoName] = useState("");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(500);
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
@@ -313,6 +314,8 @@ export function BuilderEditorPage() {
       await navigator.clipboard.write([
         new ClipboardItem({ "image/png": blob }),
       ]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       triggerDownload(previewUrl, `${bufoName || "bufo"}.png`);
     }
@@ -671,12 +674,27 @@ export function BuilderEditorPage() {
                 </button>
                 <button
                   onClick={handleCopyToClipboard}
-                  className="flex-1 py-2 px-4 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center"
+                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center ${
+                    copied
+                      ? "bg-bufo-100 text-bufo-700"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                  </svg>
-                  Copy
+                  {copied ? (
+                    <>
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                      </svg>
+                      Copy
+                    </>
+                  )}
                 </button>
               </div>
             </div>
