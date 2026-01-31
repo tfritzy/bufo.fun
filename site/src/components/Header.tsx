@@ -36,12 +36,12 @@ export function Header() {
   return (
     <nav className="w-full bg-gray-100">
       <div className="container mx-auto py-4 flex flex-col md:flex-row justify-between items-center">
-        <div className="mb-4 md:mb-0 text-center md:text-left">
+        <Link to="/" className="mb-4 md:mb-0 text-center md:text-left">
           <h1 className="text-3xl font-bold tracking-tight text-gray-800">
             bufo.fun
           </h1>
           <p className="text-gray-500 text-sm font-medium">Quite a few bufos</p>
-        </div>
+        </Link>
         <div className="flex items-center space-x-6">
           <Link
             className="text-gray-600 hover:text-bufo-500 font-medium transition-colors"
