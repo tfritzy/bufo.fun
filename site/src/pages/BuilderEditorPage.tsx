@@ -31,9 +31,9 @@ export function BuilderEditorPage() {
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
   const [heightInput, setHeightInput] = useState<string>("500");
+  const displayScale = 3;
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
-  const layerIdCounter = useRef(0);
 
   useEffect(() => {
     if (template) {
@@ -146,57 +146,41 @@ export function BuilderEditorPage() {
     );
   };
 
-  const toggleLayerVisibility = (index: number) => {
+  const clearLayerImage = (index: number) => {
     setLayers((prev) =>
       prev.map((layer, idx) =>
-        idx === index ? { ...layer, visible: !layer.visible } : layer
+        idx === index ? { ...layer, imageData: null } : layer
       )
     );
   };
 
-  const addLayer = () => {
-    layerIdCounter.current += 1;
-    const newLayer: LayerState = {
-      id: `layer-${layerIdCounter.current}`,
-      name: `Layer ${layers.length + 1}`,
-      file: "",
-      position: { x: 0, y: 0, width: 0, height: 0 },
-      visible: true,
-      imageData: null,
-    };
-    setLayers((prev) => [...prev, newLayer]);
-    setActiveLayerIndex(layers.length);
-  };
+  const isUserEditableLayer = (layer: LayerState) => !layer.file;
 
-  const removeLayer = (index: number) => {
-    if (layers.length <= 1) return;
-    setLayers((prev) => prev.filter((_, idx) => idx !== index));
-    if (activeLayerIndex >= index && activeLayerIndex > 0) {
-      setActiveLayerIndex(activeLayerIndex - 1);
-    }
-  };
-
-  const handleMouseDown = (e: React.MouseEvent, index: number) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    setActiveLayerIndex(index);
+    const layer = layers[activeLayerIndex];
+    if (!layer) return;
+
     setIsDragging(true);
     setDragStart({
-      x: e.clientX - layers[index].position.x,
-      y: e.clientY - layers[index].position.y,
+      x: e.clientX / displayScale - layer.position.x,
+      y: e.clientY / displayScale - layer.position.y,
     });
   };
 
-  const handleResizeStart = (e: React.MouseEvent, index: number, direction: ResizeDirection) => {
+  const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
     e.stopPropagation();
-    setActiveLayerIndex(index);
+    const layer = layers[activeLayerIndex];
+    if (!layer) return;
+
     setIsResizing(true);
     setResizeDirection(direction);
     setDragStart({ x: e.clientX, y: e.clientY });
     setInitialSize({
-      width: layers[index].position.width,
-      height: layers[index].position.height,
+      width: layer.position.width,
+      height: layer.position.height,
     });
   };
 
@@ -207,12 +191,12 @@ export function BuilderEditorPage() {
     if (!layer) return;
 
     if (isDragging) {
-      const newX = e.clientX - dragStart.x;
-      const newY = e.clientY - dragStart.y;
+      const newX = e.clientX / displayScale - dragStart.x;
+      const newY = e.clientY / displayScale - dragStart.y;
       updateLayerPosition(activeLayerIndex, { x: newX, y: newY });
     } else if (isResizing) {
-      const deltaX = e.clientX - dragStart.x;
-      const deltaY = e.clientY - dragStart.y;
+      const deltaX = (e.clientX - dragStart.x) / displayScale;
+      const deltaY = (e.clientY - dragStart.y) / displayScale;
       
       let updates: Partial<LayerPosition> = {};
 
@@ -220,13 +204,13 @@ export function BuilderEditorPage() {
         case 'se':
           const seDelta = Math.max(deltaX, deltaY);
           updates = {
-            width: Math.max(50, initialSize.width + seDelta),
-            height: Math.max(50, initialSize.height + seDelta),
+            width: Math.max(10, initialSize.width + seDelta),
+            height: Math.max(10, initialSize.height + seDelta),
           };
           break;
         case 'nw':
           const nwDelta = Math.max(-deltaX, -deltaY);
-          const nwNewSize = Math.max(50, initialSize.width + nwDelta);
+          const nwNewSize = Math.max(10, initialSize.width + nwDelta);
           updates = {
             x: layer.position.x - (nwNewSize - layer.position.width),
             y: layer.position.y - (nwNewSize - layer.position.height),
@@ -236,7 +220,7 @@ export function BuilderEditorPage() {
           break;
         case 'ne':
           const neDelta = Math.max(deltaX, -deltaY);
-          const neNewSize = Math.max(50, initialSize.width + neDelta);
+          const neNewSize = Math.max(10, initialSize.width + neDelta);
           updates = {
             y: layer.position.y - (neNewSize - layer.position.height),
             width: neNewSize,
@@ -245,7 +229,7 @@ export function BuilderEditorPage() {
           break;
         case 'sw':
           const swDelta = Math.max(-deltaX, deltaY);
-          const swNewSize = Math.max(50, initialSize.width + swDelta);
+          const swNewSize = Math.max(10, initialSize.width + swDelta);
           updates = {
             x: layer.position.x - (swNewSize - layer.position.width),
             width: swNewSize,
@@ -399,35 +383,14 @@ export function BuilderEditorPage() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Layers
-              </h3>
-              <button
-                onClick={addLayer}
-                className="p-1 text-gray-500 hover:text-bufo-500 hover:bg-bufo-50 rounded transition-colors"
-                title="Add Layer"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-              </button>
-            </div>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+              Layers
+            </h3>
             <div className="space-y-2">
               {[...layers].reverse().map((layer, reversedIdx) => {
                 const idx = layers.length - 1 - reversedIdx;
-                const hasImage = layer.imageData || layer.file;
-                const isEmptyEditableLayer = !hasImage;
+                const isEditable = isUserEditableLayer(layer);
+                const isEmptyEditableLayer = isEditable && !layer.imageData;
 
                 if (isEmptyEditableLayer) {
                   return (
@@ -518,50 +481,14 @@ export function BuilderEditorPage() {
                     <span className="text-sm font-medium flex-grow truncate">
                       {layer.name}
                     </span>
-                    <div className="flex items-center space-x-1 ml-1">
+                    {isEditable && layer.imageData && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleLayerVisibility(idx);
-                        }}
-                        className={`p-1 rounded transition-colors ${
-                          layer.visible
-                            ? "text-gray-500 hover:text-bufo-500"
-                            : "text-gray-300 hover:text-gray-500"
-                        }`}
-                        title={layer.visible ? "Hide Layer" : "Show Layer"}
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          {layer.visible ? (
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
-                          ) : (
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                            />
-                          )}
-                        </svg>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeLayer(idx);
+                          clearLayerImage(idx);
                         }}
                         className="p-1 text-gray-400 hover:text-red-500 rounded transition-colors"
-                        title="Remove Layer"
-                        disabled={layers.length <= 1}
+                        title="Clear Image"
                       >
                         <svg
                           className="w-4 h-4"
@@ -573,11 +500,11 @@ export function BuilderEditorPage() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            d="M6 18L18 6M6 6l12 12"
                           />
                         </svg>
                       </button>
-                    </div>
+                    )}
                   </div>
                 );
               })}
@@ -614,10 +541,13 @@ export function BuilderEditorPage() {
             style={{
               width: canvasWidth,
               height: canvasHeight,
+              transform: `scale(${displayScale})`,
+              transformOrigin: "center center",
+              imageRendering: "pixelated",
               backgroundImage:
                 "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
-              backgroundSize: "20px 20px",
-              backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+              backgroundSize: "8px 8px",
+              backgroundPosition: "0 0, 0 4px, 4px -4px, -4px 0px",
             }}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -634,40 +564,55 @@ export function BuilderEditorPage() {
             return (
               <div
                 key={layer.id}
-                className={`absolute cursor-move ${isActive ? "ring-2 ring-bufo-500 ring-offset-2" : ""}`}
+                className={`absolute cursor-move ${isActive ? "ring-1 ring-bufo-500" : ""}`}
                 style={{
                   left: layer.position.x,
                   top: layer.position.y,
                   width: layer.position.width,
                   height: layer.position.height,
                   zIndex: idx,
+                  pointerEvents: isActive ? "auto" : "none",
                 }}
-                onMouseDown={(e) => handleMouseDown(e, idx)}
+                onMouseDown={handleMouseDown}
               >
                 <img
                   src={imgSrc}
                   alt={layer.name}
-                  className="w-full h-full object-contain pointer-events-none"
+                  className="w-full h-full object-contain pointer-events-none select-none"
+                  style={{ imageRendering: "pixelated" }}
                   draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
                 />
                 {isActive && (
                   <>
                     <div
-                      className="absolute top-0 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-nw-resize -translate-x-1/2 -translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'nw')}
-                    />
+                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+                      style={{ width: 10, height: 10 }}
+                      onMouseDown={(e) => handleResizeStart(e, 'nw')}
+                    >
+                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                    </div>
                     <div
-                      className="absolute top-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-ne-resize translate-x-1/2 -translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'ne')}
-                    />
+                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+                      style={{ width: 10, height: 10 }}
+                      onMouseDown={(e) => handleResizeStart(e, 'ne')}
+                    >
+                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                    </div>
                     <div
-                      className="absolute bottom-0 right-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-se-resize translate-x-1/2 translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'se')}
-                    />
+                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
+                      style={{ width: 10, height: 10 }}
+                      onMouseDown={(e) => handleResizeStart(e, 'se')}
+                    >
+                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                    </div>
                     <div
-                      className="absolute bottom-0 left-0 w-3 h-3 bg-white border-2 border-bufo-500 cursor-sw-resize -translate-x-1/2 translate-y-1/2"
-                      onMouseDown={(e) => handleResizeStart(e, idx, 'sw')}
-                    />
+                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
+                      style={{ width: 10, height: 10 }}
+                      onMouseDown={(e) => handleResizeStart(e, 'sw')}
+                    >
+                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                    </div>
                   </>
                 )}
               </div>
