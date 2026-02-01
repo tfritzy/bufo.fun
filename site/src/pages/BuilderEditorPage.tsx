@@ -497,7 +497,7 @@ export function BuilderEditorPage() {
                 {isActive && (
                   <>
                     <div
-                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'nw')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'nw'))}
@@ -505,7 +505,7 @@ export function BuilderEditorPage() {
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'ne')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'ne'))}
@@ -513,7 +513,7 @@ export function BuilderEditorPage() {
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'se')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'se'))}
@@ -521,7 +521,7 @@ export function BuilderEditorPage() {
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'sw')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'sw'))}
