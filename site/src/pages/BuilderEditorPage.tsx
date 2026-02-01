@@ -14,6 +14,11 @@ interface LayerState extends TemplateLayer {
 
 type ResizeDirection = 'nw' | 'ne' | 'se' | 'sw' | '';
 
+interface PointerPosition {
+  clientX: number;
+  clientY: number;
+}
+
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
   const template = id ? getTemplateById(id) : undefined;
@@ -184,23 +189,20 @@ export function BuilderEditorPage() {
     });
   };
 
-  const createTouchToMouseHandler = (handler: (e: React.MouseEvent) => void) => {
+  const createTouchToMouseHandler = (handler: (e: PointerPosition) => void) => {
     return (e: React.TouchEvent) => {
       e.preventDefault();
       const touch = e.touches[0];
       if (touch) {
-        const mouseEvent = new MouseEvent('mousedown', {
-          clientX: touch.clientX,
-          clientY: touch.clientY,
-          bubbles: true
-        }) as unknown as React.MouseEvent;
-        handler(mouseEvent);
+        handler({ clientX: touch.clientX, clientY: touch.clientY });
       }
     };
   };
 
-  const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
-    e.stopPropagation();
+  const handleResizeStart = (e: React.MouseEvent | PointerPosition, direction: ResizeDirection) => {
+    if ('stopPropagation' in e) {
+      e.stopPropagation();
+    }
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
