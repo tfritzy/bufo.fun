@@ -32,6 +32,7 @@ export function BuilderEditorPage() {
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
   const [heightInput, setHeightInput] = useState<string>("500");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const displayScale = 3;
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -171,6 +172,23 @@ export function BuilderEditorPage() {
     });
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const layer = layers[activeLayerIndex];
+    if (!layer) return;
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    setIsDragging(true);
+    setDragStart({
+      x: touch.clientX / displayScale - layer.position.x,
+      y: touch.clientY / displayScale - layer.position.y,
+    });
+  };
+
   const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
     e.stopPropagation();
     const layer = layers[activeLayerIndex];
@@ -198,6 +216,67 @@ export function BuilderEditorPage() {
     } else if (isResizing) {
       const deltaX = (e.clientX - dragStart.x) / displayScale;
       const deltaY = (e.clientY - dragStart.y) / displayScale;
+      
+      let updates: Partial<LayerPosition> = {};
+
+      switch (resizeDirection) {
+        case 'se':
+          const seDelta = Math.max(deltaX, deltaY);
+          updates = {
+            width: Math.max(10, initialSize.width + seDelta),
+            height: Math.max(10, initialSize.height + seDelta),
+          };
+          break;
+        case 'nw':
+          const nwDelta = Math.max(-deltaX, -deltaY);
+          const nwNewSize = Math.max(10, initialSize.width + nwDelta);
+          updates = {
+            x: layer.position.x - (nwNewSize - layer.position.width),
+            y: layer.position.y - (nwNewSize - layer.position.height),
+            width: nwNewSize,
+            height: nwNewSize,
+          };
+          break;
+        case 'ne':
+          const neDelta = Math.max(deltaX, -deltaY);
+          const neNewSize = Math.max(10, initialSize.width + neDelta);
+          updates = {
+            y: layer.position.y - (neNewSize - layer.position.height),
+            width: neNewSize,
+            height: neNewSize,
+          };
+          break;
+        case 'sw':
+          const swDelta = Math.max(-deltaX, deltaY);
+          const swNewSize = Math.max(10, initialSize.width + swDelta);
+          updates = {
+            x: layer.position.x - (swNewSize - layer.position.width),
+            width: swNewSize,
+            height: swNewSize,
+          };
+          break;
+      }
+
+      updateLayerPosition(activeLayerIndex, updates);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging && !isResizing) return;
+
+    const layer = layers[activeLayerIndex];
+    if (!layer) return;
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    if (isDragging) {
+      const newX = touch.clientX / displayScale - dragStart.x;
+      const newY = touch.clientY / displayScale - dragStart.y;
+      updateLayerPosition(activeLayerIndex, { x: newX, y: newY });
+    } else if (isResizing) {
+      const deltaX = (touch.clientX - dragStart.x) / displayScale;
+      const deltaY = (touch.clientY - dragStart.y) / displayScale;
       
       let updates: Partial<LayerPosition> = {};
 
@@ -342,8 +421,37 @@ export function BuilderEditorPage() {
         keywords="bufo, builder, create, custom, emoji, design, editor"
         url={`https://bufo.fun/builder/${id}`}
       />
-      <div className="flex flex-grow h-full">
-        <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
+      <div className="flex flex-grow h-full relative">
+        {isSidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="fixed bottom-4 left-4 z-50 md:hidden bg-bufo-500 text-white p-3 rounded-full shadow-lg hover:bg-bufo-600 transition-colors"
+          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+        >
+          {isSidebarOpen ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
+
+        <aside className={`
+          fixed md:relative inset-y-0 left-0 z-40
+          w-72 bg-white border-r border-gray-200 
+          flex flex-col overflow-y-auto
+          transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}>
           <div className="p-4 flex-grow">
             <div className="mb-4 pb-4 border-b border-gray-200">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
@@ -516,7 +624,10 @@ export function BuilderEditorPage() {
 
           <div className="p-4 border-t border-gray-200 bg-gray-50">
             <button
-              onClick={openDownloadModal}
+              onClick={() => {
+                openDownloadModal();
+                setIsSidebarOpen(false);
+              }}
               className="w-full py-3 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
             >
               <svg
@@ -537,7 +648,7 @@ export function BuilderEditorPage() {
           </div>
         </aside>
 
-        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-hidden">
+        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4">
           <div
             ref={canvasRef}
             className="relative bg-white shadow-xl overflow-hidden"
@@ -555,6 +666,8 @@ export function BuilderEditorPage() {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleMouseUp}
         >
           {layers.map((layer, idx) => {
             if (!layer.visible) return null;
@@ -577,6 +690,7 @@ export function BuilderEditorPage() {
                   pointerEvents: isActive ? "auto" : "none",
                 }}
                 onMouseDown={handleMouseDown}
+                onTouchStart={handleTouchStart}
               >
                 <img
                   src={imgSrc}
@@ -589,32 +703,80 @@ export function BuilderEditorPage() {
                 {isActive && (
                   <>
                     <div
-                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'nw')}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        if (touch) {
+                          const mouseEvent = new MouseEvent('mousedown', {
+                            clientX: touch.clientX,
+                            clientY: touch.clientY,
+                            bubbles: true
+                          });
+                          e.currentTarget.dispatchEvent(mouseEvent);
+                        }
+                      }}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'ne')}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        if (touch) {
+                          const mouseEvent = new MouseEvent('mousedown', {
+                            clientX: touch.clientX,
+                            clientY: touch.clientY,
+                            bubbles: true
+                          });
+                          e.currentTarget.dispatchEvent(mouseEvent);
+                        }
+                      }}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'se')}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        if (touch) {
+                          const mouseEvent = new MouseEvent('mousedown', {
+                            clientX: touch.clientX,
+                            clientY: touch.clientY,
+                            bubbles: true
+                          });
+                          e.currentTarget.dispatchEvent(mouseEvent);
+                        }
+                      }}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'sw')}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        if (touch) {
+                          const mouseEvent = new MouseEvent('mousedown', {
+                            clientX: touch.clientX,
+                            clientY: touch.clientY,
+                            bubbles: true
+                          });
+                          e.currentTarget.dispatchEvent(mouseEvent);
+                        }
+                      }}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                   </>
                 )}
