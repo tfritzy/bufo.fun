@@ -5,8 +5,6 @@ interface LayerState extends TemplateLayer {
 }
 
 interface BuilderSidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
   canvasWidth: number;
   canvasHeight: number;
   widthInput: string;
@@ -25,8 +23,6 @@ interface BuilderSidebarProps {
 }
 
 export function BuilderSidebar({
-  isOpen,
-  onClose,
   canvasWidth,
   canvasHeight,
   widthInput,
@@ -44,25 +40,7 @@ export function BuilderSidebar({
   onDownload,
 }: BuilderSidebarProps) {
   return (
-    <aside className={`
-      fixed md:relative inset-y-0 left-0 z-40
-      w-72 bg-white border-r border-gray-200 
-      flex flex-col overflow-y-auto
-      transition-transform duration-300 ease-in-out
-      ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-    `}>
-      <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-800">Builder</h2>
-        <button
-          onClick={onClose}
-          className="p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
-          aria-label="Close sidebar"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+    <aside className="hidden md:flex md:relative inset-y-0 left-0 z-40 w-72 bg-white border-r border-gray-200 flex-col overflow-y-auto">
       <div className="p-4 flex-grow">
         <div className="mb-4 pb-4 border-b border-gray-200">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">

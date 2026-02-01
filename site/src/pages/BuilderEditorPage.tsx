@@ -38,7 +38,6 @@ export function BuilderEditorPage() {
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
   const [heightInput, setHeightInput] = useState<string>("500");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const displayScale = 3;
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -306,7 +305,6 @@ export function BuilderEditorPage() {
 
   const handleDownloadClick = () => {
     openDownloadModal();
-    setIsSidebarOpen(false);
   };
 
   const generatePreview = async (): Promise<string | null> => {
@@ -403,28 +401,7 @@ export function BuilderEditorPage() {
         url={`https://bufo.fun/builder/${id}`}
       />
       <div className="flex flex-grow h-full relative">
-        {isSidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-
-        {!isSidebarOpen && (
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="fixed bottom-4 left-4 z-50 md:hidden bg-bufo-500 text-white p-3 rounded-full shadow-lg hover:bg-bufo-600 transition-colors"
-            aria-label="Open sidebar"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        )}
-
         <BuilderSidebar
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
           canvasWidth={canvasWidth}
           canvasHeight={canvasHeight}
           widthInput={widthInput}
@@ -441,6 +418,70 @@ export function BuilderEditorPage() {
           isUserEditableLayer={isUserEditableLayer}
           onDownload={handleDownloadClick}
         />
+
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3" role="group" aria-label="Layer selection and actions">
+          {layers.map((layer, idx) => {
+            const imgSrc = layer.imageData || layer.file;
+            const isActive = idx === activeLayerIndex;
+            
+            return (
+              <button
+                key={layer.id}
+                onClick={() => setActiveLayerIndex(idx)}
+                className={`w-14 h-14 rounded-lg shadow-lg flex items-center justify-center transition-all ${
+                  isActive
+                    ? "bg-bufo-200 ring-2 ring-bufo-300"
+                    : "bg-white hover:bg-gray-50"
+                }`}
+                aria-label={layer.name}
+                aria-pressed={isActive}
+              >
+                <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded">
+                  {imgSrc ? (
+                    <img
+                      src={imgSrc}
+                      alt={layer.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <svg
+                      className={`w-6 h-6 ${isActive ? "text-bufo-600" : "text-gray-400"}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+          <button
+            onClick={handleDownloadClick}
+            className="w-14 h-14 rounded-lg shadow-lg bg-bufo-500 hover:bg-bufo-600 text-white flex items-center justify-center transition-all"
+            aria-label="Download"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+          </button>
+        </div>
 
         <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4">
           <div
