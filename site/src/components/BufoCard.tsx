@@ -33,15 +33,10 @@ export function BufoCard({ bufo, onClick, preload = false }: BufoCardProps) {
         className="focus:outline-none focus:ring-2 focus:ring-bufo-300 rounded transition-shadow"
       >
         <div className="rounded w-[64px] min-w-[64px] h-[64px] min-h-[64px] border border-bufo-400 bg-bufo-50 relative">
-          {!imageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-8 h-8 bg-bufo-300 rounded-full animate-pulse"></div>
-            </div>
-          )}
           <img
             src={`/smolBufos/${bufo.filename}`}
-            alt={bufo.id}
-            title={bufo.id}
+            alt={imageLoaded ? bufo.id : ""}
+            title={imageLoaded ? bufo.id : ""}
             className={`w-full h-full transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={() => setImageLoaded(true)}
             loading={preload ? "eager" : "lazy"}
