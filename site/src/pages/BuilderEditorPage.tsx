@@ -419,7 +419,7 @@ export function BuilderEditorPage() {
           onDownload={handleDownloadClick}
         />
 
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3" role="group" aria-label="Layer selection">
           {layers.map((layer, idx) => {
             const imgSrc = layer.imageData || layer.file;
             const isActive = idx === activeLayerIndex;
