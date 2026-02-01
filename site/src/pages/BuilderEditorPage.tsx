@@ -6,12 +6,18 @@ import {
   LayerPosition,
 } from "../builderTemplates";
 import { SEO } from "../components/SEO";
+import { BuilderSidebar } from "../components/BuilderSidebar";
 
 interface LayerState extends TemplateLayer {
   imageData: string | null;
 }
 
 type ResizeDirection = 'nw' | 'ne' | 'se' | 'sw' | '';
+
+interface PointerPosition {
+  clientX: number;
+  clientY: number;
+}
 
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,6 +38,7 @@ export function BuilderEditorPage() {
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
   const [heightInput, setHeightInput] = useState<string>("500");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const displayScale = 3;
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -158,9 +165,6 @@ export function BuilderEditorPage() {
   const isUserEditableLayer = (layer: LayerState) => !layer.file;
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
@@ -171,8 +175,34 @@ export function BuilderEditorPage() {
     });
   };
 
-  const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
-    e.stopPropagation();
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const layer = layers[activeLayerIndex];
+    if (!layer) return;
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    setIsDragging(true);
+    setDragStart({
+      x: touch.clientX / displayScale - layer.position.x,
+      y: touch.clientY / displayScale - layer.position.y,
+    });
+  };
+
+  const createTouchToMouseHandler = (handler: (e: PointerPosition) => void) => {
+    return (e: React.TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (touch) {
+        handler({ clientX: touch.clientX, clientY: touch.clientY });
+      }
+    };
+  };
+
+  const handleResizeStart = (e: React.MouseEvent | PointerPosition, direction: ResizeDirection) => {
+    if ('stopPropagation' in e) {
+      e.stopPropagation();
+    }
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
@@ -185,19 +215,19 @@ export function BuilderEditorPage() {
     });
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMove = (clientX: number, clientY: number) => {
     if (!isDragging && !isResizing) return;
 
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
     if (isDragging) {
-      const newX = e.clientX / displayScale - dragStart.x;
-      const newY = e.clientY / displayScale - dragStart.y;
+      const newX = clientX / displayScale - dragStart.x;
+      const newY = clientY / displayScale - dragStart.y;
       updateLayerPosition(activeLayerIndex, { x: newX, y: newY });
     } else if (isResizing) {
-      const deltaX = (e.clientX - dragStart.x) / displayScale;
-      const deltaY = (e.clientY - dragStart.y) / displayScale;
+      const deltaX = (clientX - dragStart.x) / displayScale;
+      const deltaY = (clientY - dragStart.y) / displayScale;
       
       let updates: Partial<LayerPosition> = {};
 
@@ -243,10 +273,40 @@ export function BuilderEditorPage() {
     }
   };
 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    handleMove(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    if (touch) {
+      handleMove(touch.clientX, touch.clientY);
+    }
+  };
+
   const handleMouseUp = () => {
     setIsDragging(false);
     setIsResizing(false);
     setResizeDirection("");
+  };
+
+  const handleWidthBlur = () => {
+    const value = parseInt(widthInput, 10);
+    const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+    setCanvasWidth(validated);
+    setWidthInput(String(validated));
+  };
+
+  const handleHeightBlur = () => {
+    const value = parseInt(heightInput, 10);
+    const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
+    setCanvasHeight(validated);
+    setHeightInput(String(validated));
+  };
+
+  const handleDownloadClick = () => {
+    openDownloadModal();
+    setIsSidebarOpen(false);
   };
 
   const generatePreview = async (): Promise<string | null> => {
@@ -342,202 +402,47 @@ export function BuilderEditorPage() {
         keywords="bufo, builder, create, custom, emoji, design, editor"
         url={`https://bufo.fun/builder/${id}`}
       />
-      <div className="flex flex-grow h-full">
-        <aside className="w-72 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
-          <div className="p-4 flex-grow">
-            <div className="mb-4 pb-4 border-b border-gray-200">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                Canvas Size
-              </h3>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <label className="block text-xs text-gray-600 mb-1">Width (px)</label>
-                  <input
-                    type="number"
-                    min="100"
-                    max="2000"
-                    value={widthInput}
-                    onChange={(e) => setWidthInput(e.target.value)}
-                    onBlur={() => {
-                      const value = parseInt(widthInput, 10);
-                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
-                      setCanvasWidth(validated);
-                      setWidthInput(String(validated));
-                    }}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-300 outline-none transition-shadow"
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-xs text-gray-600 mb-1">Height (px)</label>
-                  <input
-                    type="number"
-                    min="100"
-                    max="2000"
-                    value={heightInput}
-                    onChange={(e) => setHeightInput(e.target.value)}
-                    onBlur={() => {
-                      const value = parseInt(heightInput, 10);
-                      const validated = isNaN(value) ? 100 : Math.max(100, Math.min(2000, value));
-                      setCanvasHeight(validated);
-                      setHeightInput(String(validated));
-                    }}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-bufo-300 outline-none transition-shadow"
-                  />
-                </div>
-              </div>
-            </div>
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-              Layers
-            </h3>
-            <div className="space-y-2">
-              {[...layers].reverse().map((layer, reversedIdx) => {
-                const idx = layers.length - 1 - reversedIdx;
-                const isEditable = isUserEditableLayer(layer);
-                const isEmptyEditableLayer = isEditable && !layer.imageData;
+      <div className="flex flex-grow h-full relative">
+        {isSidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
 
-                if (isEmptyEditableLayer) {
-                  return (
-                    <label
-                      key={layer.id}
-                      onClick={() => setActiveLayerIndex(idx)}
-                      className={`flex items-center p-2 rounded-md cursor-pointer transition-colors ${
-                        idx === activeLayerIndex
-                          ? "bg-bufo-100 border-2 border-dashed border-bufo-400"
-                          : "bg-gray-50 border-2 border-dashed border-gray-300 hover:border-bufo-300 hover:bg-bufo-50"
-                      }`}
-                    >
-                      <div className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center mr-2 overflow-hidden flex-shrink-0">
-                        <svg
-                          className="w-4 h-4 text-bufo-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <span className="text-sm font-medium text-bufo-600 block">
-                          Add your image
-                        </span>
-                        <span className="text-xs text-gray-400">
-                          Click or paste (Ctrl+V)
-                        </span>
-                      </div>
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={(e) => {
-                          handleFileUpload(e, idx);
-                          setActiveLayerIndex(idx);
-                        }}
-                      />
-                    </label>
-                  );
-                }
+        {!isSidebarOpen && (
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="fixed bottom-4 left-4 z-50 md:hidden bg-bufo-500 text-white p-3 rounded-full shadow-lg hover:bg-bufo-600 transition-colors"
+            aria-label="Open sidebar"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        )}
 
-                return (
-                  <div
-                    key={layer.id}
-                    onClick={() => setActiveLayerIndex(idx)}
-                    className={`flex items-center p-2 rounded-md cursor-pointer transition-colors ${
-                      idx === activeLayerIndex
-                        ? "bg-bufo-100 border border-bufo-400"
-                        : "bg-gray-50 border border-transparent hover:bg-gray-100"
-                    }`}
-                  >
-                    <div className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center mr-2 overflow-hidden flex-shrink-0">
-                      {layer.imageData ? (
-                        <img
-                          src={layer.imageData}
-                          alt={layer.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : layer.file ? (
-                        <img
-                          src={layer.file}
-                          alt={layer.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <svg
-                          className="w-4 h-4 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <span className="text-sm font-medium flex-grow truncate">
-                      {layer.name}
-                    </span>
-                    {isEditable && layer.imageData && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          clearLayerImage(idx);
-                        }}
-                        className="p-1 text-gray-400 hover:text-red-500 rounded transition-colors"
-                        title="Clear Image"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <BuilderSidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+          canvasWidth={canvasWidth}
+          canvasHeight={canvasHeight}
+          widthInput={widthInput}
+          heightInput={heightInput}
+          onWidthChange={setWidthInput}
+          onHeightChange={setHeightInput}
+          onWidthBlur={handleWidthBlur}
+          onHeightBlur={handleHeightBlur}
+          layers={layers}
+          activeLayerIndex={activeLayerIndex}
+          onLayerClick={setActiveLayerIndex}
+          onFileUpload={handleFileUpload}
+          onClearLayerImage={clearLayerImage}
+          isUserEditableLayer={isUserEditableLayer}
+          onDownload={handleDownloadClick}
+        />
 
-          <div className="p-4 border-t border-gray-200 bg-gray-50">
-            <button
-              onClick={openDownloadModal}
-              className="w-full py-3 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download
-            </button>
-          </div>
-        </aside>
-
-        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-hidden">
+        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4">
           <div
             ref={canvasRef}
             className="relative bg-white shadow-xl overflow-hidden"
@@ -555,6 +460,8 @@ export function BuilderEditorPage() {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleMouseUp}
         >
           {layers.map((layer, idx) => {
             if (!layer.visible) return null;
@@ -577,6 +484,7 @@ export function BuilderEditorPage() {
                   pointerEvents: isActive ? "auto" : "none",
                 }}
                 onMouseDown={handleMouseDown}
+                onTouchStart={handleTouchStart}
               >
                 <img
                   src={imgSrc}
@@ -589,32 +497,36 @@ export function BuilderEditorPage() {
                 {isActive && (
                   <>
                     <div
-                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'nw')}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'nw'))}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'ne')}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'ne'))}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'se')}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'se'))}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                     <div
-                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 10, height: 10 }}
+                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
+                      style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'sw')}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'sw'))}
                     >
-                      <div className="bg-white border border-bufo-500" style={{ width: 4, height: 4 }} />
+                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
                   </>
                 )}
