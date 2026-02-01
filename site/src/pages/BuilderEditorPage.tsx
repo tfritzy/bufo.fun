@@ -159,9 +159,6 @@ export function BuilderEditorPage() {
   const isUserEditableLayer = (layer: LayerState) => !layer.file;
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
@@ -173,9 +170,6 @@ export function BuilderEditorPage() {
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
@@ -187,6 +181,21 @@ export function BuilderEditorPage() {
       x: touch.clientX / displayScale - layer.position.x,
       y: touch.clientY / displayScale - layer.position.y,
     });
+  };
+
+  const createTouchToMouseHandler = (handler: (e: React.MouseEvent) => void) => {
+    return (e: React.TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (touch) {
+        const mouseEvent = new MouseEvent('mousedown', {
+          clientX: touch.clientX,
+          clientY: touch.clientY,
+          bubbles: true
+        }) as unknown as React.MouseEvent;
+        handler(mouseEvent);
+      }
+    };
   };
 
   const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
@@ -706,18 +715,7 @@ export function BuilderEditorPage() {
                       className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'nw')}
-                      onTouchStart={(e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        if (touch) {
-                          const mouseEvent = new MouseEvent('mousedown', {
-                            clientX: touch.clientX,
-                            clientY: touch.clientY,
-                            bubbles: true
-                          });
-                          e.currentTarget.dispatchEvent(mouseEvent);
-                        }
-                      }}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'nw'))}
                     >
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
@@ -725,18 +723,7 @@ export function BuilderEditorPage() {
                       className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center touch-none"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'ne')}
-                      onTouchStart={(e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        if (touch) {
-                          const mouseEvent = new MouseEvent('mousedown', {
-                            clientX: touch.clientX,
-                            clientY: touch.clientY,
-                            bubbles: true
-                          });
-                          e.currentTarget.dispatchEvent(mouseEvent);
-                        }
-                      }}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'ne'))}
                     >
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
@@ -744,18 +731,7 @@ export function BuilderEditorPage() {
                       className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'se')}
-                      onTouchStart={(e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        if (touch) {
-                          const mouseEvent = new MouseEvent('mousedown', {
-                            clientX: touch.clientX,
-                            clientY: touch.clientY,
-                            bubbles: true
-                          });
-                          e.currentTarget.dispatchEvent(mouseEvent);
-                        }
-                      }}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'se'))}
                     >
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
@@ -763,18 +739,7 @@ export function BuilderEditorPage() {
                       className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center touch-none"
                       style={{ width: 24, height: 24 }}
                       onMouseDown={(e) => handleResizeStart(e, 'sw')}
-                      onTouchStart={(e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        if (touch) {
-                          const mouseEvent = new MouseEvent('mousedown', {
-                            clientX: touch.clientX,
-                            clientY: touch.clientY,
-                            bubbles: true
-                          });
-                          e.currentTarget.dispatchEvent(mouseEvent);
-                        }
-                      }}
+                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'sw'))}
                     >
                       <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
                     </div>
