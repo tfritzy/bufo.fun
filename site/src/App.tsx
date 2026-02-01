@@ -6,7 +6,7 @@ import { BuilderEditorPage } from "./pages/BuilderEditorPage";
 
 export function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
