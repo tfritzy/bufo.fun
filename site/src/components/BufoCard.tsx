@@ -35,7 +35,7 @@ export function BufoCard({ bufo, onClick, preload = false }: BufoCardProps) {
         <div className="rounded w-[64px] min-w-[64px] h-[64px] min-h-[64px] border border-bufo-400 bg-bufo-50 relative">
           {!imageLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-6 h-6 border-2 border-bufo-300 border-t-bufo-500 rounded-full animate-spin"></div>
+              <div className="w-8 h-8 bg-bufo-300 rounded-full animate-pulse"></div>
             </div>
           )}
           <img
