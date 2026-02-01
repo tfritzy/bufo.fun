@@ -419,7 +419,7 @@ export function BuilderEditorPage() {
           onDownload={handleDownloadClick}
         />
 
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3" role="group" aria-label="Layer selection">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3" role="group" aria-label="Layer selection and actions">
           {layers.map((layer, idx) => {
             const imgSrc = layer.imageData || layer.file;
             const isActive = idx === activeLayerIndex;
@@ -430,7 +430,7 @@ export function BuilderEditorPage() {
                 onClick={() => setActiveLayerIndex(idx)}
                 className={`w-14 h-14 rounded-lg shadow-lg flex items-center justify-center transition-all relative ${
                   isActive
-                    ? "bg-bufo-500 ring-2 ring-bufo-300"
+                    ? "bg-bufo-200 ring-2 ring-bufo-300"
                     : "bg-white hover:bg-gray-50"
                 }`}
                 aria-label={layer.name}
@@ -445,7 +445,7 @@ export function BuilderEditorPage() {
                     />
                   ) : (
                     <svg
-                      className={`w-6 h-6 ${isActive ? "text-white" : "text-gray-400"}`}
+                      className={`w-6 h-6 ${isActive ? "text-bufo-600" : "text-gray-400"}`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -477,6 +477,25 @@ export function BuilderEditorPage() {
               </button>
             );
           })}
+          <button
+            onClick={handleDownloadClick}
+            className="w-14 h-14 rounded-lg shadow-lg bg-bufo-500 hover:bg-bufo-600 text-white flex items-center justify-center transition-all"
+            aria-label="Download"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+          </button>
         </div>
 
         <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4">
