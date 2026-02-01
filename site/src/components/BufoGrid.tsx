@@ -49,11 +49,12 @@ export function BufoGrid({ bufos, onTagClick }: BufoGridProps) {
             <span>Download all</span>
           </Button>
         </div>
-        {bufos.map((bufo) => (
+        {bufos.map((bufo, index) => (
           <BufoCard
             key={bufo.id}
             bufo={bufo}
             onClick={() => setSelectedBufo(bufo)}
+            preload={index < 40}
           />
         ))}
       </div>
