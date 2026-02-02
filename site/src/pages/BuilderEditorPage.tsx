@@ -430,19 +430,13 @@ export function BuilderEditorPage() {
               return (
                 <label
                   key={layer.id}
+                  onClick={() => setActiveLayerIndex(idx)}
                   className={`w-14 h-14 rounded-lg shadow-lg flex items-center justify-center transition-all cursor-pointer ${
                     isActive
                       ? "bg-bufo-200 ring-2 ring-bufo-300"
                       : "bg-white hover:bg-gray-50"
                   }`}
                   aria-label={`${layer.name} - Add image`}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.currentTarget.querySelector('input')?.click();
-                    }
-                  }}
                 >
                   <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded">
                     <svg
