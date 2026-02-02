@@ -6,11 +6,8 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const TRANSITION_DURATION = 150;
-
 export function Modal({ isOpen, onClose, children }: ModalProps) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
-  const [shouldRender, setShouldRender] = useState(isOpen);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,41 +17,22 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-    } else {
-      const timer = setTimeout(() => setShouldRender(false), TRANSITION_DURATION);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
-
-  if (!shouldRender) {
+  if (!isOpen) {
     return null;
   }
 
   return (
     <div
       onClick={onClose}
-      className={`fixed inset-0 z-50 transition-colors duration-150 ${
-        isOpen ? "bg-black/[0.13]" : "bg-black/0 pointer-events-none"
-      }`}
+      className="fixed inset-0 z-50 bg-black/[0.13]"
     >
-      <div onClick={(e) => e.stopPropagation()} className={isOpen ? "" : "pointer-events-none"}>
+      <div onClick={(e) => e.stopPropagation()}>
         {isMobile ? (
-          <div
-            className={`fixed bottom-0 left-0 w-screen bg-white rounded transition-transform duration-150 ease-out ${
-              isOpen ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
+          <div className="fixed bottom-0 left-0 w-screen bg-white rounded">
             {children}
           </div>
         ) : (
-          <div
-            className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96 transition-opacity duration-150 ease-out ${
-              isOpen ? "opacity-100" : "opacity-0"
-            }`}
-          >
+          <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96">
             {children}
           </div>
         )}

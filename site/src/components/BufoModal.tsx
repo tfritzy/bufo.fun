@@ -152,7 +152,7 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
         {/* Actions */}
         <div className="flex flex-row justify-end space-x-2">
           <button
-            className={`rounded px-2 py-1 mt-2 border transition-all duration-150 ease-in-out ${
+            className={`rounded px-2 py-1 mt-2 border ${
               isGif(bufo)
                 ? "text-gray-400 border-gray-200 cursor-not-allowed"
                 : "text-gray-700 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:shadow-sm"
