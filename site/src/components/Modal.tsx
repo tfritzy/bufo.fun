@@ -9,27 +9,20 @@ interface ModalProps {
 const ANIMATION_DURATION_MS = 300;
 
 export function Modal({ isOpen, onClose, children }: ModalProps) {
-  const [shouldRender, setShouldRender] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setShouldRender(true);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setIsAnimating(true);
-        });
-      });
+      setIsVisible(true);
     } else {
-      setIsAnimating(false);
       const timeout = setTimeout(() => {
-        setShouldRender(false);
+        setIsVisible(false);
       }, ANIMATION_DURATION_MS);
       return () => clearTimeout(timeout);
     }
   }, [isOpen]);
 
-  if (!shouldRender) {
+  if (!isVisible) {
     return null;
   }
 
@@ -38,23 +31,23 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
     <div
       onClick={onClose}
-      className={`fixed left-0 top-0 w-full h-full z-50 transition-all duration-300 ${
-        isAnimating ? "bg-[#00000022]" : "bg-[#00000000]"
+      className={`fixed inset-0 z-50 transition-colors duration-300 ${
+        isOpen ? "bg-black/[0.13]" : "bg-black/0 pointer-events-none"
       }`}
     >
-      <div onClick={(e) => e.stopPropagation()}>
+      <div onClick={(e) => e.stopPropagation()} className={isOpen ? "" : "pointer-events-none"}>
         {isMobile ? (
           <div
-            className={`fixed bottom-0 left-0 w-screen bg-white rounded transition-transform duration-300 ${
-              isAnimating ? "translate-y-0" : "translate-y-full"
+            className={`fixed bottom-0 left-0 w-screen bg-white rounded transition-transform duration-300 ease-out ${
+              isOpen ? "translate-y-0" : "translate-y-full"
             }`}
           >
             {children}
           </div>
         ) : (
           <div
-            className={`fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96 transition-all duration-300 ${
-              isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96 transition-all duration-300 ease-out ${
+              isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
             {children}
