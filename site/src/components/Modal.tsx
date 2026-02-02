@@ -6,6 +6,8 @@ interface ModalProps {
   children: ReactNode;
 }
 
+const ANIMATION_DURATION_MS = 300;
+
 export function Modal({ isOpen, onClose, children }: ModalProps) {
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -22,7 +24,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
       setIsAnimating(false);
       const timeout = setTimeout(() => {
         setShouldRender(false);
-      }, 300);
+      }, ANIMATION_DURATION_MS);
       return () => clearTimeout(timeout);
     }
   }, [isOpen]);
