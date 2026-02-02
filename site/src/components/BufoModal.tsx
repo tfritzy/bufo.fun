@@ -27,7 +27,11 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
   const [copied, setCopied] = useState(false);
 
   if (!bufo) {
-    return null;
+    return (
+      <Modal isOpen={false} onClose={onClose}>
+        <div />
+      </Modal>
+    );
   }
 
   const handleCopy = async () => {
