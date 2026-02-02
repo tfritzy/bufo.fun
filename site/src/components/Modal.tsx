@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -6,33 +6,14 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const ANIMATION_DURATION_MS = 300;
-
 export function Modal({ isOpen, onClose, children }: ModalProps) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      setIsVisible(true);
-    } else {
-      const timeout = setTimeout(() => {
-        setIsVisible(false);
-      }, ANIMATION_DURATION_MS);
-      return () => clearTimeout(timeout);
-    }
-  }, [isOpen]);
-
-  if (!isVisible) {
-    return null;
-  }
-
   const isMobile = window.innerWidth < 640;
 
   return (
     <div
       onClick={onClose}
       className={`fixed inset-0 z-50 transition-colors duration-300 ${
-        isOpen ? "bg-black/[0.13]" : "bg-black/0 pointer-events-none"
+        isOpen ? "bg-black/[0.13]" : "bg-black/0 pointer-events-none invisible"
       }`}
     >
       <div onClick={(e) => e.stopPropagation()} className={isOpen ? "" : "pointer-events-none"}>
