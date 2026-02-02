@@ -191,6 +191,7 @@ export function BuilderEditorPage() {
   const createTouchToMouseHandler = (handler: (e: PointerPosition) => void) => {
     return (e: React.TouchEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       const touch = e.touches[0];
       if (touch) {
         handler({ clientX: touch.clientX, clientY: touch.clientY });
