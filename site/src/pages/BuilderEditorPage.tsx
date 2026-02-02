@@ -430,7 +430,6 @@ export function BuilderEditorPage() {
               return (
                 <label
                   key={layer.id}
-                  onClick={() => setActiveLayerIndex(idx)}
                   className={`w-14 h-14 rounded-lg shadow-lg flex items-center justify-center transition-all cursor-pointer ${
                     isActive
                       ? "bg-bufo-200 ring-2 ring-bufo-300"
