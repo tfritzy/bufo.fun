@@ -6,15 +6,25 @@ interface ModalProps {
   children: ReactNode;
 }
 
+const TRANSITION_DURATION = 150;
+
 export function Modal({ isOpen, onClose, children }: ModalProps) {
-  const isMobile = window.innerWidth < 640;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
   const [shouldRender, setShouldRender] = useState(isOpen);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
       setShouldRender(true);
     } else {
-      const timer = setTimeout(() => setShouldRender(false), 150);
+      const timer = setTimeout(() => setShouldRender(false), TRANSITION_DURATION);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
