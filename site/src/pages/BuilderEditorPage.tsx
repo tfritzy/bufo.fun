@@ -436,6 +436,13 @@ export function BuilderEditorPage() {
                       : "bg-white hover:bg-gray-50"
                   }`}
                   aria-label={`${layer.name} - Add image`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.currentTarget.querySelector('input')?.click();
+                    }
+                  }}
                 >
                   <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded">
                     <svg
