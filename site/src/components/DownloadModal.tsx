@@ -129,7 +129,7 @@ export function DownloadModal({ bufos, isOpen, onClose }: DownloadModalProps) {
                 className="flex items-center cursor-pointer group"
                 onClick={() => setCaseStyle(option.value)}
               >
-                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3 group-hover:border-bufo-400 transition-colors">
+                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3 group-hover:border-bufo-400">
                   {caseStyle === option.value && (
                     <div className="w-3 h-3 rounded-full bg-bufo-500" />
                   )}
