@@ -565,6 +565,7 @@ export function BuilderEditorPage() {
                 "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
               backgroundSize: "8px 8px",
               backgroundPosition: "0 0, 0 4px, 4px -4px, -4px 0px",
+              touchAction: "none",
             }}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -591,6 +592,7 @@ export function BuilderEditorPage() {
                   height: layer.position.height,
                   zIndex: idx,
                   pointerEvents: isActive ? "auto" : "none",
+                  touchAction: isActive ? "none" : "auto",
                 }}
                 onMouseDown={handleMouseDown}
                 onTouchStart={handleTouchStart}
@@ -607,7 +609,7 @@ export function BuilderEditorPage() {
                   <>
                     <div
                       className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24 }}
+                      style={{ width: 24, height: 24, touchAction: "none" }}
                       onMouseDown={(e) => handleResizeStart(e, 'nw')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'nw'))}
                     >
@@ -615,7 +617,7 @@ export function BuilderEditorPage() {
                     </div>
                     <div
                       className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24 }}
+                      style={{ width: 24, height: 24, touchAction: "none" }}
                       onMouseDown={(e) => handleResizeStart(e, 'ne')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'ne'))}
                     >
@@ -623,7 +625,7 @@ export function BuilderEditorPage() {
                     </div>
                     <div
                       className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24 }}
+                      style={{ width: 24, height: 24, touchAction: "none" }}
                       onMouseDown={(e) => handleResizeStart(e, 'se')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'se'))}
                     >
@@ -631,7 +633,7 @@ export function BuilderEditorPage() {
                     </div>
                     <div
                       className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24 }}
+                      style={{ width: 24, height: 24, touchAction: "none" }}
                       onMouseDown={(e) => handleResizeStart(e, 'sw')}
                       onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'sw'))}
                     >
