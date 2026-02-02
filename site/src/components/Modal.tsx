@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,7 +7,27 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, children }: ModalProps) {
-  if (!isOpen) {
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsAnimating(true);
+        });
+      });
+    } else {
+      setIsAnimating(false);
+      const timeout = setTimeout(() => {
+        setShouldRender(false);
+      }, 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen]);
+
+  if (!shouldRender) {
     return null;
   }
 
@@ -16,15 +36,25 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
     <div
       onClick={onClose}
-      className="fixed left-0 top-0 w-full h-full bg-[#00000022] z-50"
+      className={`fixed left-0 top-0 w-full h-full z-50 transition-all duration-300 ${
+        isAnimating ? "bg-[#00000022]" : "bg-[#00000000]"
+      }`}
     >
       <div onClick={(e) => e.stopPropagation()}>
         {isMobile ? (
-          <div className="fixed bottom-0 left-0 w-screen transform bg-white rounded">
+          <div
+            className={`fixed bottom-0 left-0 w-screen bg-white rounded transition-transform duration-300 ${
+              isAnimating ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
             {children}
           </div>
         ) : (
-          <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96">
+          <div
+            className={`fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg drop-shadow-xl max-w-96 transition-all duration-300 ${
+              isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
+          >
             {children}
           </div>
         )}
