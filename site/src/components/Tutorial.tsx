@@ -15,7 +15,7 @@ export function Tutorial() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 text-sm">
+    <div className="fixed bottom-0 left-0 text-sm hidden md:block">
       <img
         src="bufos/bufo-highfive-1.png"
         width="64px"
