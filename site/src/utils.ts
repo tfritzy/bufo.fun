@@ -79,3 +79,26 @@ export async function copyBufoToClipboard(bufo: Bufo): Promise<boolean> {
     return false;
   }
 }
+
+export function getGitHubJsonLink(bufoId: string, bufos: Bufo[]): string {
+  const index = bufos.findIndex((b) => b.id === bufoId);
+  if (index === -1) {
+    return "";
+  }
+
+  const bufosArrayStartLine = 121;
+  let currentLine = bufosArrayStartLine + 1;
+
+  for (let i = 0; i < index; i++) {
+    const tagCount = bufos[i].tags.length;
+    currentLine += 6 + tagCount;
+  }
+
+  const tagsLine = currentLine + 3;
+
+  const repo = "tfritzy/bufo.fun";
+  const branch = "master";
+  const filepath = "site/public/bufo-data.json";
+
+  return `https://github.com/${repo}/blob/${branch}/${filepath}#L${tagsLine}`;
+}

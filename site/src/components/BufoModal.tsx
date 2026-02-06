@@ -3,11 +3,12 @@ import { Bufo } from "../types";
 import { Modal } from "./Modal";
 import { Tag } from "./Tag";
 import { Button } from "./Button";
-import { downloadBufo, copyBufoToClipboard, isGif } from "../utils";
+import { downloadBufo, copyBufoToClipboard, isGif, getGitHubJsonLink } from "../utils";
 import { proverbs } from "../proverbs";
 
 interface BufoModalProps {
   bufo: Bufo | null;
+  bufos: Bufo[];
   isOpen: boolean;
   onClose: () => void;
   onTagClick?: (tag: string) => void;
@@ -23,7 +24,7 @@ function hashString(str: string): number {
   return Math.abs(hash);
 }
 
-export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps) {
+export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModalProps) {
   const [copied, setCopied] = useState(false);
 
   if (!bufo) {
@@ -133,15 +134,35 @@ export function BufoModal({ bufo, isOpen, onClose, onTagClick }: BufoModalProps)
                 <td className="text-gray-700">Tags</td>
                 <td>
                   {bufo.tags.length > 0 ? (
-                    <div className="flex flex-row flex-wrap">
-                      {bufo.tags.map((tag) => (
-                        <div key={tag} className="m-1">
-                          <Tag name={tag} onClick={onTagClick ? () => onTagClick(tag) : undefined} />
-                        </div>
-                      ))}
+                    <div className="flex flex-col">
+                      <div className="flex flex-row flex-wrap">
+                        {bufo.tags.map((tag) => (
+                          <div key={tag} className="m-1">
+                            <Tag name={tag} onClick={onTagClick ? () => onTagClick(tag) : undefined} />
+                          </div>
+                        ))}
+                      </div>
+                      <a
+                        href={getGitHubJsonLink(bufo.id, bufos)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
+                      >
+                        Suggest tags
+                      </a>
                     </div>
                   ) : (
-                    <span>&mdash;</span>
+                    <div className="flex flex-col">
+                      <span>&mdash;</span>
+                      <a
+                        href={getGitHubJsonLink(bufo.id, bufos)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
+                      >
+                        Suggest tags
+                      </a>
+                    </div>
                   )}
                 </td>
               </tr>

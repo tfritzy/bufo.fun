@@ -60,6 +60,7 @@ export function BufoGrid({ bufos, onTagClick }: BufoGridProps) {
       </div>
       <BufoModal
         bufo={selectedBufo}
+        bufos={bufos}
         isOpen={selectedBufo !== null}
         onClose={() => setSelectedBufo(null)}
         onTagClick={handleTagClick}
