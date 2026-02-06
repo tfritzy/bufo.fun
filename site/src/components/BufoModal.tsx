@@ -134,33 +134,61 @@ export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModa
                 <td className="text-gray-700">Tags</td>
                 <td>
                   {bufo.tags.length > 0 ? (
-                    <div className="flex flex-col">
-                      <div className="flex flex-row flex-wrap">
-                        {bufo.tags.map((tag) => (
-                          <div key={tag} className="m-1">
-                            <Tag name={tag} onClick={onTagClick ? () => onTagClick(tag) : undefined} />
-                          </div>
-                        ))}
+                    <div className="flex flex-row flex-wrap">
+                      {bufo.tags.map((tag) => (
+                        <div key={tag} className="m-1">
+                          <Tag name={tag} onClick={onTagClick ? () => onTagClick(tag) : undefined} />
+                        </div>
+                      ))}
+                      <div className="m-1">
+                        <a
+                          href={getGitHubJsonLink(bufo.id, bufos)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-1 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
+                        >
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="mr-0.5"
+                          >
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                          suggest
+                        </a>
                       </div>
-                      <a
-                        href={getGitHubJsonLink(bufo.id, bufos)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
-                      >
-                        Suggest tags
-                      </a>
                     </div>
                   ) : (
-                    <div className="flex flex-col">
-                      <span>&mdash;</span>
+                    <div className="flex flex-row items-center">
+                      <span className="mr-2">&mdash;</span>
                       <a
                         href={getGitHubJsonLink(bufo.id, bufos)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
+                        className="inline-flex items-center px-1 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
                       >
-                        Suggest tags
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mr-0.5"
+                        >
+                          <line x1="12" y1="5" x2="12" y2="19"></line>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        suggest
                       </a>
                     </div>
                   )}
