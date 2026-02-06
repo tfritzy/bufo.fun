@@ -145,7 +145,7 @@ export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModa
                           href={getGitHubJsonLink(bufo.id, bufos)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center px-1 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
+                          className="inline-flex items-center px-2 py-0.5 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
                         >
                           <svg
                             width="14"
@@ -156,7 +156,7 @@ export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModa
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="mr-0.5"
+                            className="mr-1"
                           >
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -172,7 +172,7 @@ export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModa
                         href={getGitHubJsonLink(bufo.id, bufos)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-1 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
+                        className="inline-flex items-center px-2 py-0.5 rounded-sm font-mono bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition-colors"
                       >
                         <svg
                           width="14"
@@ -183,7 +183,7 @@ export function BufoModal({ bufo, bufos, isOpen, onClose, onTagClick }: BufoModa
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="mr-0.5"
+                          className="mr-1"
                         >
                           <line x1="12" y1="5" x2="12" y2="19"></line>
                           <line x1="5" y1="12" x2="19" y2="12"></line>

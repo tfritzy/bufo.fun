@@ -34,7 +34,7 @@ export function Tag({ name, onClick }: TagProps) {
 
   return (
     <span 
-      className={`${colorClasses[colorIndex]} px-1 rounded-sm font-mono ${onClick ? 'cursor-pointer' : ''}`}
+      className={`${colorClasses[colorIndex]} px-2 py-0.5 rounded-sm font-mono ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
     >
       {name}
