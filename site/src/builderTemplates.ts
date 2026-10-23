@@ -89,6 +89,38 @@ export const builderTemplates: BuilderTemplate[] = [
     ],
     activeLayerIndex: 1,
   },
+  {
+    id: "bufo-thinks-about",
+    name: "Bufo Thinks About",
+    description: "Create a bufo thinking about something",
+    thumbnail: "/bufos/bufo-thinks-about.png",
+    canvasWidth: 128,
+    canvasHeight: 128,
+    layers: [
+      {
+        id: "base",
+        name: "Base Bufo",
+        file: "/bufos/bufo-thinking.png",
+        position: { x: 0, y: 62, width: 66, height: 66 },
+        visible: true,
+      },
+      {
+        id: "thought",
+        name: "Thought bubble",
+        file: "/bufos/thinking-bubble.png",
+        position: { x: 56, y: 2, width: 71, height: 71 },
+        visible: true,
+      },
+      {
+        id: "item",
+        name: "Your Image",
+        file: "",
+        position: { x: 70, y: 12, width: 42, height: 42 },
+        visible: true,
+      }
+    ],
+    activeLayerIndex: 2,
+  }
 ];
 
 export function getTemplateById(id: string): BuilderTemplate | undefined {
