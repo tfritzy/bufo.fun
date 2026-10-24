@@ -12,7 +12,7 @@ interface LayerState extends TemplateLayer {
   imageData: string | null;
 }
 
-type ResizeDirection = 'nw' | 'ne' | 'se' | 'sw' | '';
+type ResizeDirection = "nw" | "ne" | "se" | "sw" | "";
 
 interface PointerPosition {
   clientX: number;
@@ -81,22 +81,22 @@ export function BuilderEditorPage() {
                 };
               }
               return { ...layer, imageData };
-            })
+            }),
           );
           resolve();
         };
         img.onerror = () => {
           setLayers((prev) =>
             prev.map((layer, idx) =>
-              idx === layerIndex ? { ...layer, imageData } : layer
-            )
+              idx === layerIndex ? { ...layer, imageData } : layer,
+            ),
           );
           resolve();
         };
         img.src = imageData;
       });
     },
-    [canvasWidth, canvasHeight]
+    [canvasWidth, canvasHeight],
   );
 
   const handlePaste = useCallback(
@@ -119,7 +119,7 @@ export function BuilderEditorPage() {
         }
       }
     },
-    [activeLayerIndex, loadImageWithPosition]
+    [activeLayerIndex, loadImageWithPosition],
   );
 
   useEffect(() => {
@@ -127,11 +127,15 @@ export function BuilderEditorPage() {
     return () => document.removeEventListener("paste", handlePaste);
   }, [handlePaste]);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, targetLayerIndex?: number) => {
+  const handleFileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    targetLayerIndex?: number,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const layerIndex = targetLayerIndex !== undefined ? targetLayerIndex : activeLayerIndex;
+    const layerIndex =
+      targetLayerIndex !== undefined ? targetLayerIndex : activeLayerIndex;
     const reader = new FileReader();
     reader.onload = (event) => {
       const imageData = event.target?.result as string;
@@ -142,22 +146,22 @@ export function BuilderEditorPage() {
 
   const updateLayerPosition = (
     index: number,
-    updates: Partial<LayerPosition>
+    updates: Partial<LayerPosition>,
   ) => {
     setLayers((prev) =>
       prev.map((layer, idx) =>
         idx === index
           ? { ...layer, position: { ...layer.position, ...updates } }
-          : layer
-      )
+          : layer,
+      ),
     );
   };
 
   const clearLayerImage = (index: number) => {
     setLayers((prev) =>
       prev.map((layer, idx) =>
-        idx === index ? { ...layer, imageData: null } : layer
-      )
+        idx === index ? { ...layer, imageData: null } : layer,
+      ),
     );
   };
 
@@ -199,8 +203,11 @@ export function BuilderEditorPage() {
     };
   };
 
-  const handleResizeStart = (e: React.MouseEvent | PointerPosition, direction: ResizeDirection) => {
-    if ('stopPropagation' in e) {
+  const handleResizeStart = (
+    e: React.MouseEvent | PointerPosition,
+    direction: ResizeDirection,
+  ) => {
+    if ("stopPropagation" in e) {
       e.stopPropagation();
     }
     const layer = layers[activeLayerIndex];
@@ -228,18 +235,18 @@ export function BuilderEditorPage() {
     } else if (isResizing) {
       const deltaX = (clientX - dragStart.x) / displayScale;
       const deltaY = (clientY - dragStart.y) / displayScale;
-      
+
       let updates: Partial<LayerPosition> = {};
 
       switch (resizeDirection) {
-        case 'se':
+        case "se":
           const seDelta = Math.max(deltaX, deltaY);
           updates = {
             width: Math.max(10, initialSize.width + seDelta),
             height: Math.max(10, initialSize.height + seDelta),
           };
           break;
-        case 'nw':
+        case "nw":
           const nwDelta = Math.max(-deltaX, -deltaY);
           const nwNewSize = Math.max(10, initialSize.width + nwDelta);
           updates = {
@@ -249,7 +256,7 @@ export function BuilderEditorPage() {
             height: nwNewSize,
           };
           break;
-        case 'ne':
+        case "ne":
           const neDelta = Math.max(deltaX, -deltaY);
           const neNewSize = Math.max(10, initialSize.width + neDelta);
           updates = {
@@ -258,7 +265,7 @@ export function BuilderEditorPage() {
             height: neNewSize,
           };
           break;
-        case 'sw':
+        case "sw":
           const swDelta = Math.max(-deltaX, deltaY);
           const swNewSize = Math.max(10, initialSize.width + swDelta);
           updates = {
@@ -318,6 +325,7 @@ export function BuilderEditorPage() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = false;
 
     for (const layer of layers) {
       if (!layer.visible) continue;
@@ -329,13 +337,16 @@ export function BuilderEditorPage() {
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => {
-          ctx.drawImage(
-            img,
-            layer.position.x,
-            layer.position.y,
-            layer.position.width,
-            layer.position.height
+          const { x, y, width, height } = layer.position;
+          const scale = Math.min(
+            width / img.naturalWidth,
+            height / img.naturalHeight,
           );
+          const drawWidth = img.naturalWidth * scale;
+          const drawHeight = img.naturalHeight * scale;
+          const dx = x + (width - drawWidth) / 2;
+          const dy = y + (height - drawHeight) / 2;
+          ctx.drawImage(img, dx, dy, drawWidth, drawHeight);
           resolve();
         };
         img.onerror = () => resolve();
@@ -420,13 +431,17 @@ export function BuilderEditorPage() {
           onDownload={handleDownloadClick}
         />
 
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3" role="group" aria-label="Layer selection and actions">
+        <div
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3"
+          role="group"
+          aria-label="Layer selection and actions"
+        >
           {layers.map((layer, idx) => {
             const imgSrc = layer.imageData || layer.file;
             const isActive = idx === activeLayerIndex;
             const isEditable = isUserEditableLayer(layer);
             const isEmptyEditableLayer = isEditable && !layer.imageData;
-            
+
             if (isEmptyEditableLayer) {
               return (
                 <label
@@ -466,7 +481,7 @@ export function BuilderEditorPage() {
                 </label>
               );
             }
-            
+
             return (
               <div key={layer.id} className="relative">
                 <button
@@ -567,99 +582,131 @@ export function BuilderEditorPage() {
               backgroundPosition: "0 0, 0 4px, 4px -4px, -4px 0px",
               touchAction: "none",
             }}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleMouseUp}
-        >
-          {layers.map((layer, idx) => {
-            if (!layer.visible) return null;
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseUp}
+          >
+            {layers.map((layer, idx) => {
+              if (!layer.visible) return null;
 
-            const imgSrc = layer.imageData || layer.file;
-            if (!imgSrc) return null;
+              const imgSrc = layer.imageData || layer.file;
+              if (!imgSrc) return null;
 
-            const isActive = idx === activeLayerIndex;
+              const isActive = idx === activeLayerIndex;
 
-            return (
-              <div
-                key={layer.id}
-                className={`absolute cursor-move ${isActive ? "ring-1 ring-bufo-500" : ""}`}
-                style={{
-                  left: layer.position.x,
-                  top: layer.position.y,
-                  width: layer.position.width,
-                  height: layer.position.height,
-                  zIndex: idx,
-                  pointerEvents: isActive ? "auto" : "none",
-                  touchAction: isActive ? "none" : "auto",
-                }}
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleTouchStart}
-              >
-                <img
-                  src={imgSrc}
-                  alt={layer.name}
-                  className="w-full h-full object-contain pointer-events-none select-none"
-                  style={{ imageRendering: "pixelated" }}
-                  draggable={false}
-                  onDragStart={(e) => e.preventDefault()}
-                />
-                {isActive && (
-                  <>
-                    <div
-                      className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24, touchAction: "none" }}
-                      onMouseDown={(e) => handleResizeStart(e, 'nw')}
-                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'nw'))}
-                    >
-                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
-                    </div>
-                    <div
-                      className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24, touchAction: "none" }}
-                      onMouseDown={(e) => handleResizeStart(e, 'ne')}
-                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'ne'))}
-                    >
-                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
-                    </div>
-                    <div
-                      className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24, touchAction: "none" }}
-                      onMouseDown={(e) => handleResizeStart(e, 'se')}
-                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'se'))}
-                    >
-                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
-                    </div>
-                    <div
-                      className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
-                      style={{ width: 24, height: 24, touchAction: "none" }}
-                      onMouseDown={(e) => handleResizeStart(e, 'sw')}
-                      onTouchStart={createTouchToMouseHandler((e) => handleResizeStart(e, 'sw'))}
-                    >
-                      <div className="bg-white border-2 border-bufo-500 rounded-sm" style={{ width: 8, height: 8 }} />
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </div>
-        <canvas ref={exportCanvasRef} className="hidden" />
-      </main>
+              return (
+                <div
+                  key={layer.id}
+                  className={`absolute cursor-move ${isActive ? "ring-1 ring-bufo-500" : ""}`}
+                  style={{
+                    left: layer.position.x,
+                    top: layer.position.y,
+                    width: layer.position.width,
+                    height: layer.position.height,
+                    zIndex: idx,
+                    pointerEvents: isActive ? "auto" : "none",
+                    touchAction: isActive ? "none" : "auto",
+                  }}
+                  onMouseDown={handleMouseDown}
+                  onTouchStart={handleTouchStart}
+                >
+                  <img
+                    src={imgSrc}
+                    alt={layer.name}
+                    className="w-full h-full object-contain pointer-events-none select-none"
+                    style={{ imageRendering: "pixelated" }}
+                    draggable={false}
+                    onDragStart={(e) => e.preventDefault()}
+                  />
+                  {isActive && (
+                    <>
+                      <div
+                        className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+                        style={{ width: 24, height: 24, touchAction: "none" }}
+                        onMouseDown={(e) => handleResizeStart(e, "nw")}
+                        onTouchStart={createTouchToMouseHandler((e) =>
+                          handleResizeStart(e, "nw"),
+                        )}
+                      >
+                        <div
+                          className="bg-white border-2 border-bufo-500 rounded-sm"
+                          style={{ width: 8, height: 8 }}
+                        />
+                      </div>
+                      <div
+                        className="absolute top-0 right-0 cursor-ne-resize translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+                        style={{ width: 24, height: 24, touchAction: "none" }}
+                        onMouseDown={(e) => handleResizeStart(e, "ne")}
+                        onTouchStart={createTouchToMouseHandler((e) =>
+                          handleResizeStart(e, "ne"),
+                        )}
+                      >
+                        <div
+                          className="bg-white border-2 border-bufo-500 rounded-sm"
+                          style={{ width: 8, height: 8 }}
+                        />
+                      </div>
+                      <div
+                        className="absolute bottom-0 right-0 cursor-se-resize translate-x-1/2 translate-y-1/2 flex items-center justify-center"
+                        style={{ width: 24, height: 24, touchAction: "none" }}
+                        onMouseDown={(e) => handleResizeStart(e, "se")}
+                        onTouchStart={createTouchToMouseHandler((e) =>
+                          handleResizeStart(e, "se"),
+                        )}
+                      >
+                        <div
+                          className="bg-white border-2 border-bufo-500 rounded-sm"
+                          style={{ width: 8, height: 8 }}
+                        />
+                      </div>
+                      <div
+                        className="absolute bottom-0 left-0 cursor-sw-resize -translate-x-1/2 translate-y-1/2 flex items-center justify-center"
+                        style={{ width: 24, height: 24, touchAction: "none" }}
+                        onMouseDown={(e) => handleResizeStart(e, "sw")}
+                        onTouchStart={createTouchToMouseHandler((e) =>
+                          handleResizeStart(e, "sw"),
+                        )}
+                      >
+                        <div
+                          className="bg-white border-2 border-bufo-500 rounded-sm"
+                          style={{ width: 8, height: 8 }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <canvas ref={exportCanvasRef} className="hidden" />
+        </main>
       </div>
 
       {showDownloadModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-800">Save Your Bufo</h2>
+              <h2 className="text-lg font-semibold text-gray-800">
+                Save Your Bufo
+              </h2>
               <button
                 onClick={() => setShowDownloadModal(false)}
                 className="p-1 text-gray-400 hover:text-gray-600 rounded"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -690,8 +737,18 @@ export function BuilderEditorPage() {
                   onClick={handleDownload}
                   className="flex-1 py-2 px-4 bg-bufo-500 text-white rounded-lg font-medium hover:bg-bufo-600 transition-colors flex items-center justify-center"
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
                   </svg>
                   Download
                 </button>
@@ -705,15 +762,35 @@ export function BuilderEditorPage() {
                 >
                   {copied ? (
                     <>
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="w-5 h-5 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       Copied!
                     </>
                   ) : (
                     <>
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                      <svg
+                        className="w-5 h-5 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                        />
                       </svg>
                       Copy
                     </>
