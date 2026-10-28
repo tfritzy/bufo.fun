@@ -11,6 +11,10 @@ export interface TemplateLayer {
   file: string;
   position: LayerPosition;
   visible: boolean;
+  flipX?: boolean;
+  flipY?: boolean;
+  // Degrees clockwise around the layer's center.
+  rotation?: number;
 }
 
 export interface BuilderTemplate {
@@ -25,6 +29,16 @@ export interface BuilderTemplate {
 }
 
 export const builderTemplates: BuilderTemplate[] = [
+  {
+    id: "custom",
+    name: "Custom Bufo",
+    description: "Start from scratch with bufos, accessories, and your own images",
+    thumbnail: "/builder/custom.png",
+    canvasWidth: 128,
+    canvasHeight: 128,
+    layers: [],
+    activeLayerIndex: 0,
+  },
   {
     id: "bufo-offers",
     name: "Bufo Offers",

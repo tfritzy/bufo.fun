@@ -7,6 +7,7 @@ import {
 } from "../builderTemplates";
 import { SEO } from "../components/SEO";
 import { BuilderSidebar } from "../components/BuilderSidebar";
+import { AddLayerModal } from "../components/AddLayerModal";
 
 interface LayerState extends TemplateLayer {
   imageData: string | null;
@@ -19,6 +20,25 @@ interface PointerPosition {
   clientY: number;
 }
 
+const readFileAsDataUrl = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(event.target?.result as string);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+
+const loadImageSize = (
+  src: string,
+): Promise<{ width: number; height: number } | null> =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () =>
+      resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+
 export function BuilderEditorPage() {
   const { id } = useParams<{ id: string }>();
   const template = id ? getTemplateById(id) : undefined;
@@ -27,6 +47,8 @@ export function BuilderEditorPage() {
   const [activeLayerIndex, setActiveLayerIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
+  const rotateStart = useRef({ centerX: 0, centerY: 0, angle: 0, rotation: 0 });
   const [resizeDirection, setResizeDirection] = useState<ResizeDirection>("");
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [initialSize, setInitialSize] = useState({ width: 0, height: 0 });
@@ -38,6 +60,9 @@ export function BuilderEditorPage() {
   const [canvasHeight, setCanvasHeight] = useState<number>(500);
   const [widthInput, setWidthInput] = useState<string>("500");
   const [heightInput, setHeightInput] = useState<string>("500");
+  const [showAddModal, setShowAddModal] = useState(false);
+  const nextLayerId = useRef(0);
+  const pendingSelectId = useRef<string | null>(null);
   const displayScale = 3;
   const canvasRef = useRef<HTMLDivElement>(null);
   const exportCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -99,6 +124,62 @@ export function BuilderEditorPage() {
     [canvasWidth, canvasHeight],
   );
 
+  useEffect(() => {
+    if (!pendingSelectId.current) return;
+    const index = layers.findIndex((l) => l.id === pendingSelectId.current);
+    if (index !== -1) {
+      setActiveLayerIndex(index);
+      pendingSelectId.current = null;
+    }
+  }, [layers]);
+
+  const addImageLayer = useCallback(
+    // fillCanvas scales the image up or down to fit the canvas (used for
+    // bufos); otherwise it keeps its natural size, shrinking only if too big.
+    async (src: string, name: string, fillCanvas = false) => {
+      const size = (await loadImageSize(src)) ?? {
+        width: canvasWidth,
+        height: canvasHeight,
+      };
+      const scale = Math.min(
+        fillCanvas ? Infinity : 1,
+        canvasWidth / size.width,
+        canvasHeight / size.height,
+      );
+      const width = size.width * scale;
+      const height = size.height * scale;
+      const id = `layer-${nextLayerId.current++}`;
+      const layer: LayerState = {
+        id,
+        name,
+        file: src,
+        imageData: null,
+        visible: true,
+        position: {
+          x: (canvasWidth - width) / 2,
+          y: (canvasHeight - height) / 2,
+          width,
+          height,
+        },
+      };
+      pendingSelectId.current = id;
+      setLayers((prev) => [...prev, layer]);
+    },
+    [canvasWidth, canvasHeight],
+  );
+
+  const addUploadedFiles = useCallback(
+    async (files: FileList | File[]) => {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) continue;
+        const dataUrl = await readFileAsDataUrl(file);
+        await addImageLayer(dataUrl, file.name.replace(/\.[^.]+$/, ""));
+      }
+      setShowAddModal(false);
+    },
+    [addImageLayer],
+  );
+
   const handlePaste = useCallback(
     (e: ClipboardEvent) => {
       const items = e.clipboardData?.items;
@@ -108,18 +189,22 @@ export function BuilderEditorPage() {
         if (item.type.startsWith("image/")) {
           const file = item.getAsFile();
           if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-              const imageData = event.target?.result as string;
-              loadImageWithPosition(imageData, activeLayerIndex);
-            };
-            reader.readAsDataURL(file);
+            const activeLayer = layers[activeLayerIndex];
+            readFileAsDataUrl(file).then((imageData) => {
+              // Fill the template's image slot if it's selected; otherwise
+              // the pasted image becomes a new layer.
+              if (activeLayer && !activeLayer.file) {
+                loadImageWithPosition(imageData, activeLayerIndex);
+              } else {
+                addImageLayer(imageData, "Pasted image");
+              }
+            });
           }
           break;
         }
       }
     },
-    [activeLayerIndex, loadImageWithPosition],
+    [layers, activeLayerIndex, loadImageWithPosition, addImageLayer],
   );
 
   useEffect(() => {
@@ -166,6 +251,114 @@ export function BuilderEditorPage() {
   };
 
   const isUserEditableLayer = (layer: LayerState) => !layer.file;
+
+  const removeLayer = (index: number) => {
+    const remaining = layers.length - 1;
+    setLayers((prev) => prev.filter((_, idx) => idx !== index));
+    setActiveLayerIndex((active) =>
+      active > index ? active - 1 : Math.max(0, Math.min(active, remaining - 1)),
+    );
+  };
+
+  // direction 1 moves the layer up (in front), -1 moves it down (behind).
+  const moveLayer = (index: number, direction: 1 | -1) => {
+    const target = index + direction;
+    if (target < 0 || target >= layers.length) return;
+    setLayers((prev) => {
+      const next = [...prev];
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+    setActiveLayerIndex((active) =>
+      active === index ? target : active === target ? index : active,
+    );
+  };
+
+  const toggleLayerVisibility = (index: number) => {
+    setLayers((prev) =>
+      prev.map((layer, idx) =>
+        idx === index ? { ...layer, visible: !layer.visible } : layer,
+      ),
+    );
+  };
+
+  const toggleLayerFlip = (index: number, axis: "x" | "y") => {
+    const key = axis === "x" ? "flipX" : "flipY";
+    setLayers((prev) =>
+      prev.map((layer, idx) =>
+        idx === index ? { ...layer, [key]: !layer[key] } : layer,
+      ),
+    );
+  };
+
+  const setLayerRotation = (index: number, rotation: number) => {
+    // Keep angles in (-180, 180] so the sidebar shows readable values.
+    const normalized = ((((rotation + 180) % 360) + 360) % 360) - 180;
+    setLayers((prev) =>
+      prev.map((layer, idx) =>
+        idx === index
+          ? { ...layer, rotation: normalized === -180 ? 180 : normalized }
+          : layer,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        showAddModal ||
+        showDownloadModal
+      ) {
+        return;
+      }
+      if (e.key === "[" || e.key === "]" || e.key === "{" || e.key === "}") {
+        const layer = layers[activeLayerIndex];
+        if (!layer) return;
+        e.preventDefault();
+        const amount = e.shiftKey ? 1 : 15;
+        const direction = e.key === "[" || e.key === "{" ? -1 : 1;
+        setLayerRotation(
+          activeLayerIndex,
+          (layer.rotation ?? 0) + direction * amount,
+        );
+        return;
+      }
+      const step = e.shiftKey ? 10 : 1;
+      const deltas: Record<string, [number, number]> = {
+        ArrowLeft: [-step, 0],
+        ArrowRight: [step, 0],
+        ArrowUp: [0, -step],
+        ArrowDown: [0, step],
+      };
+      const delta = deltas[e.key];
+      if (!delta) return;
+      e.preventDefault();
+      setLayers((prev) =>
+        prev.map((layer, idx) =>
+          idx === activeLayerIndex
+            ? {
+                ...layer,
+                position: {
+                  ...layer.position,
+                  x: layer.position.x + delta[0],
+                  y: layer.position.y + delta[1],
+                },
+              }
+            : layer,
+        ),
+      );
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [layers, activeLayerIndex, showAddModal, showDownloadModal]);
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) addUploadedFiles(e.dataTransfer.files);
+  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     const layer = layers[activeLayerIndex];
@@ -222,58 +415,92 @@ export function BuilderEditorPage() {
     });
   };
 
-  const handleMove = (clientX: number, clientY: number) => {
-    if (!isDragging && !isResizing) return;
+  const pointerAngle = (clientX: number, clientY: number) =>
+    (Math.atan2(
+      clientY - rotateStart.current.centerY,
+      clientX - rotateStart.current.centerX,
+    ) *
+      180) /
+    Math.PI;
+
+  const handleRotateStart = (
+    e: React.MouseEvent | PointerPosition,
+    layerElement: HTMLElement | null,
+  ) => {
+    if ("stopPropagation" in e) {
+      e.stopPropagation();
+    }
+    const layer = layers[activeLayerIndex];
+    if (!layer || !layerElement) return;
+
+    // A rotated element's bounding box shares its center.
+    const rect = layerElement.getBoundingClientRect();
+    rotateStart.current = {
+      centerX: rect.left + rect.width / 2,
+      centerY: rect.top + rect.height / 2,
+      angle: 0,
+      rotation: layer.rotation ?? 0,
+    };
+    rotateStart.current.angle = pointerAngle(e.clientX, e.clientY);
+    setIsRotating(true);
+  };
+
+  const handleMove = (clientX: number, clientY: number, shiftKey = false) => {
+    if (!isDragging && !isResizing && !isRotating) return;
 
     const layer = layers[activeLayerIndex];
     if (!layer) return;
 
-    if (isDragging) {
+    if (isRotating) {
+      let rotation =
+        rotateStart.current.rotation +
+        pointerAngle(clientX, clientY) -
+        rotateStart.current.angle;
+      if (shiftKey) rotation = Math.round(rotation / 15) * 15;
+      setLayerRotation(activeLayerIndex, Math.round(rotation));
+    } else if (isDragging) {
       const newX = clientX / displayScale - dragStart.x;
       const newY = clientY / displayScale - dragStart.y;
       updateLayerPosition(activeLayerIndex, { x: newX, y: newY });
     } else if (isResizing) {
-      const deltaX = (clientX - dragStart.x) / displayScale;
-      const deltaY = (clientY - dragStart.y) / displayScale;
+      // Measure the pointer in the layer's own (rotated) frame.
+      const screenX = (clientX - dragStart.x) / displayScale;
+      const screenY = (clientY - dragStart.y) / displayScale;
+      const radians = ((layer.rotation ?? 0) * Math.PI) / 180;
+      const deltaX = screenX * Math.cos(radians) + screenY * Math.sin(radians);
+      const deltaY = -screenX * Math.sin(radians) + screenY * Math.cos(radians);
 
-      let updates: Partial<LayerPosition> = {};
+      // Scale proportionally so layers keep their aspect ratio.
+      const aspect = initialSize.height / initialSize.width;
+      const deltas: Record<string, number> = {
+        se: Math.max(deltaX, deltaY),
+        nw: Math.max(-deltaX, -deltaY),
+        ne: Math.max(deltaX, -deltaY),
+        sw: Math.max(-deltaX, deltaY),
+      };
+      const newWidth = Math.max(
+        10,
+        initialSize.width + (deltas[resizeDirection] ?? 0),
+      );
+      const newHeight = newWidth * aspect;
+      const growX = newWidth - layer.position.width;
+      const growY = newHeight - layer.position.height;
 
-      switch (resizeDirection) {
-        case "se":
-          const seDelta = Math.max(deltaX, deltaY);
-          updates = {
-            width: Math.max(10, initialSize.width + seDelta),
-            height: Math.max(10, initialSize.height + seDelta),
-          };
-          break;
-        case "nw":
-          const nwDelta = Math.max(-deltaX, -deltaY);
-          const nwNewSize = Math.max(10, initialSize.width + nwDelta);
-          updates = {
-            x: layer.position.x - (nwNewSize - layer.position.width),
-            y: layer.position.y - (nwNewSize - layer.position.height),
-            width: nwNewSize,
-            height: nwNewSize,
-          };
-          break;
-        case "ne":
-          const neDelta = Math.max(deltaX, -deltaY);
-          const neNewSize = Math.max(10, initialSize.width + neDelta);
-          updates = {
-            y: layer.position.y - (neNewSize - layer.position.height),
-            width: neNewSize,
-            height: neNewSize,
-          };
-          break;
-        case "sw":
-          const swDelta = Math.max(-deltaX, deltaY);
-          const swNewSize = Math.max(10, initialSize.width + swDelta);
-          updates = {
-            x: layer.position.x - (swNewSize - layer.position.width),
-            width: swNewSize,
-            height: swNewSize,
-          };
-          break;
+      const updates: Partial<LayerPosition> = {
+        width: newWidth,
+        height: newHeight,
+      };
+      if (layer.rotation) {
+        // Rotated layers scale around their center.
+        updates.x = layer.position.x - growX / 2;
+        updates.y = layer.position.y - growY / 2;
+      } else {
+        if (resizeDirection === "nw" || resizeDirection === "sw") {
+          updates.x = layer.position.x - growX;
+        }
+        if (resizeDirection === "nw" || resizeDirection === "ne") {
+          updates.y = layer.position.y - growY;
+        }
       }
 
       updateLayerPosition(activeLayerIndex, updates);
@@ -281,7 +508,7 @@ export function BuilderEditorPage() {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    handleMove(e.clientX, e.clientY);
+    handleMove(e.clientX, e.clientY, e.shiftKey);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -294,6 +521,7 @@ export function BuilderEditorPage() {
   const handleMouseUp = () => {
     setIsDragging(false);
     setIsResizing(false);
+    setIsRotating(false);
     setResizeDirection("");
   };
 
@@ -344,9 +572,19 @@ export function BuilderEditorPage() {
           );
           const drawWidth = img.naturalWidth * scale;
           const drawHeight = img.naturalHeight * scale;
-          const dx = x + (width - drawWidth) / 2;
-          const dy = y + (height - drawHeight) / 2;
-          ctx.drawImage(img, dx, dy, drawWidth, drawHeight);
+          // Rotate, then flip, around the layer's center (matches the CSS).
+          ctx.save();
+          ctx.translate(x + width / 2, y + height / 2);
+          ctx.rotate(((layer.rotation ?? 0) * Math.PI) / 180);
+          ctx.scale(layer.flipX ? -1 : 1, layer.flipY ? -1 : 1);
+          ctx.drawImage(
+            img,
+            -drawWidth / 2,
+            -drawHeight / 2,
+            drawWidth,
+            drawHeight,
+          );
+          ctx.restore();
           resolve();
         };
         img.onerror = () => resolve();
@@ -429,10 +667,16 @@ export function BuilderEditorPage() {
           onClearLayerImage={clearLayerImage}
           isUserEditableLayer={isUserEditableLayer}
           onDownload={handleDownloadClick}
+          onAddLayer={() => setShowAddModal(true)}
+          onRemoveLayer={removeLayer}
+          onMoveLayer={moveLayer}
+          onToggleVisibility={toggleLayerVisibility}
+          onToggleFlip={toggleLayerFlip}
+          onRotate={setLayerRotation}
         />
 
         <div
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex gap-3"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 md:hidden flex gap-3 max-w-[calc(100vw-2rem)] overflow-x-auto p-1"
           role="group"
           aria-label="Layer selection and actions"
         >
@@ -499,7 +743,7 @@ export function BuilderEditorPage() {
                       <img
                         src={imgSrc}
                         alt={layer.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     ) : (
                       <svg
@@ -546,8 +790,27 @@ export function BuilderEditorPage() {
             );
           })}
           <button
+            onClick={() => setShowAddModal(true)}
+            className="w-14 h-14 flex-shrink-0 rounded-lg shadow-lg bg-white hover:bg-gray-50 text-bufo-500 flex items-center justify-center transition-all"
+            aria-label="Add layer"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
+          <button
             onClick={handleDownloadClick}
-            className="w-14 h-14 rounded-lg shadow-lg bg-bufo-500 hover:bg-bufo-600 text-white flex items-center justify-center transition-all"
+            className="w-14 h-14 flex-shrink-0 rounded-lg shadow-lg bg-bufo-500 hover:bg-bufo-600 text-white flex items-center justify-center transition-all"
             aria-label="Download"
           >
             <svg
@@ -566,7 +829,11 @@ export function BuilderEditorPage() {
           </button>
         </div>
 
-        <main className="flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4">
+        <main
+          className="relative flex-grow bg-gray-200 flex items-center justify-center overflow-auto p-4"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+        >
           <div
             ref={canvasRef}
             className="relative bg-white shadow-xl overflow-hidden"
@@ -606,6 +873,9 @@ export function BuilderEditorPage() {
                     width: layer.position.width,
                     height: layer.position.height,
                     zIndex: idx,
+                    transform: layer.rotation
+                      ? `rotate(${layer.rotation}deg)`
+                      : undefined,
                     pointerEvents: isActive ? "auto" : "none",
                     touchAction: isActive ? "none" : "auto",
                   }}
@@ -616,12 +886,44 @@ export function BuilderEditorPage() {
                     src={imgSrc}
                     alt={layer.name}
                     className="w-full h-full object-contain pointer-events-none select-none"
-                    style={{ imageRendering: "pixelated" }}
+                    style={{
+                      imageRendering: "pixelated",
+                      transform:
+                        layer.flipX || layer.flipY
+                          ? `scale(${layer.flipX ? -1 : 1}, ${layer.flipY ? -1 : 1})`
+                          : undefined,
+                    }}
                     draggable={false}
                     onDragStart={(e) => e.preventDefault()}
                   />
                   {isActive && (
                     <>
+                      <div
+                        className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-grab"
+                        style={{
+                          // Sit above the layer unless that would fall off
+                          // the canvas, then tuck inside its top edge.
+                          top: layer.position.y >= 14 ? -14 : 6,
+                          width: 16,
+                          height: 16,
+                          touchAction: "none",
+                        }}
+                        title="Drag to rotate (Shift snaps to 15°)"
+                        onMouseDown={(e) =>
+                          handleRotateStart(e, e.currentTarget.parentElement)
+                        }
+                        onTouchStart={(e) => {
+                          const layerElement = e.currentTarget.parentElement;
+                          createTouchToMouseHandler((p) =>
+                            handleRotateStart(p, layerElement),
+                          )(e);
+                        }}
+                      >
+                        <div
+                          className="bg-white border-2 border-bufo-500 rounded-full"
+                          style={{ width: 8, height: 8 }}
+                        />
+                      </div>
                       <div
                         className="absolute top-0 left-0 cursor-nw-resize -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
                         style={{ width: 24, height: 24, touchAction: "none" }}
@@ -680,9 +982,28 @@ export function BuilderEditorPage() {
               );
             })}
           </div>
+          {layers.length === 0 && (
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-3 px-5 bg-bufo-500 text-white rounded-lg font-medium shadow-lg hover:bg-bufo-600 transition-colors"
+            >
+              Add a bufo, accessory, or image
+            </button>
+          )}
           <canvas ref={exportCanvasRef} className="hidden" />
         </main>
       </div>
+
+      {showAddModal && (
+        <AddLayerModal
+          onClose={() => setShowAddModal(false)}
+          onAddImage={(src, name, fillCanvas) => {
+            addImageLayer(src, name, fillCanvas);
+            setShowAddModal(false);
+          }}
+          onUploadFiles={addUploadedFiles}
+        />
+      )}
 
       {showDownloadModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
